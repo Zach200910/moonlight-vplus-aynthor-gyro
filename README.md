@@ -1,11 +1,13 @@
-# Moonlight V+ — AYN Thor fork
+# Moonlight DS
 
-A personal fork of [Moonlight V+](https://github.com/qiin2333/moonlight-vplus) for streaming PC games to an **AYN Thor**. It adds:
+A fork of [Moonlight V+](https://github.com/qiin2333/moonlight-vplus) for streaming PC games to Android handhelds, especially dual-screen ones. It adds:
 
-- **Native DualShock 4 gyro** that keeps working while the Thor's sticks and buttons are in use. No mouse emulation, and it works with stock Sunshine.
-- **Bottom-screen DS4 touchpad**: the Thor's second screen becomes the DS4 touchpad, with a mouse trackpad and keyboard page.
+- **Native DualShock 4 gyro** that keeps working while the handheld's sticks and buttons are in use. No mouse emulation, and it works with stock Sunshine.
+- **Bottom-screen DS4 touchpad**: on dual-screen handhelds, the second screen becomes the DS4 touchpad, with a mouse trackpad and keyboard page.
 
-**Install:** download the APK from the [latest release](https://github.com/Zach200910/moonlight-vplus-aynthor-gyro/releases/latest). It installs as `com.limelight.vplus_debug`, next to the official app. After that, the app offers new builds itself (or use Settings → Check for updates).
+**Devices:** built and tested on the **AYN Thor**. Other Android handhelds, such as Retroid Pocket devices, should work but are untested. Reports are welcome in [Issues](https://github.com/Zach200910/moonlight-vplus-aynthor-gyro/issues).
+
+**Install:** download `moonlight-ds-<version>.apk` from the [latest release](https://github.com/Zach200910/moonlight-vplus-aynthor-gyro/releases/latest). It installs as `com.limelight.ds`, next to Moonlight or Moonlight V+ if you have them. After that, the app offers new versions itself (or use Settings → Check for updates).
 
 For the original app's features and documentation, see the [upstream README](https://github.com/qiin2333/moonlight-vplus#readme).
 
@@ -13,6 +15,7 @@ For the original app's features and documentation, see the [upstream README](htt
 
 | Date | Change |
 | --- | --- |
+| 2026-11-18 | **Renamed to Moonlight DS and opened to everyone.** Public builds are signed release builds with their own app ID (`com.limelight.ds`), published as `ds-<version>` releases. |
 | 2026-11-18 | **Patch cleanup.** Touchpad moved from a patch into source. The ENet fix is applied by one script in every CI job, so lint and unit tests now run on the fork's code, and CI fails if a fork fix goes missing. Unused patches moved to `patches/archive/`. |
 | 2026-11-18 | Disabled a flaky upstream haptics unit test that was failing CI on unrelated changes. |
 | 2026-11-18 | **In-app updates.** Every master build is published as a `thor-<version>` release (e.g. `12.15.17.28`), and the app checks this fork's releases instead of upstream's. ([#2](https://github.com/Zach200910/moonlight-vplus-aynthor-gyro/pull/2)) |
