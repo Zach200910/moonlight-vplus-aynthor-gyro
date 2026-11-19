@@ -22,7 +22,8 @@ def escapeBuildConfigString = { value ->
     value.replace("\\", "\\\\").replace("\"", "\\\"")
 }
 def enableX86TestAbi = (project.findProperty("enableX86TestAbi") ?: "false").toString().toBoolean()
-def audioHapticsAppLabel = "Moonlight V+"
+// Fork: public name of this build. Debug builds (CI test builds) get " Dev".
+def audioHapticsAppLabel = "Moonlight DS"
 def audioHapticsSdkDir = (
         project.findProperty("audioHapticsSdkDir")
                 ?: localProperties.getProperty("audioHapticsSdkDir")
@@ -197,8 +198,8 @@ android {
             if (hasThorDebugKeystore) {
                 signingConfig signingConfigs.thorDebug
             }
-            resValue "string", "app_label", audioHapticsAppLabel
-            resValue "string", "app_label_root", audioHapticsAppLabel
+            resValue "string", "app_label", "${audioHapticsAppLabel} Dev"
+            resValue "string", "app_label_root", "${audioHapticsAppLabel} Dev"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
@@ -235,9 +236,12 @@ android {
             // is to please change the applicationId before you publish.
             //
             // TL;DR: Leave the following line alone!
-            applicationIdSuffix ".qiin"
+            //
+            // Fork: Moonlight DS publishes under its own ID (com.limelight.ds), as asked
+            // above, so it never collides with Moonlight or Moonlight V+.
+            applicationIdSuffix ".ds"
             resValue "string", "app_label", audioHapticsAppLabel
-            resValue "string", "app_label_root", "Moonlight (Root)"
+            resValue "string", "app_label_root", "${audioHapticsAppLabel} (Root)"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
