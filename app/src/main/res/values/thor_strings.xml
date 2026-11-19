@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Thor home (Switch-style) chrome. -->
+    <string name="thor_home_search_hint">Make sure your PC is running Sunshine on the same network.</string>
+    <string name="thor_hint_a" translatable="false">A</string>
+    <string name="thor_hint_y" translatable="false">Y</string>
+    <string name="thor_hint_plus" translatable="false">+</string>
+    <string name="thor_hint_b" translatable="false">B</string>
+    <string name="thor_hint_ok">OK</string>
+    <string name="thor_hint_back">Back</string>
+    <string name="thor_hint_options">Options</string>
+    <string name="thor_hint_settings">Settings</string>
+    <string name="thor_hint_start">Start</string>
+    <string name="thor_battery_percent">%1$d%%</string>
+    <string name="thor_settings_button">Settings</string>
+    <string name="thor_network_button">Remote network</string>
+    <string name="thor_about_button">About</string>
+</resources>

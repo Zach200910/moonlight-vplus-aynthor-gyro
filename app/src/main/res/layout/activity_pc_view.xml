@@ -1,154 +1,202 @@
-<!-- Portrait orientation only -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Thor home: Switch-style layout. Top status bar, centered row of host tiles,
+     round system buttons, controller hint bar. View ids are the ones PcView binds. -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pcViewRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/advance_setting_background"
-    tools:context=".PcView" >
+    android:background="@color/thor_background"
+    tools:context=".PcView">
 
+    <Space
+        android:id="@+id/topSafeArea"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true" />
 
+    <!-- Status bar: user, time, battery -->
+    <LinearLayout
+        android:id="@+id/thorTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thor_top_bar_height"
+        android:layout_below="@id/topSafeArea"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/thor_space_xl"
+        android:paddingEnd="@dimen/thor_space_xl">
+
+        <TextView
+            android:id="@+id/thorAvatarInitial"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/thor_avatar_bg"
+            android:gravity="center"
+            android:importantForAccessibility="no"
+            android:textColor="@color/thor_on_accent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="T" />
+
+        <TextView
+            android:id="@+id/thorClientName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/thor_space_m"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/thor_text_primary"
+            android:textSize="16sp"
+            tools:text="AYN Thor" />
+
+        <TextClock
+            android:id="@+id/thorClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format12Hour="h:mm"
+            android:format24Hour="HH:mm"
+            android:textColor="@color/thor_text_primary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/thorBatteryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/thor_space_l"
+            android:textColor="@color/thor_text_secondary"
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:text="82%"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <!-- Controller hints -->
+    <LinearLayout
+        android:id="@+id/thorHintBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thor_hint_bar_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/thor_space_xl"
+            android:layout_marginEnd="@dimen/thor_space_xl"
+            android:background="@color/thor_border" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical"
+            android:importantForAccessibility="noHideDescendants"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/thor_space_xl"
+            android:paddingEnd="@dimen/thor_space_xl">
+
+            <TextView
+                style="@style/ThorHintGlyph"
+                android:text="@string/thor_hint_plus" />
+            <TextView
+                style="@style/ThorHintLabel"
+                android:text="@string/thor_hint_settings" />
+            <TextView
+                style="@style/ThorHintGlyph"
+                android:text="@string/thor_hint_y" />
+            <TextView
+                style="@style/ThorHintLabel"
+                android:text="@string/thor_hint_options" />
+            <TextView
+                style="@style/ThorHintGlyph"
+                android:text="@string/thor_hint_a" />
+            <TextView
+                style="@style/ThorHintLabel"
+                android:text="@string/thor_hint_ok" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Round system buttons -->
+    <LinearLayout
+        android:id="@+id/thorSystemRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/thorHintBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/thor_space_l"
+        android:orientation="horizontal">
+
+        <com.limelight.ui.ExpressiveToolbarButton
+            android:id="@+id/settingsButton"
+            style="@style/ThorRoundButton"
+            android:contentDescription="@string/thor_settings_button"
+            android:nextFocusUp="@id/fragmentView"
+            android:src="@drawable/ic_settings" />
+        <com.limelight.ui.ExpressiveToolbarButton
+            android:id="@+id/easyTierControlButton"
+            style="@style/ThorRoundButton"
+            android:contentDescription="@string/thor_network_button"
+            android:nextFocusUp="@id/fragmentView"
+            android:src="@drawable/ic_network_control" />
+        <com.limelight.ui.ExpressiveToolbarButton
+            android:id="@+id/aboutButton"
+            style="@style/ThorRoundButton"
+            android:contentDescription="@string/thor_about_button"
+            android:nextFocusUp="@id/fragmentView"
+            android:src="@drawable/ic_info" />
+        <com.limelight.ui.ExpressiveToolbarButton
+            android:id="@+id/pcToolbarMenuButton"
+            style="@style/ThorRoundButton"
+            android:contentDescription="@string/pcview_toolbar_menu"
+            android:nextFocusUp="@id/fragmentView"
+            android:src="@drawable/ic_more_vert" />
+    </LinearLayout>
+
+    <!-- Host tiles -->
     <RelativeLayout
         android:id="@+id/pcFragmentContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/settingsButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/thorSystemRow"
+        android:layout_below="@id/thorTopBar"
         android:clickable="false"
-        android:focusable="false"
-        >
+        android:focusable="false">
 
         <include layout="@layout/view_host_search_state" />
 
     </RelativeLayout>
 
-    <Space
-        android:id="@+id/topSafeArea"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_safearea_top"
-        android:layout_alignParentTop="true" />
-
-    <com.limelight.ui.ExpressiveToolbarButton
-        android:id="@+id/settingsButton"
-        android:layout_width="@dimen/pc_toolbar_button_size"
-        android:layout_height="@dimen/pc_toolbar_button_size"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/topSafeArea"
-        android:preferKeepClear="true"
-        style="?android:attr/borderlessButtonStyle"/>
-
-    <com.limelight.ui.ExpressiveToolbarButton
-        android:id="@+id/aboutButton"
-        android:layout_width="@dimen/pc_toolbar_button_size"
-        android:layout_height="@dimen/pc_toolbar_button_size"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:layout_below="@+id/topSafeArea"
-        android:layout_toRightOf="@+id/settingsButton"
-        android:layout_toEndOf="@+id/settingsButton"
-        android:src="@drawable/ic_info"
-        android:preferKeepClear="true"
-        style="?android:attr/borderlessButtonStyle"/>
-
-    <com.limelight.ui.ExpressiveToolbarButton
-        android:id="@+id/easyTierControlButton"
-        android:layout_width="@dimen/pc_toolbar_button_size"
-        android:layout_height="@dimen/pc_toolbar_button_size"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:layout_below="@+id/topSafeArea"
-        android:layout_toRightOf="@+id/aboutButton"
-        android:layout_toEndOf="@+id/aboutButton"
-        android:src="@drawable/ic_network_control"
-        style="?android:attr/borderlessButtonStyle"/>
-    
-    <com.limelight.ui.ExpressiveToolbarButton
-        android:id="@+id/pcToolbarMenuButton"
-        android:layout_width="@dimen/pc_toolbar_button_size"
-        android:layout_height="@dimen/pc_toolbar_button_size"
-        android:cropToPadding="false"
-        android:scaleType="fitCenter"
-        android:layout_below="@+id/topSafeArea"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/pcview_toolbar_menu"
-        android:src="@drawable/ic_more_vert"
-        android:tint="@color/ui_shell_text_primary"
-        android:preferKeepClear="true"
-        style="?android:attr/borderlessButtonStyle"/>
-
-    <!-- 场景预设按钮组 -->
+    <!-- Stream setting presets (scenes 1-5), left side of the hint bar: tap to apply, long-press to save -->
     <LinearLayout
         android:id="@+id/scenePresetContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="24dp"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/thor_space_xl"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
-        <!-- 场景1 -->
         <ImageButton
             android:id="@+id/scene1Btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/layout_pc_view_cd_1daed"
-            android:background="@drawable/btn_pressed_bg"
-            android:src="@drawable/ic_triangle_left"
-            android:tint="#80FFFFFF"
-            style="?android:attr/borderlessButtonStyle"/>
-
-        <!-- 场景2 -->
+            style="@style/ThorSceneButton"
+            android:contentDescription="@string/layout_pc_view_cd_1daed" />
         <ImageButton
             android:id="@+id/scene2Btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/layout_pc_view_cd_f2a94"
-            android:background="@drawable/btn_pressed_bg"
-            android:src="@drawable/ic_triangle_left"
-            android:tint="#80FFFFFF"
-            style="?android:attr/borderlessButtonStyle"/>
-
-        <!-- 场景3 -->
+            style="@style/ThorSceneButton"
+            android:contentDescription="@string/layout_pc_view_cd_f2a94" />
         <ImageButton
             android:id="@+id/scene3Btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/layout_pc_view_cd_0a468"
-            android:background="@drawable/btn_pressed_bg"
-            android:src="@drawable/ic_triangle_left"
-            android:tint="#80FFFFFF"
-            style="?android:attr/borderlessButtonStyle"/>
-
-        <!-- 场景4 -->
+            style="@style/ThorSceneButton"
+            android:contentDescription="@string/layout_pc_view_cd_0a468" />
         <ImageButton
             android:id="@+id/scene4Btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/layout_pc_view_cd_94f3b"
-            android:background="@drawable/btn_pressed_bg"
-            android:src="@drawable/ic_triangle_left"
-            android:tint="#80FFFFFF"
-            style="?android:attr/borderlessButtonStyle"/>
-
-        <!-- 场景5 -->
+            style="@style/ThorSceneButton"
+            android:contentDescription="@string/layout_pc_view_cd_94f3b" />
         <ImageButton
             android:id="@+id/scene5Btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/layout_pc_view_cd_4b18b"
-            android:background="@drawable/btn_pressed_bg"
-            android:src="@drawable/ic_triangle_left"
-            android:tint="#80FFFFFF"
-            style="?android:attr/borderlessButtonStyle"/>
+            style="@style/ThorSceneButton"
+            android:contentDescription="@string/layout_pc_view_cd_4b18b" />
     </LinearLayout>
 
 </RelativeLayout>

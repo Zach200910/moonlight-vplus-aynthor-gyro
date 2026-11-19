@@ -8,6 +8,9 @@ import java.net.UnknownHostException
 import java.util.Locale
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.math.roundToInt
+import android.content.IntentFilter
+import android.database.DataSetObserver
+import android.os.BatteryManager
 
 import com.limelight.ui.ThemedActivity
 import com.limelight.utils.AppTheme
@@ -43,7 +46,6 @@ import com.limelight.preferences.StreamSettings
 import com.limelight.ui.AdapterFragment
 import com.limelight.ui.AdapterFragmentCallbacks
 import com.limelight.ui.FeatureGuideRegistry
-import com.limelight.ui.MoonWheelDrawable
 import com.limelight.ui.UiDismissKeyHandler
 import com.limelight.ui.ViewFeatureGuide
 import com.limelight.ui.ViewFeatureGuideStep
@@ -336,6 +338,7 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
         startComputerUpdates()
 
         analyticsManager?.startUsageTracking()
+        updateThorBattery()
     }
 
     @Deprecated("Deprecated in Android")
@@ -350,6 +353,28 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
             event.keyCode != KeyEvent.KEYCODE_BACK
         ) {
             exitGate.cancel()
+        }
+
+        if (event.action == KeyEvent.ACTION_UP && event.repeatCount == 0) {
+            when (event.keyCode) {
+                // "+" on the Thor: Settings (matches the hint bar).
+                KeyEvent.KEYCODE_BUTTON_START -> {
+                    startActivity(Intent(this, StreamSettings::class.java))
+                    return true
+                }
+                // Y: options for the selected PC tile.
+                KeyEvent.KEYCODE_BUTTON_Y -> {
+                    val list = pcListView
+                    val position = list?.selectedItemPosition ?: AdapterView.INVALID_POSITION
+                    val computer = if (list != null && list.hasFocus() && position != AdapterView.INVALID_POSITION) {
+                        pcGridAdapter.getItem(position) as? ComputerObject
+                    } else null
+                    if (computer != null && !PcGridAdapter.isAddComputerCard(computer)) {
+                        showHostActionSheet(computer.details)
+                        return true
+                    }
+                }
+            }
         }
 
         if (event.keyCode == KeyEvent.KEYCODE_BUTTON_B ||
@@ -515,6 +540,7 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
         clientName = Settings.Global.getString(contentResolver, "device_name")
             ?: Build.MODEL
             ?: "Moonlight V+ Client"
+        bindThorTopBar()
 
         initSceneButtons()
         // Surface any uncaught crash captured by CrashReporter on a previous run
@@ -739,18 +765,41 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
      * 矢量在膨胀时一次性解析主题属性，主题 overlay 更新后不会自动重解析。
      */
     private fun refreshAccentTintedToolbarIcons() {
-        val tint = ColorStateList.valueOf(UiHelper.accentColor(this))
-        findViewById<ImageButton?>(R.id.settingsButton)?.setImageDrawable(
-            MoonWheelDrawable(
-                density = resources.displayMetrics.density,
-                graphiteColor = ContextCompat.getColor(this, R.color.ui_shell_text_primary),
-                accentColor = UiHelper.accentColor(this)
-            )
-        )
+        // Thor home: plain white system icons; the accent is reserved for focus/selection.
+        val tint = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.thor_text_primary))
+        findViewById<ImageButton?>(R.id.settingsButton)?.apply {
+            setImageResource(R.drawable.ic_settings)
+            imageTintList = tint
+        }
         findViewById<ImageButton?>(R.id.aboutButton)?.imageTintList = tint
         findViewById<ImageButton?>(R.id.easyTierControlButton)?.imageTintList = tint
-        findViewById<ImageButton?>(R.id.pcToolbarMenuButton)?.imageTintList =
-            ColorStateList.valueOf(ContextCompat.getColor(this, R.color.ui_shell_text_primary))
+        findViewById<ImageButton?>(R.id.pcToolbarMenuButton)?.imageTintList = tint
+    }
+
+    /** Switch-style status bar: device "user", clock (TextClock) and battery. */
+    private fun bindThorTopBar() {
+        val name = clientName.trim()
+        findViewById<TextView?>(R.id.thorClientName)?.text = name
+        findViewById<TextView?>(R.id.thorAvatarInitial)?.text =
+            name.firstOrNull { it.isLetterOrDigit() }?.uppercaseChar()?.toString() ?: "T"
+        updateThorBattery()
+    }
+
+    private fun updateThorBattery() {
+        val view = findViewById<TextView?>(R.id.thorBatteryText) ?: return
+        val status = try {
+            registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        } catch (e: RuntimeException) {
+            null
+        }
+        val level = status?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+        val scale = status?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+        if (level < 0 || scale <= 0) {
+            view.visibility = View.GONE
+            return
+        }
+        view.text = getString(R.string.thor_battery_percent, (level * 100f / scale).roundToInt())
+        view.visibility = View.VISIBLE
     }
 
     private fun dpToPx(value: Int): Int {
@@ -2674,17 +2723,41 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
         }
     }
 
+    private var tileRowObserver: DataSetObserver? = null
+
+    /**
+     * Thor home: fixed square tiles in one centered row (wrapping only when more hosts
+     * than fit). Column count and side padding follow the adapter count and view width.
+     */
     private fun calculateDynamicColumnWidth(gridView: GridView) {
-        val density = resources.displayMetrics.density
-        val screenWidth = resources.displayMetrics.widthPixels
-        val availableWidth = screenWidth - gridView.paddingStart - gridView.paddingEnd
-        val spacingPx = (15f * density).toInt()
-        val minColumnPx = (180f * density).toInt()
+        val tile = resources.getDimensionPixelSize(R.dimen.thor_tile_size)
+        val spacing = resources.getDimensionPixelSize(R.dimen.thor_tile_spacing)
+        gridView.columnWidth = tile
+        gridView.stretchMode = GridView.NO_STRETCH
 
-        val numColumns = 1.coerceAtLeast((availableWidth + spacingPx) / (minColumnPx + spacingPx))
-        val columnWidth = (availableWidth - (numColumns - 1) * spacingPx) / numColumns
+        fun recenter() {
+            val width = gridView.width
+            if (width <= 0) return
+            val maxFit = maxOf(1, (width + spacing) / (tile + spacing))
+            val columns = pcGridAdapter.count.coerceIn(1, maxFit)
+            if (gridView.numColumns != columns) gridView.numColumns = columns
+            val used = columns * tile + (columns - 1) * spacing
+            val side = ((width - used) / 2).coerceAtLeast(0)
+            if (gridView.paddingLeft != side || gridView.paddingRight != side) {
+                gridView.setPadding(side, gridView.paddingTop, side, gridView.paddingBottom)
+            }
+        }
 
-        gridView.columnWidth = columnWidth
+        gridView.addOnLayoutChangeListener { _, left, _, right, _, oldLeft, _, oldRight, _ ->
+            if (right - left != oldRight - oldLeft) gridView.post { recenter() }
+        }
+        tileRowObserver?.let { runCatching { pcGridAdapter.unregisterDataSetObserver(it) } }
+        tileRowObserver = object : DataSetObserver() {
+            override fun onChanged() {
+                gridView.post { recenter() }
+            }
+        }.also { pcGridAdapter.registerDataSetObserver(it) }
+        gridView.post { recenter() }
     }
 
     // Dialogs

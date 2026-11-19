@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filled circle behind a controller button letter in the hint bar. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <solid android:color="@color/thor_text_primary" />
+    <size android:width="22dp" android:height="22dp" />
+</shape>
