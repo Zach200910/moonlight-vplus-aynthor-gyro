@@ -5,7 +5,7 @@ A fork of [Moonlight V+](https://github.com/qiin2333/moonlight-vplus) for stream
 - **Native DualShock 4 gyro** that keeps working while the handheld's sticks and buttons are in use. No mouse emulation, and it works with stock Sunshine.
 - **Bottom-screen DS4 touchpad**: on dual-screen handhelds, the second screen becomes the DS4 touchpad, with a mouse trackpad and keyboard page.
 
-**Devices:** built and tested on the **AYN Thor**. Other Android handhelds, such as Retroid Pocket devices, should work but are untested. Reports are welcome in [Issues](https://github.com/Zach200910/moonlight-vplus-aynthor-gyro/issues).
+**Devices:** built and tested on the **AYN Thor**. Other Android handhelds, such as Retroid Pocket devices, should work but are untested.
 
 **Install:** download `moonlight-ds-<version>.apk` from the [latest release](https://github.com/Zach200910/moonlight-vplus-aynthor-gyro/releases/latest). It installs as `com.limelight.ds`, next to Moonlight or Moonlight V+ if you have them. After that, the app offers new versions itself (or use Settings → Check for updates).
 
