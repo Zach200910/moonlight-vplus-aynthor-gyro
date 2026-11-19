@@ -215,27 +215,6 @@ jobs:
       - name: Grant execute permission for Gradle
         run: chmod +x gradlew
 
-      # Thor fork: sign debug APKs with one fixed key so each build installs as an
-      # update (keeps pairing/settings). Without the secret, AGP uses its default
-      # throwaway per-runner key, as before.
-      - name: Install fixed debug keystore
-        id: debug_keystore
-        shell: bash
-        env:
-          THOR_DEBUG_KEYSTORE_BASE64: ${{ secrets.THOR_DEBUG_KEYSTORE_BASE64 }}
-        run: |
-          set -euo pipefail
-          if [ -z "$THOR_DEBUG_KEYSTORE_BASE64" ]; then
-            echo "::warning::THOR_DEBUG_KEYSTORE_BASE64 is not set; this debug APK will not install over previous builds"
-            exit 0
-          fi
-          ks="$RUNNER_TEMP/thor-debug.keystore"
-          printf '%s' "$THOR_DEBUG_KEYSTORE_BASE64" | base64 -d > "$ks"
-          keytool -list -keystore "$ks" -storepass android -alias androiddebugkey > /dev/null
-          # app/build.gradle signs debug builds with this file when the variable is set.
-          echo "THOR_DEBUG_KEYSTORE=$ks" >> "$GITHUB_ENV"
-          echo "installed=true" >> "$GITHUB_OUTPUT"
-
       # Fork: master builds get versionName <base>.<run number> (e.g. 12.15.17.42)
       # so the in-app updater can tell builds apart. Only this runner's copy changes.
       - name: Stamp build version
@@ -249,36 +228,55 @@ jobs:
           bash .github/release/gradle-version.sh write app/build.gradle "$version" "$code"
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Build NonRoot Debug APK
-        run: ./gradlew :app:assembleNonRootDebug --stacktrace
-
-      - name: Verify debug APK uses the fixed key
-        if: steps.debug_keystore.outputs.installed == 'true'
+      # Moonlight DS: one APK per run, the release build people install. It is signed
+      # with the release key whenever the KEYSTORE_* secrets are available (pushes, PRs
+      # and manual runs in this repo). PRs from other forks get no secrets, so they
+      # build unsigned, which still proves the release build compiles.
+      - name: Build Moonlight DS release APK
+        id: ds_release
         shell: bash
         env:
-          EXPECTED_SHA256: d2e5e0671f84d6b837655dfec76db2e7a8852dc2a7ff28f9f426259195c09b2f
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          EXPECTED_SHA256: 937066b71bf63226dfaa433713ec7b39b05785e78d6052628ba905996d0ae983
         run: |
           set -euo pipefail
-          apk=$(find app/build/outputs/apk/nonRoot/debug -maxdepth 1 -type f -name '*.apk' -print -quit)
-          apksigner="${ANDROID_HOME:-$ANDROID_SDK_ROOT}/build-tools/36.0.0/apksigner"
-          actual=$("$apksigner" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')
-          echo "Debug APK signer SHA-256: $actual"
-          if [ "$actual" != "$EXPECTED_SHA256" ]; then
-            echo "::error::Debug APK was not signed with the fixed Thor debug key"
+          signed=false
+          if [ -n "$KEYSTORE_BASE64" ] && [ -n "$KEYSTORE_PASSWORD" ] && [ -n "$KEY_ALIAS" ] && [ -n "$KEY_PASSWORD" ]; then
+            export KEYSTORE_PATH="$RUNNER_TEMP/moonlight-ds-release.keystore"
+            printf '%s' "$KEYSTORE_BASE64" | base64 -d > "$KEYSTORE_PATH"
+            signed=true
+          elif [ "$GITHUB_EVENT_NAME" = push ] && [ "$GITHUB_REF" = refs/heads/master ]; then
+            echo "::error::Release-key secrets (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) are not all set; master can't publish"
             exit 1
+          else
+            echo "::warning::Release-key secrets not available; building an unsigned APK (compile check only)"
           fi
-
-      - name: Build NonRoot Release validation APK
-        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && !startsWith(github.ref, 'refs/tags/')
-        run: ./gradlew :app:assembleNonRootRelease --stacktrace
+          ./gradlew :app:assembleNonRootRelease --stacktrace
+          apk=$(find app/build/outputs/apk/nonRoot/release -maxdepth 1 -type f -name '*.apk' -print -quit)
+          test -n "$apk"
+          if [ "$signed" = true ]; then
+            apksigner="${ANDROID_HOME:-$ANDROID_SDK_ROOT}/build-tools/36.0.0/apksigner"
+            actual=$("$apksigner" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')
+            echo "Release APK signer SHA-256: $actual"
+            if [ "$actual" != "$EXPECTED_SHA256" ]; then
+              echo "::error::Release APK was not signed with the Moonlight DS release key"
+              exit 1
+            fi
+          fi
+          echo "apk=$apk" >> "$GITHUB_OUTPUT"
+          echo "signed=$signed" >> "$GITHUB_OUTPUT"
 
       - name: Verify PyroWave runtime is packaged
         shell: bash
+        env:
+          APK: ${{ steps.ds_release.outputs.apk }}
         run: |
           set -euo pipefail
-          apk=$(find app/build/outputs/apk/nonRoot/debug -maxdepth 1 -type f -name '*.apk' -print -quit)
-          test -n "$apk"
-          unzip -Z1 "$apk" > "$RUNNER_TEMP/apk-native-files.txt"
+          test -n "$APK"
+          unzip -Z1 "$APK" > "$RUNNER_TEMP/apk-native-files.txt"
           grep -Fx 'lib/arm64-v8a/libpyrowave-shared.so' "$RUNNER_TEMP/apk-native-files.txt"
           grep -Fx 'lib/armeabi-v7a/libpyrowave-shared.so' "$RUNNER_TEMP/apk-native-files.txt"
 
@@ -291,41 +289,10 @@ jobs:
             grep -Fx "lib/$abi/libc++_shared.so" "$RUNNER_TEMP/apk-native-files.txt"
           done
 
-      # Moonlight DS: master builds also produce the public, signed release APK
-      # (com.limelight.ds). Needs the KEYSTORE_* release-key secrets.
-      - name: Build signed Moonlight DS release
-        id: ds_release
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        shell: bash
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          EXPECTED_SHA256: 937066b71bf63226dfaa433713ec7b39b05785e78d6052628ba905996d0ae983
-        run: |
-          set -euo pipefail
-          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PASSWORD" ] || [ -z "$KEY_ALIAS" ] || [ -z "$KEY_PASSWORD" ]; then
-            echo "::error::Release-key secrets (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) are not all set; no release published"
-            exit 1
-          fi
-          export KEYSTORE_PATH="$RUNNER_TEMP/moonlight-ds-release.keystore"
-          printf '%s' "$KEYSTORE_BASE64" | base64 -d > "$KEYSTORE_PATH"
-          ./gradlew :app:assembleNonRootRelease --stacktrace
-          apk=$(find app/build/outputs/apk/nonRoot/release -maxdepth 1 -type f -name '*.apk' -print -quit)
-          apksigner="${ANDROID_HOME:-$ANDROID_SDK_ROOT}/build-tools/36.0.0/apksigner"
-          actual=$("$apksigner" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')
-          echo "Release APK signer SHA-256: $actual"
-          if [ "$actual" != "$EXPECTED_SHA256" ]; then
-            echo "::error::Release APK was not signed with the Moonlight DS release key"
-            exit 1
-          fi
-          echo "apk=$apk" >> "$GITHUB_OUTPUT"
-
       # Publish each master build as the repo's latest release. The app's update
       # check reads releases/latest, so installed copies offer it on next launch.
       - name: Publish Moonlight DS release
-        if: steps.ds_release.outputs.apk != '' && steps.thor_version.outputs.version != ''
+        if: steps.ds_release.outputs.signed == 'true' && steps.thor_version.outputs.version != ''
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -366,15 +333,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: app-nonroot-debug-apk
-          path: |
-            app/build/outputs/apk/nonRoot/debug/*.apk
-
-      - name: Upload Release validation APK
-        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && !startsWith(github.ref, 'refs/tags/')
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-nonroot-release-validation-apk
+          name: moonlight-ds-apk
           path: app/build/outputs/apk/nonRoot/release/*.apk
 
   # ===== 发版（仅 tag）：test + build 都通过后，打签名包并发布 Release =====
