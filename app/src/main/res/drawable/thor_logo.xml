@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Moonlight DS mark: a dual-screen handheld (top and bottom display) on an aqua tile. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="76dp"
+    android:height="76dp"
+    android:viewportWidth="76"
+    android:viewportHeight="76">
+    <path android:fillColor="#FF55B8D4"
+        android:pathData="M14,0h48a14,14 0,0 1,14 14v48a14,14 0,0 1,-14 14h-48a14,14 0,0 1,-14 -14v-48a14,14 0,0 1,14 -14z" />
+    <path android:fillColor="#FF101418"
+        android:pathData="M20,14h36a4,4 0,0 1,4 4v18a4,4 0,0 1,-4 4h-36a4,4 0,0 1,-4 -4v-18a4,4 0,0 1,4 -4z" />
+    <path android:fillColor="#FF101418"
+        android:pathData="M26,44h24a4,4 0,0 1,4 4v10a4,4 0,0 1,-4 4h-24a4,4 0,0 1,-4 -4v-10a4,4 0,0 1,4 -4z" />
+    <path android:fillColor="#FFF1F4F6"
+        android:pathData="M36,22l8,5 -8,5z" />
+</vector>

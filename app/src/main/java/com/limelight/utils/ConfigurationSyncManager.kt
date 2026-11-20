@@ -2,7 +2,6 @@ package com.limelight.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
@@ -15,12 +14,10 @@ import androidx.preference.PreferenceManager
 import com.limelight.binding.audio.MicrophoneButtonPreferences
 import com.limelight.binding.input.virtual_controller.OscSettingsButtonStore
 import com.limelight.binding.input.virtual_controller.VirtualControllerConfigurationLoader
-import com.limelight.ui.FloatBallPreferences
 import com.limelight.binding.input.advance_setting.config.PageConfigController
 import com.limelight.binding.input.advance_setting.sqlite.SuperConfigDatabaseHelper
 import com.limelight.binding.input.advance_setting.DirectConfigTransfer
 import com.limelight.computers.ComputerDatabaseManager
-import com.limelight.preferences.BackgroundSource
 import com.limelight.preferences.CustomResolutionsStore
 import com.limelight.preferences.PreferenceConfiguration
 import com.limelight.preferences.TouchPointerPresetPreferences
@@ -430,10 +427,6 @@ class ConfigurationSyncManager(private val context: Context) {
             )
         }
         CustomResolutionsStore.migrateLegacyLowResolutionPresets(context)
-        if (defaultPreferencesImported > 0 || oscSettingsButtonImported > 0 || oscLayoutProfilesImported > 0) {
-            context.sendBroadcast(Intent(BackgroundSource.ACTION_REFRESH))
-        }
-
         return ImportResult(
             defaultPreferencesImported = defaultPreferencesImported + oscSettingsButtonImported + oscLayoutProfilesImported,
             appLastSettingsImported = appLastSettingsImported,
@@ -3396,7 +3389,7 @@ class ConfigurationSyncManager(private val context: Context) {
             "list_esc_menu_key",
             "list_float_ball_double_click_action",
             "list_float_ball_long_click_action",
-            FloatBallPreferences.KEY_PRESET_POSITION,
+            "list_float_ball_position",
             "list_float_ball_single_click_action",
             "list_float_ball_swipe_down_action",
             "list_float_ball_swipe_left_action",

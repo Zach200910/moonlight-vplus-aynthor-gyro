@@ -3,9 +3,30 @@ package com.limelight.ui
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 class FeatureGuideStoreTest {
+    @Before
+    fun enableGuides() {
+        FeatureGuideStore.GUIDES_ENABLED = true
+    }
+
+    @After
+    fun restoreDefault() {
+        FeatureGuideStore.GUIDES_ENABLED = false
+    }
+
+    @Test
+    fun thorBuildNeverShowsGuides() {
+        FeatureGuideStore.GUIDES_ENABLED = false
+        val store = FeatureGuideStore(FakePreferences())
+        assertFalse(store.shouldShow(FeatureGuideRegistry.PcViewDiscovery))
+        assertFalse(store.shouldShow(FeatureGuideRegistry.AppViewDiscovery))
+        assertFalse(store.shouldShow(FeatureGuideRegistry.GameMenuDiscovery))
+    }
+
     @Test
     fun completedRevisionStaysHidden() {
         val preferences = FakePreferences()

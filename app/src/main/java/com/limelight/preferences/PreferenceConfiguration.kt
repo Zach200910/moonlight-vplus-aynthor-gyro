@@ -147,6 +147,8 @@ class PreferenceConfiguration {
     @JvmField var showGuideButton = false
     @JvmField var halfHeightOscPortrait = false
     var enableHdr = false
+    /** Client-side sharpening strength, 0 (off) to 100. SDR streams only. */
+    var sharpenStrength = 0
     var enableHdrHighBrightness = false
     var hdrBrightnessOverride = false
     var hdrPeakBrightnessNits = 1000
@@ -283,18 +285,8 @@ class PreferenceConfiguration {
 
     var useExternalDisplay = false
 
-    // 悬浮球设置
-    var enableFloatBall = false
-    var floatBallAutoHideDelay = 0
-
-    // 悬浮球交互监听器设置
-    var floatBallSingleClickAction: String = ""
-    var floatBallDoubleClickAction: String = ""
-    var floatBallLongClickAction: String = ""
-    var floatBallSwipeUpAction: String = ""
-    var floatBallSwipeDownAction: String = ""
-    var floatBallSwipeLeftAction: String = ""
-    var floatBallSwipeRightAction: String = ""
+    /** Floating ball is removed in the Thor build; always false (kept for Game.kt call sites). */
+    val enableFloatBall = false
 
     // ---- Instance methods ----
 
@@ -670,6 +662,7 @@ class PreferenceConfiguration {
         private const val HALF_HEIGHT_OSC_PORTRAIT_PREF_STRING = "checkbox_half_height_osc_portrait"
         private const val LEGACY_DISABLE_FRAME_DROP_PREF_STRING = "checkbox_disable_frame_drop"
         private const val ENABLE_HDR_PREF_STRING = "checkbox_enable_hdr"
+        const val SHARPEN_STRENGTH_PREF_STRING = "seekbar_sharpen_strength"
         private const val ENABLE_HDR_HIGH_BRIGHTNESS_PREF_STRING = "checkbox_enable_hdr_high_brightness"
         private const val HDR_BRIGHTNESS_OVERRIDE_PREF_STRING = "checkbox_hdr_brightness_override"
         private const val HDR_PEAK_BRIGHTNESS_NITS_PREF_STRING = "seekbar_hdr_peak_brightness_nits"
@@ -770,19 +763,6 @@ class PreferenceConfiguration {
         private const val ENABLE_ESC_MENU_PREF_STRING = "checkbox_enable_esc_menu"
         private const val ESC_MENU_KEY_PREF_STRING = "list_esc_menu_key"
         private const val ENABLE_START_KEY_MENU_PREF_STRING = "checkbox_enable_start_key_menu"
-
-        // 悬浮球设置
-        private const val ENABLE_FLOAT_BALL_PREF_STRING = "checkbox_enable_float_ball"
-        private const val FLOAT_BALL_AUTO_HIDE_DELAY_PREF_STRING = "seekbar_float_ball_auto_hide_delay"
-
-        // 悬浮球交互监听器设置
-        private const val FLOAT_BALL_SINGLE_CLICK_ACTION_PREF_STRING = "list_float_ball_single_click_action"
-        private const val FLOAT_BALL_DOUBLE_CLICK_ACTION_PREF_STRING = "list_float_ball_double_click_action"
-        private const val FLOAT_BALL_LONG_CLICK_ACTION_PREF_STRING = "list_float_ball_long_click_action"
-        private const val FLOAT_BALL_SWIPE_UP_ACTION_PREF_STRING = "list_float_ball_swipe_up_action"
-        private const val FLOAT_BALL_SWIPE_DOWN_ACTION_PREF_STRING = "list_float_ball_swipe_down_action"
-        private const val FLOAT_BALL_SWIPE_LEFT_ACTION_PREF_STRING = "list_float_ball_swipe_left_action"
-        private const val FLOAT_BALL_SWIPE_RIGHT_ACTION_PREF_STRING = "list_float_ball_swipe_right_action"
 
         // 控制流only模式设置
         private const val CONTROL_ONLY_PREF_STRING = "checkbox_control_only"
@@ -977,19 +957,6 @@ class PreferenceConfiguration {
         private const val DEFAULT_ENABLE_ESC_MENU = true // 默认启用ESC菜单
         private val DEFAULT_ESC_MENU_KEY = KeyEvent.KEYCODE_ESCAPE
         private const val DEFAULT_ENABLE_START_KEY_MENU = true // 默认启用长按start键菜单
-
-        // 悬浮球设置默认值
-        private const val DEFAULT_ENABLE_FLOAT_BALL = true // 默认启用悬浮球
-        private const val DEFAULT_FLOAT_BALL_AUTO_HIDE_DELAY = 2000 // 默认2000ms
-
-        // 悬浮球交互监听器默认值
-        private const val DEFAULT_FLOAT_BALL_SINGLE_CLICK_ACTION = "open_keyboard" // 单击打开键盘
-        private const val DEFAULT_FLOAT_BALL_DOUBLE_CLICK_ACTION = "open_menu" // 双击打开菜单
-        private const val DEFAULT_FLOAT_BALL_LONG_CLICK_ACTION = "toggle_visibility" // 长按切换可见性
-        private const val DEFAULT_FLOAT_BALL_SWIPE_UP_ACTION = "none" // 向上滑动无操作
-        private const val DEFAULT_FLOAT_BALL_SWIPE_DOWN_ACTION = "none" // 向下滑动无操作
-        private const val DEFAULT_FLOAT_BALL_SWIPE_LEFT_ACTION = "none" // 向左滑动无操作
-        private const val DEFAULT_FLOAT_BALL_SWIPE_RIGHT_ACTION = "none" // 向右滑动无操作
 
         // 控制流only模式默认值
         private const val DEFAULT_CONTROL_ONLY = false
@@ -1344,10 +1311,6 @@ class PreferenceConfiguration {
             GYRO_ACTIVATION_KEY_CODE_PREF_STRING,
             GYRO_TO_RIGHT_STICK_PREF_STRING,
             GYRO_TO_MOUSE_PREF_STRING,
-            FLOAT_BALL_SWIPE_UP_ACTION_PREF_STRING,
-            FLOAT_BALL_SWIPE_DOWN_ACTION_PREF_STRING,
-            FLOAT_BALL_SWIPE_LEFT_ACTION_PREF_STRING,
-            FLOAT_BALL_SWIPE_RIGHT_ACTION_PREF_STRING,
             AUTO_ADJUST_BITRATE_PREF_STRING,
             UNLOCK_FPS_STRING,
             SHOW_LOW_RESOLUTION_PRESETS_PREF_STRING
@@ -1366,6 +1329,7 @@ class PreferenceConfiguration {
                 .remove(VIDEO_FORMAT_PREF_STRING)
                 .remove(DECODER_INPUT_BUFFER_MODE_PREF_STRING)
                 .remove(ENABLE_HDR_PREF_STRING)
+                .remove(SHARPEN_STRENGTH_PREF_STRING)
                 .remove(ENABLE_HDR_HIGH_BRIGHTNESS_PREF_STRING)
                 .remove(HDR_BRIGHTNESS_OVERRIDE_PREF_STRING)
                 .remove(HDR_PEAK_BRIGHTNESS_NITS_PREF_STRING)
@@ -1631,6 +1595,11 @@ class PreferenceConfiguration {
             config.showGuideButton = prefs.getBoolean(SHOW_GUIDE_BUTTON_PREF_STRING, SHOW_GUIDE_BUTTON_DEFAULT)
             config.halfHeightOscPortrait = prefs.getBoolean(HALF_HEIGHT_OSC_PORTRAIT_PREF_STRING, HALF_HEIGHT_OSC_PORTRAIT_DEFAULT)
             config.enableHdr = prefs.getBoolean(ENABLE_HDR_PREF_STRING, DEFAULT_ENABLE_HDR) && !isShieldAtvFirmwareWithBrokenHdr()
+            config.sharpenStrength = try {
+                prefs.getInt(SHARPEN_STRENGTH_PREF_STRING, 0)
+            } catch (e: ClassCastException) {
+                0
+            }.coerceIn(0, 100)
             config.enableHdrHighBrightness = prefs.getBoolean(ENABLE_HDR_HIGH_BRIGHTNESS_PREF_STRING, DEFAULT_ENABLE_HDR_HIGH_BRIGHTNESS)
             config.hdrBrightnessOverride = prefs.getBoolean(HDR_BRIGHTNESS_OVERRIDE_PREF_STRING, DEFAULT_HDR_BRIGHTNESS_OVERRIDE)
             config.hdrPeakBrightnessNits = prefs.getInt(HDR_PEAK_BRIGHTNESS_NITS_PREF_STRING, DEFAULT_HDR_PEAK_BRIGHTNESS_NITS).coerceIn(300, 4000)
@@ -1867,19 +1836,6 @@ class PreferenceConfiguration {
             config.screenOffsetY = prefs.getInt(SCREEN_OFFSET_Y_PREF_STRING, DEFAULT_SCREEN_OFFSET_Y)
 
             config.useExternalDisplay = prefs.getBoolean(USE_EXTERNAL_DISPLAY_PREF_STRING, false)
-
-            // 读取悬浮球设置
-            config.enableFloatBall = prefs.getBoolean(ENABLE_FLOAT_BALL_PREF_STRING, DEFAULT_ENABLE_FLOAT_BALL)
-            config.floatBallAutoHideDelay = prefs.getInt(FLOAT_BALL_AUTO_HIDE_DELAY_PREF_STRING, DEFAULT_FLOAT_BALL_AUTO_HIDE_DELAY)
-
-            // 读取悬浮球交互监听器设置
-            config.floatBallSingleClickAction = prefs.getString(FLOAT_BALL_SINGLE_CLICK_ACTION_PREF_STRING, DEFAULT_FLOAT_BALL_SINGLE_CLICK_ACTION) ?: DEFAULT_FLOAT_BALL_SINGLE_CLICK_ACTION
-            config.floatBallDoubleClickAction = prefs.getString(FLOAT_BALL_DOUBLE_CLICK_ACTION_PREF_STRING, DEFAULT_FLOAT_BALL_DOUBLE_CLICK_ACTION) ?: DEFAULT_FLOAT_BALL_DOUBLE_CLICK_ACTION
-            config.floatBallLongClickAction = prefs.getString(FLOAT_BALL_LONG_CLICK_ACTION_PREF_STRING, DEFAULT_FLOAT_BALL_LONG_CLICK_ACTION) ?: DEFAULT_FLOAT_BALL_LONG_CLICK_ACTION
-            config.floatBallSwipeUpAction = prefs.getString(FLOAT_BALL_SWIPE_UP_ACTION_PREF_STRING, DEFAULT_FLOAT_BALL_SWIPE_UP_ACTION) ?: DEFAULT_FLOAT_BALL_SWIPE_UP_ACTION
-            config.floatBallSwipeDownAction = prefs.getString(FLOAT_BALL_SWIPE_DOWN_ACTION_PREF_STRING, DEFAULT_FLOAT_BALL_SWIPE_DOWN_ACTION) ?: DEFAULT_FLOAT_BALL_SWIPE_DOWN_ACTION
-            config.floatBallSwipeLeftAction = prefs.getString(FLOAT_BALL_SWIPE_LEFT_ACTION_PREF_STRING, DEFAULT_FLOAT_BALL_SWIPE_LEFT_ACTION) ?: DEFAULT_FLOAT_BALL_SWIPE_LEFT_ACTION
-            config.floatBallSwipeRightAction = prefs.getString(FLOAT_BALL_SWIPE_RIGHT_ACTION_PREF_STRING, DEFAULT_FLOAT_BALL_SWIPE_RIGHT_ACTION) ?: DEFAULT_FLOAT_BALL_SWIPE_RIGHT_ACTION
 
             return config
         }

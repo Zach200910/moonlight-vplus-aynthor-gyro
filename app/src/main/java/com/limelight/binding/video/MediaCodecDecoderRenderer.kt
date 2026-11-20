@@ -224,6 +224,10 @@ class MediaCodecDecoderRenderer(
      */
     @Volatile
     var framegenSurface: Surface? = null
+
+    /** Client-side sharpening stage (SDR, no framegen/PyroWave); owned by the render target. */
+    @Volatile
+    private var sharpenPipeline: SharpenPipeline? = null
     @Volatile
     private var framegenOutputSwitchPending = false
     private val framegenOutputSwitchReady = AtomicBoolean(false)
@@ -512,6 +516,33 @@ class MediaCodecDecoderRenderer(
     override fun setRenderTarget(renderTarget: SurfaceHolder?) {
         this.renderTarget = renderTarget
         pyrowaveDecoder.setSurface(renderTarget?.surface)
+        val current = sharpenPipeline
+        if (current != null && current.outputSurface !== renderTarget?.surface) {
+            sharpenPipeline = null
+            current.release()
+        }
+    }
+
+    /**
+     * The surface the decoder should render into: the sharpening stage's input when client-side
+     * sharpening is on (SDR only, not with frame generation), otherwise the stream surface.
+     */
+    private fun decoderOutputFor(target: Surface): Surface {
+        val strength = prefs.sharpenStrength.coerceIn(0, 100) / 100f
+        if (strength <= 0f || requestedHdr || framegenSurface != null || pyrowaveDecoderActive) {
+            return target
+        }
+        sharpenPipeline?.let { existing ->
+            if (existing.outputSurface === target) {
+                existing.strength = strength
+                return existing.inputSurface
+            }
+            sharpenPipeline = null
+            existing.release()
+        }
+        val created = SharpenPipeline.create(target, initialWidth, initialHeight, strength) ?: return target
+        sharpenPipeline = created
+        return created.inputSurface
     }
 
     private fun destroyPyrowaveDecoder() {
@@ -1125,8 +1156,9 @@ class MediaCodecDecoderRenderer(
         // stream stop). Fail with the exception type every configureAndStartDecoder caller
         // already treats as an invalid surface instead of crashing on a null dereference.
         fun directOutputSurface(): Surface =
-            renderTarget?.surface
-                ?: throw IllegalArgumentException("Render target was released before decoder configuration")
+            (renderTarget?.surface
+                ?: throw IllegalArgumentException("Render target was released before decoder configuration"))
+                .let { if (pendingFramegenSurface == null) decoderOutputFor(it) else it }
         val outSurface = if (framegenOutputSwitchPending) {
             LimeLog.info(
                 "Framegen delayed capture active: decoder starts on SurfaceView " +
@@ -2273,6 +2305,9 @@ class MediaCodecDecoderRenderer(
             }
         }
         clearTimestampTracking()
+        // Decoder is gone, so nothing renders into the sharpening input any more.
+        sharpenPipeline?.release()
+        sharpenPipeline = null
 
         // Stop codec callback thread (async mode)
         if (codecCallbackThread != null) {

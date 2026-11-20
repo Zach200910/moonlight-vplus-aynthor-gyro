@@ -332,6 +332,7 @@ class PcGridAdapter(
     private fun populateAddComputerCard(parentView: View, imgView: ImageView, spinnerView: View, txtView: TextView, overlayView: ImageView, accentBucket: Int) {
         imgView.setImageResource(R.drawable.ic_add)
         imgView.scaleType = ImageView.ScaleType.FIT_CENTER
+        applyIconPadding(imgView)
         imgView.alpha = 0.7f
 
         parentView.background = PcCardDecor.selector(context, accentBucket)
@@ -353,6 +354,7 @@ class PcGridAdapter(
         if (!hasBoxArt) {
             imgView.setImageResource(R.drawable.ic_computer)
             imgView.scaleType = ImageView.ScaleType.FIT_CENTER
+            applyIconPadding(imgView)
         }
         imgView.alpha = if (isOnline) ONLINE_ALPHA else OFFLINE_ALPHA
 
@@ -440,7 +442,15 @@ class PcGridAdapter(
                     obj.details.pairState == PairingManager.PairState.NOT_PAIRED
         }
 
+        /** Plain icons sit centered above the name strip; box art is full-bleed. */
+        private fun applyIconPadding(imgView: ImageView) {
+            val d = imgView.resources.displayMetrics.density
+            val side = (40 * d).toInt()
+            imgView.setPadding(side, (28 * d).toInt(), side, (52 * d).toInt())
+        }
+
         private fun applyBoxArt(imgView: ImageView, bitmap: Bitmap) {
+            imgView.setPadding(0, 0, 0, 0)
             imgView.setImageBitmap(bitmap)
             imgView.scaleType = ImageView.ScaleType.CENTER_CROP
             imgView.clipToOutline = true

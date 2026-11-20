@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/advance_setting_background"
+    android:background="@color/thor_background"
     android:clipChildren="false"
     android:clipToPadding="false"
     tools:context=".AppView">
@@ -126,12 +126,52 @@
 
     </LinearLayout>
 
+    <!-- Thor: controller hint bar (Switch-style), shared look with the home screen. -->
+    <LinearLayout
+        android:id="@+id/thorHintBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thor_hint_bar_height"
+        android:layout_alignParentBottom="true"
+        android:background="#E6101418"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/thor_space_xl"
+            android:layout_marginEnd="@dimen/thor_space_xl"
+            android:background="@color/thor_border" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical"
+            android:importantForAccessibility="noHideDescendants"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/thor_space_xl"
+            android:paddingEnd="@dimen/thor_space_xl">
+
+            <TextView
+                style="@style/ThorHintGlyph"
+                android:text="@string/thor_hint_b" />
+            <TextView
+                style="@style/ThorHintLabel"
+                android:text="@string/thor_hint_back" />
+            <TextView
+                style="@style/ThorHintGlyph"
+                android:text="@string/thor_hint_a" />
+            <TextView
+                style="@style/ThorHintLabel"
+                android:text="@string/thor_hint_start" />
+        </LinearLayout>
+    </LinearLayout>
+
     <!-- 底部信息固定在安全区域上方，不参与应用列表的垂直居中。 -->
     <LinearLayout
         android:id="@+id/bottomInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/thorHintBar"
         android:layout_marginStart="@dimen/appview_content_margin"
         android:layout_marginEnd="@dimen/appview_content_margin"
         android:layout_marginBottom="@dimen/appview_bottom_margin"

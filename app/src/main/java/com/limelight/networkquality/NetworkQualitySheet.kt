@@ -120,7 +120,6 @@ object NetworkQualitySheet {
         computerName: String,
         result: StreamNetworkTestResult,
         recommendation: StreamNetworkRecommendation?,
-        onSaveToSceneOne: () -> Unit,
         onContinue: () -> Unit
     ) {
         val dialog = ComponentDialog(context, R.style.AppActionSheetStyle)
@@ -149,7 +148,6 @@ object NetworkQualitySheet {
                             context,
                             result,
                             recommendation,
-                            onSaveToSceneOne,
                             compact,
                             Modifier
                                 .focusRequester(saveFocusRequester)
@@ -180,7 +178,7 @@ object NetworkQualitySheet {
                                     .focusProperties {
                                         left = closeFocusRequester
                                         right = if (recommendation == null) closeFocusRequester else continueFocusRequester
-                                        up = if (recommendation == null) closeFocusRequester else saveFocusRequester
+                                        up = closeFocusRequester
                                     }
                             )
                             if (recommendation != null) {
@@ -199,7 +197,7 @@ object NetworkQualitySheet {
                                         .focusProperties {
                                             left = closeFocusRequester
                                             right = continueFocusRequester
-                                            up = saveFocusRequester
+                                            up = continueFocusRequester
                                         }
                                 )
                             }
@@ -317,9 +315,8 @@ object NetworkQualitySheet {
         context: Context,
         result: StreamNetworkTestResult,
         recommendation: StreamNetworkRecommendation?,
-        onSaveToSceneOne: () -> Unit,
         compact: Boolean,
-        modifier: Modifier
+        @Suppress("UNUSED_PARAMETER") modifier: Modifier
     ) {
         val qualityLabel = when (result.quality) {
             StreamNetworkQuality.EXCELLENT -> R.string.network_quality_excellent
@@ -349,9 +346,7 @@ object NetworkQualitySheet {
                 RecommendationPanel(
                     context,
                     recommendation,
-                    onSaveToSceneOne,
-                    compact,
-                    modifier
+                    compact
                 )
             } else {
                 NoStableRecommendationPanel(context, compact)
@@ -457,9 +452,7 @@ object NetworkQualitySheet {
     private fun RecommendationPanel(
         context: Context,
         recommendation: StreamNetworkRecommendation,
-        onSaveToSceneOne: () -> Unit,
-        compact: Boolean,
-        modifier: Modifier
+        compact: Boolean
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -476,12 +469,6 @@ object NetworkQualitySheet {
                     context.getString(R.string.network_quality_stable_recommendation),
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 11.sp
-                )
-                AppActionSheet.ActionSheetFooterAction(
-                    context.getString(R.string.network_quality_save_scene_1),
-                    onSaveToSceneOne,
-                    compact = true,
-                    modifier = modifier
                 )
             }
             Spacer(Modifier.height(if (compact) 4.dp else 8.dp))

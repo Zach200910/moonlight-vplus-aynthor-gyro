@@ -439,20 +439,8 @@
     <string name="dialog_title_reset_osc">重置虚拟手柄布局</string>
     <string name="dialog_text_reset_osc">确定要删除已保存的屏幕虚拟手柄按钮布局吗？</string>
     <string name="toast_reset_osc_success">屏幕虚拟手柄按钮布局已重置</string>
-    <string name="title_checkbox_enable_float_ball">启用悬浮球</string>
-    <string name="summary_checkbox_enable_float_ball">显示一个可交互的悬浮球，用于快速操作。</string>
-    <string name="title_list_float_ball_position">悬浮球位置</string>
-    <string name="summary_list_float_ball_position">将悬浮球放到屏幕边缘。拖动位置会覆盖预设，再次选择预设即可清除。</string>
-    <string name="title_seekbar_float_ball_auto_hide_delay">自动隐藏延迟</string>
-    <string name="summary_seekbar_float_ball_auto_hide_delay">悬浮球自动隐藏到屏幕边缘的时间。</string>
 
     <!-- 悬浮球手势动作 -->
-    <string name="title_float_ball_single_click_action">单击动作</string>
-    <string name="summary_float_ball_single_click_action">点击悬浮球一次时执行的动作。</string>
-    <string name="title_float_ball_double_click_action">双击动作</string>
-    <string name="summary_float_ball_double_click_action">双击悬浮球时执行的动作。</string>
-    <string name="title_float_ball_long_click_action">长按动作</string>
-    <string name="summary_float_ball_long_click_action">长按悬浮球时执行的动作。</string>
     <string name="title_float_ball_swipe_up_action">向上滑动动作</string>
     <string name="summary_float_ball_swipe_up_action">向上滑动悬浮球时执行的动作。</string>
     <string name="title_float_ball_swipe_down_action">向下滑动动作</string>
@@ -561,11 +549,6 @@
     <string name="pcview_toolbar_restore_session">恢复会话</string>
     <string name="pcview_toolbar_toggle_unpaired_show">显示未配对主机</string>
     <string name="pcview_toolbar_toggle_unpaired_hide">隐藏未配对主机</string>
-    <string name="pcview_toolbar_theme">主题</string>
-    <string name="pcview_theme_dialog_title">主题</string>
-    <string name="pcview_theme_follow_system">跟随系统</string>
-    <string name="pcview_theme_light">浅色</string>
-    <string name="pcview_theme_dark">深色</string>
     <string name="pcview_theme_applied">主题已切换为%1$s</string>
 
     <string name="pcview_press_back_again_to_exit">再按一次返回键退出</string>
@@ -620,7 +603,6 @@
     <string name="sunshine_webui_auth_title">登录 %1$s（%2$s）</string>
     <string name="sunshine_webui_auth_user_hint">用户名</string>
     <string name="sunshine_webui_auth_pass_hint">密码</string>
-    <string name="about_dialog_official_site">访问官网</string>
     <string name="pcview_menu_header_unknown">刷新中</string>
     <string name="pcview_menu_header_offline">离线</string>
     <string name="pcview_menu_header_online">在线</string>
@@ -662,13 +644,6 @@
     <string name="summary_about_mode">请前往GitHub查看，喜欢的话点个Star支持一下我们吧。</string>
 
     <!-- About dialog strings -->
-    <string name="about_dialog_description">Moonlight V+ 是专为 Foundation Sunshine 打造的增强客户端，为您带来更流畅的游戏串流体验。</string>
-    <string name="about_dialog_project_info">基于 Moonlight-Android 开源项目，由基地社区倾力打造</string>
-    <string name="about_dialog_thanks">感谢您的选择与支持。</string>
-    <string name="about_dialog_bilibili_title">Moonlight V+ 官方 B站</string>
-    <string name="about_dialog_bilibili_summary">关注账号，获取版本动态与功能演示</string>
-    <string name="about_dialog_handbook_action">文档手册</string>
-    <string name="about_dialog_ecosystem_action">基地生态</string>
     <string name="about_dialog_open_source_action">开源许可</string>
     <string name="open_source_title">开源许可</string>
     <string name="open_source_intro">查看此应用所含开源组件的项目来源和许可文本</string>
@@ -689,7 +664,6 @@
     <string name="about_dialog_ecosystem_harmony_title">Moonlight V+ 鸿蒙版</string>
     <string name="about_dialog_ecosystem_harmony_description">面向鸿蒙手机和平板的原生 Moonlight V+ 客户端。</string>
     <string name="about_dialog_ecosystem_mac_description">针对 macOS 原生体验优化的 Moonlight 增强客户端。</string>
-    <string name="about_dialog_qq">加入QQ群</string>
     <string name="about_dialog_close">关闭</string>
     <string name="about_dialog_no_browser">未找到可用的外部浏览器</string>
     <string name="about_dialog_choose_browser">选择浏览器打开</string>
@@ -854,27 +828,13 @@
     <string name="summary_use_external_display">连接第二块显示器时，在外接显示器而不是本机屏幕上显示串流。</string>
 
     <!-- Analytics settings -->
-    <string name="title_enable_analytics">启用统计分析</string>
-    <string name="summary_enable_analytics">通过分享匿名使用统计数据来帮助改进应用。</string>
 
     <!-- Background image API -->
-    <string name="title_background_image_api">自定义背景网址</string>
-    <string name="summary_background_image_api">输入 HTTPS 图片 API 或图片直链；清空后会恢复为“智能默认”来源。</string>
-    <string name="dialog_title_background_image_api">自定义背景网址</string>
-    <string name="dialog_message_background_image_api">请输入完整的 HTTPS 图片 API 或图片直链。</string>
 
     <!-- Background source (issue #263) -->
-    <string name="title_background_source">背景图来源</string>
-    <string name="summary_background_source">选择首页背景提供方、本地图片或不显示背景。</string>
     <string name="background_source_auto">智能默认（推荐）</string>
-    <string name="background_source_picsum">摄影风景（Lorem Picsum）</string>
-    <string name="background_source_pipw">二次元（Pipw）</string>
     <string name="background_source_api">自定义 API</string>
     <string name="background_source_local">本地图片</string>
-    <string name="background_source_none">不显示背景</string>
-    <string name="background_source_dialog_title">选择壁纸风格</string>
-    <string name="background_source_dialog_message">选一种首页随机壁纸的风格吧，随时可以在设置里重新调整～</string>
-    <string name="background_source_dialog_later">以后再说</string>
 
     <!-- 崩溃日志反馈弹窗 -->
     <string name="crash_report_dialog_title">应用上次异常退出</string>
@@ -898,12 +858,8 @@
     <string name="crash_report_unknown">未知</string>
 
     <!-- Local image picker -->
-    <string name="title_local_image_picker">选择本地背景图片</string>
-    <string name="summary_local_image_picker">从本机选择一张图片作为首页背景。</string>
 
     <!-- Reset background image -->
-    <string name="title_reset_background_image">恢复智能背景</string>
-    <string name="summary_reset_background_image">清除自定义来源，重新使用推荐的自动背景。</string>
 
     <!-- Reverse resolution -->
     <string name="title_checkbox_reverse_resolution">交换串流宽度和高度</string>
@@ -912,21 +868,8 @@
     <string name="summary_checkbox_rotable_screen">本机方向变化时同步旋转串流布局。</string>
 
     <!-- Moonlight V+ PC download -->
-    <string name="title_moonlight_vplus_pc_download">Moonlight V+ PC版下载</string>
 
     <!-- Tip strings -->
-    <string name="tip_esc_exit">💡 串流小课堂：使用"退出"按钮可以快速完全地退出串流，让屏幕恢复到串流前的状态哦～</string>
-    <string name="tip_double_tap_mouse">💡 串流小课堂：主机列表页面长按顶部空白区域可以下载当前涩图呢～</string>
-    <string name="tip_long_press_controller">💡 串流小课堂：长按应用可以选择使用虚拟显示器串流，超方便的！</string>
-    <string name="tip_volume_keys">💡 串流小课堂：建议使用5GHz WiFi获得更好体验，网速飞起来～</string>
-    <string name="tip_wallpaper_change">💡 串流小课堂：壁纸API选项可以设置随机壁纸来源的API，也可以是单张图片地址哦</string>
-    <string name="tip_5ghz_wifi">💡 串流小课堂：使用"平衡"的帧速率模式可以获得最佳的帧率与延迟平衡，完美！</string>
-    <string name="tip_close_apps">💡 串流小课堂：启用HDR可以获得更好的色彩与对比度表现，在Sunshine基地版中绑定对应的HDR配置文件可以更精准地与客户端屏幕同步，色彩绚丽～</string>
-    <string name="tip_home_saves">💡 串流小课堂：主页的5个小鲨牙可以快速保存和切换串流配置～</string>
-    <string name="tip_hdr_colors">💡 串流小课堂：调整分辨率可以平衡画质和性能，找到最适合的设置～</string>
-    <string name="tip_touch_modes">💡 串流小课堂：游戏菜单中可以切换触控模式，增强式多点触控适合手游，触控板模式适合办公，找到最适合你的操作方式～</string>
-    <string name="tip_custom_keys">💡 串流小课堂：可以添加自定义按键组合，比如Ctrl+Shift+Esc快速打开任务管理器，让操作更便捷～</string>
-    <string name="tip_performance_overlay">💡 串流小课堂：可以在返回菜单中调整性能监控图层和手势操作。</string>
     <string name="title_perf_overlay_style">覆盖层样式</string>
     <string name="perf_overlay_style_mini">迷你</string>
     <string name="perf_overlay_style_standard">标准</string>
@@ -960,7 +903,6 @@
     <string name="perf_hud_long_press_hint">长按某个指标可查看说明。</string>
     <string name="perf_hud_hint">💡 串流小课堂：可以在返回菜单中调整性能监控图层和手势操作。</string>
     <string name="perf_hud_dock_orientation_hint">离开停靠布局后将应用选择的方向。</string>
-    <string name="tip_performance_overlay_classic">💡 串流小课堂：可以在返回菜单中调整性能监控图层和手势操作。</string>
     <string name="perf_hud_label_one_percent_low" formatted="false">1%L</string>
     <string name="perf_hud_label_latency">延迟</string>
     <string name="perf_hud_label_latency_chain">延迟链（估算）</string>
@@ -1014,11 +956,6 @@
     <string name="perf_hud_host_latency_info">HUD 上的「主机」是主机处理一帧（抓屏加编码）的时间，由主机回传。\n\n参考：\n• 5 ms 以内：主机很轻松\n• 5–10 ms：正常水平\n• 10 ms 以上：主机有点忙，看看游戏或后台程序\n\n🧋 是什么：\n• 主机没回传这项数据时显示，先喝杯奶茶吧\n• 换支持 Ver.V+ 的主机就有了♡</string>
     <string name="perf_hud_packet_loss_info" formatted="false">HUD 上的「丢包」是最近一段时间网络丢掉的视频包比例。\n\n颜色：\n• 绿：1% 以内\n• 黄：1–5%，偶尔花屏或顿一下\n• 红：5% 以上，状态会变成 📶 在掉包\n\n影响因素：\n• Wi‑Fi 信号和频段，2.4GHz 最容易丢\n• 路由器性能\n• 码率超过网络上限\n\n💡 长按月相可执行串流体检并查看修复建议。</string>
     <string name="perf_hud_one_percent_low_info" formatted="false">HUD 上的 1%L 是最慢那 1% 帧换算出的帧率，专抓平均帧率看不出的微卡顿。\n\n怎么算：\n• 记录每帧的渲染间隔\n• 取第 99 百分位，也就是最慢的 1%\n• 换算成帧率：1000 ÷ 该间隔\n\n颜色（对比目标帧率）：\n• 绿：85% 以上\n• 黄：65–85%，偶尔顿一下\n• 红：不到 65%，明显卡顿\n\n💡 串流小课堂：平均帧率满了但 1%L 很低，多半是网络抖动或主机偶尔卡了一下～</string>
-    <string name="tip_audio_config">💡 串流小课堂：启用Dolby Atmos或DTS:X可以获得更沉浸的音频体验，而此时需要启用系统均衡器来获得最佳效果～</string>
-    <string name="tip_external_display">💡 串流小课堂：连接外接显示器时，可以在设置中选择在外接显示器上显示串流画面，大屏游戏更爽～</string>
-    <string name="tip_virtual_display">💡 串流小课堂：虚拟显示器功能可以创建独立的显示空间，特别适合多任务场景，让串流更灵活～</string>
-    <string name="tip_dynamic_bitrate">💡 串流小课堂：使用HEVC或AV1解码器时，串流中可以调整码率，不用退出串流即可找到最适合你的网络和设备的最佳码率～</string>
-    <string name="tip_cards_show">💡 串流小课堂：游戏菜单最下方可以编辑展示的功能卡片，不需要的卡片可以收起来哦～</string>
 
     <!-- 触控模式切换菜单 -->
     <string name="game_menu_switch_touch_mode">操作方式</string>
@@ -1196,39 +1133,18 @@
     <string name="time_unknown">未知时间</string>
 
     <!-- PcView hardcoded strings - Chinese translations -->
-    <string name="storage_permission_required">需要存储权限才能保存图片，请在设置中授予权限</string>
-    <string name="downloading_image_please_wait">正在重新下载图片，请稍候...</string>
     <string name="image_download_failed_retry">图片下载失败，请重试</string>
     <string name="image_download_failed_with_error">图片下载失败: %1$s</string>
-    <string name="image_not_loaded_please_retry">图片未加载，请稍后再试</string>
     <string name="image_invalid">图片无效</string>
-    <string name="image_saved_successfully">涩图成功保存到了系统目录(Pictures/vplus)</string>
-    <string name="image_save_failed_with_error">涩图保存失败: %1$s</string>
     <string name="config_save_failed">配置保存失败</string>
-    <string name="scene_config_applied">已应用场景%1$d配置: %2$dx%3$d@%4$dFPS %5$.2fMbps %6$s HDR %7$s</string>
     <string name="scene_not_configured">场景%1$d未配置</string>
-    <string name="scene_empty_title">场景%1$d还没有保存配置</string>
-    <string name="scene_empty_message">是否将当前画质与显示配置保存到场景%1$d？保存后下次可直接点按使用。</string>
-    <string name="scene_configured_content_description">场景%1$d已保存。点按应用，长按覆盖。</string>
-    <string name="scene_empty_content_description">场景%1$d为空。点按保存当前设置。</string>
-    <string name="config_apply_failed">配置应用失败</string>
-    <string name="save_to_scene">保存到场景%1$d</string>
     <string name="overwrite_current_config">是否覆盖当前配置？</string>
-    <string name="overwrite_scene_config">是否将当前画质与显示配置保存到场景%1$d？这会覆盖已保存的场景。</string>
-    <string name="save_current_config_to_scene">保存当前配置</string>
-    <string name="scene_saved_successfully">场景%1$d保存成功</string>
     <string name="unable_to_get_pc_address">无法获取PC地址: %1$s</string>
     <string name="send_sleep_command">发送睡眠指令</string>
     <string name="network_bandwidth_test">网络带宽测试 (iPerf3)</string>
     <string name="no_online_computer_with_running_game">没有找到运行游戏的在线电脑</string>
     <string name="restoring_session">恢复会话: %1$s</string>
-    <string name="please_wait_seconds">请等待 %1$d 秒</string>
-    <string name="daily_limit_reached">每日限制已达到 (5/5)。请明天再试！</string>
-    <string name="refreshing_with_remaining">刷新中... (今日剩余 %1$d 次)</string>
-    <string name="background_refreshed_with_remaining">背景刷新成功！(今日剩余 %1$d 次)</string>
     <string name="refresh_failed_please_retry">刷新失败，请重试</string>
-    <string name="refresh_failed_with_error">刷新失败: %1$s</string>
-    <string name="refresh_failed_network">网络不可用，暂时无法获取背景</string>
 
     <string name="game_menu_toggle_remote_mouse">显示/隐藏远程鼠标</string>
     <string name="toast_remote_mouse_toast">远程鼠标已显示/隐藏。</string>
@@ -1369,11 +1285,6 @@
     <string name="layout_capability_diagnostic_text_a5e80">能力检测</string>
     <string name="layout_capability_diagnostic_text_41b60">HDR · 解码器 · 屏幕</string>
     <string name="layout_capability_diagnostic_text_79d3a">复制</string>
-    <string name="layout_pc_view_cd_1daed">场景1</string>
-    <string name="layout_pc_view_cd_f2a94">场景2</string>
-    <string name="layout_pc_view_cd_0a468">场景3</string>
-    <string name="layout_pc_view_cd_94f3b">场景4</string>
-    <string name="layout_pc_view_cd_4b18b">场景5</string>
     <string name="layout_address_list_item_text_12b27">本地网络</string>
     <string name="layout_address_list_item_cd_30f7d">连接</string>
     <string name="layout_config_item_text_c8ce4">重命名</string>
@@ -1629,7 +1540,6 @@
     <string name="error_interrupted">操作已中断</string>
     <string name="float_ball_action_lock_screen">锁屏</string>
     <string name="float_ball_action_screenshot">截图</string>
-    <string name="float_ball_action_toggle_visibility">切换悬浮球显隐</string>
     <string name="game_menu_toggle_all_keyboard">切换电脑键盘</string>
     <string name="menu">菜单</string>
     <string name="settings_search_hint">搜索设置项…</string>
@@ -1725,7 +1635,7 @@
     <string name="update_install_permission_msg">为了自动安装更新，需要授予应用安装权限。\n\n点击确定前往设置页面开启权限，返回后将自动开始下载。</string>
     <string name="toast_cannot_open_settings">无法打开设置页面</string>
     <string name="toast_download_service_unavailable">系统下载服务不可用</string>
-    <string name="update_download_notification_title">Moonlight V+ 更新下载</string>
+    <string name="update_download_notification_title">Moonlight DS 更新下载</string>
     <string name="toast_download_started">已开始下载，下载完成后点击通知栏即可安装</string>
     <string name="toast_download_failed">下载失败: %s</string>
     <string name="update_downloading_title">正在下载更新</string>
@@ -1772,28 +1682,6 @@
     <string name="seekbar_increase">增大</string>
 
     <!-- 插帧增强 -->
-    <string name="title_developer_unlock">解锁开发者功能</string>
-    <string name="summary_developer_unlock_locked">验证你的 GitHub Star 后即可解锁开发者功能。</string>
-    <string name="summary_developer_unlock_unlocked">本机已解锁开发者功能，感谢你支持 Moonlight V+。</string>
-    <string name="message_developer_unlock_required">开发者功能是 Moonlight V+ 的支持者功能。请登录 GitHub，App 会验证你的账号是否已经给项目点 Star。</string>
-    <string name="message_developer_unlock_done">本机已解锁开发者功能。你可以重新验证 Star，或打开项目页面。</string>
-    <string name="message_developer_oauth_unconfigured">当前构建没有配置 GitHub OAuth Client ID，Moonlight V+ 还无法解锁开发者功能。请在 local.properties 配置 githubOAuthClientId，或在构建时传入 -PgithubOAuthClientId=... / GITHUB_OAUTH_CLIENT_ID。</string>
-    <string name="message_developer_device_code">授权码已帮你复制好：%1$s\n\n1. 打开授权页，直接粘贴授权码。\n2. 同意 GitHub 授权后，给 Moonlight V+ 点 Star。\n3. 授权完成后回到本页，点击“已授权，检查”。\n\n授权页：%2$s</string>
-    <string name="developer_device_code_clip_label">GitHub 授权码</string>
-    <string name="message_developer_star_not_found">GitHub 授权成功，但还没有看到这个账号的 Star。如果你刚刚点过 Star，请稍等片刻后再次验证。</string>
-    <string name="action_developer_open_project">打开项目</string>
-    <string name="action_developer_open_authorization">打开授权页</string>
-    <string name="action_developer_check_authorization">已授权，检查</string>
-    <string name="action_developer_verify_star">验证 GitHub Star</string>
-    <string name="toast_developer_unlocked">开发者功能已解锁，感谢你的 Star。</string>
-    <string name="toast_developer_oauth_unconfigured">当前构建未配置 GitHub OAuth Client ID。</string>
-    <string name="toast_developer_verification_started">正在开始解锁开发者功能…</string>
-    <string name="toast_developer_verification_running">开发者功能解锁已经在进行中。</string>
-    <string name="toast_developer_device_code_copied">GitHub 授权码已复制，打开授权页后直接粘贴就好。</string>
-    <string name="toast_developer_authorization_pending">还没有收到 GitHub 授权，请稍后再试。</string>
-    <string name="toast_developer_verification_expired">GitHub 授权已过期，请重新开始验证。</string>
-    <string name="toast_developer_verification_failed">开发者功能解锁失败：%1$s</string>
-    <string name="toast_developer_open_project_failed">无法打开项目页面：%1$s</string>
     <string name="title_framegen_enabled">插帧增强</string>
     <string name="summary_framegen_enabled">在手机端生成额外帧，让串流更顺滑。想输出 120Hz 时请把串流帧率设为 60 FPS；超过目标刷新率一半的设置不会提升插帧效果。</string>
     <string name="summary_framegen_enabled_locked">请先解锁开发者功能，再启用插帧增强。</string>
@@ -1833,9 +1721,7 @@
     <!-- 王冠配置分享与 Store -->
     <string name="crown_config_action_import_legacy">导入旧版 .mdat</string>
     <string name="title_crown_store_view">王冠</string>
-    <string name="crown_store_tab_store">超市王冠</string>
     <string name="crown_store_tab_mine">我的王冠</string>
-    <string name="crown_store_store_summary">来看看大家晒在 GitHub 上的王冠配置，喜欢哪套就带回本地。</string>
     <string name="crown_store_my_summary">管理配置、导入分享包、投稿喜欢的布局。</string>
     <string name="crown_store_my_workspace_title">你的王冠空间</string>
     <string name="crown_store_local_profiles">本地配置</string>
@@ -1845,71 +1731,23 @@
     <string name="crown_store_legacy_tool_summary">从旧版 .mdat 文件恢复王冠配置。</string>
     <string name="crown_store_action_open">打开</string>
     <string name="crown_store_action_import_package">导入分享包</string>
-    <string name="crown_store_action_refresh">刷新一下</string>
-    <string name="crown_store_search_hint">搜索王冠</string>
-    <string name="crown_store_clear_search">清除搜索</string>
-    <string name="crown_store_sort_by">排序：%1$s</string>
-    <string name="crown_store_sort_store_order">超市原顺序</string>
-    <string name="crown_store_sort_newest">最近更新</string>
-    <string name="crown_store_sort_oldest">最早更新</string>
-    <string name="crown_store_sort_name_asc">名称 A–Z</string>
-    <string name="crown_store_sort_name_desc">名称 Z–A</string>
-    <string name="crown_store_results_count">%1$d 套王冠</string>
-    <string name="crown_store_card_game">游戏：%1$s</string>
-    <string name="crown_store_card_author">作者：%1$s</string>
-    <string name="crown_store_no_search_results">没有匹配的王冠</string>
-    <string name="crown_store_try_another_search">换个配置名、游戏、作者或标签试试。</string>
-    <string name="crown_store_action_import_profile">收下这套</string>
-    <string name="crown_store_action_report_profile">举报</string>
     <string name="crown_store_action_edit_publish">补充信息并投稿</string>
-    <string name="crown_store_action_publish_profile">投稿</string>
     <string name="crown_store_action_export_share">打包分享</string>
     <string name="crown_store_action_export_legacy_short">旧版 .mdat</string>
     <string name="crown_store_action_merge_short">合并进去</string>
     <string name="action_crown_store_delete_profile">删除</string>
     <string name="crown_store_action_back">返回</string>
-    <string name="crown_store_empty_state_title">这里还没有王冠</string>
-    <string name="crown_store_empty_state_message">等配置被合并进 GitHub Store 后，就会乖乖出现在这里。</string>
     <string name="crown_store_my_empty_message">还没有本地配置。导入或创建一套王冠配置后，它会显示在这里。</string>
     <string name="crown_store_local_tools">本地小工具</string>
     <string name="crown_store_local_profile_id">本地 ID：%1$s</string>
-    <string name="crown_store_layout_basis">适配：%1$s</string>
     <string name="crown_store_layout_orientation_landscape">横屏</string>
     <string name="crown_store_layout_orientation_portrait">竖屏</string>
     <string name="crown_store_layout_orientation_unknown">屏幕</string>
-    <string name="title_crown_store_layout_check">先看一下适配</string>
     <string name="message_crown_store_layout_match">适配：这套王冠刚好适合当前屏幕（%1$s）。</string>
     <string name="message_crown_store_layout_missing">适配：这套王冠没有屏幕信息。当前屏幕是 %1$s，导入后可能要轻轻挪一下按钮。</string>
     <string name="message_crown_store_layout_mismatch">适配：这套王冠来自 %1$s。当前屏幕是 %2$s，导入后可能要轻轻挪一下按钮。</string>
-    <string name="action_crown_store_continue_import">继续导入</string>
-    <string name="crown_store_updated_at">最近更新：%1$s</string>
-    <string name="crown_store_action_publish">投稿到王冠 Store</string>
-    <string name="crown_store_source_label">王冠 Store：%1$s</string>
-    <string name="title_crown_store_publish_metadata">让大家认识这套配置</string>
-    <string name="title_crown_store_github_authorization">需要连接 GitHub</string>
-    <string name="title_crown_store_publish_success">投稿 PR 已送出</string>
     <string name="title_crown_store_delete_profile">删掉这顶王冠？</string>
-    <string name="label_crown_store_profile_name">配置名</string>
-    <string name="label_crown_store_game">适配游戏</string>
-    <string name="label_crown_store_author">作者昵称</string>
-    <string name="label_crown_store_tags">小标签</string>
-    <string name="label_crown_store_summary">一句介绍</string>
-    <string name="hint_crown_store_profile_name">给这套配置起个名字</string>
-    <string name="hint_crown_store_game">适合哪款游戏？</string>
-    <string name="hint_crown_store_author">你想显示的名字</string>
-    <string name="hint_crown_store_tags">fps, racing, handheld</string>
-    <string name="hint_crown_store_summary">这套布局哪里好用？</string>
-    <string name="message_crown_store_publish_metadata">这些信息会显示在公开 GitHub Store 里。Moonlight V+ 会用你的 GitHub 账号创建 Pull Request，等待维护者确认。</string>
-    <string name="message_crown_store_publish_terms">我确认这套配置是我自己的，或已获得分享许可；里面没有隐私信息、token、密码、配对身份、受版权保护的媒体或不友好的内容，也接受它被公开审核或下架。</string>
-    <string name="message_crown_store_github_authorization_required">投稿前先连接 GitHub。Moonlight V+ 会帮你 fork 王冠 Store、提交配置，并打开一个 Pull Request。</string>
-    <string name="message_crown_store_github_reauthorization_required">投稿需要 GitHub public repository 权限。重新连接 GitHub、授权仓库访问后，再来投一次吧。</string>
-    <string name="message_crown_store_device_code">授权码已帮你复制好：%1$s\n\n1. 打开授权页，直接粘贴授权码。\n2. 同意 public repository 权限，Moonlight V+ 才能帮你 fork 王冠 Store 并创建 Pull Request。\n3. 授权完成后回到本页，点击“已授权，检查”。\n\n授权页：%2$s</string>
-    <string name="message_crown_store_publish_success">这套王冠配置的投稿 PR 已创建：\n%1$s\n\n%2$s</string>
     <string name="message_crown_store_delete_profile">要从“我的王冠”里删除“%1$s”吗？只会移除本地配置和里面的按钮。</string>
-    <string name="crown_store_report_issue_title">举报王冠 Store 配置：%1$s</string>
-    <string name="crown_store_report_issue_body">配置：%1$s\n来源：%2$s\n\n原因：\n请说明它看起来哪里不安全、包含隐私、侵权或不友好。</string>
-    <string name="action_crown_store_authorize_github">连接 GitHub</string>
-    <string name="action_open_pull_request">打开 Pull Request</string>
     <string name="crown_share_action_import">导入分享包</string>
     <string name="crown_share_action_import_url">从链接导入</string>
     <string name="crown_share_install_as_new">作为新配置安装</string>
@@ -1928,28 +1766,9 @@
     <string name="toast_crown_share_url_invalid">请输入有效的 HTTP 或 HTTPS 链接</string>
     <string name="toast_crown_share_url_loading">正在下载王冠分享包</string>
     <string name="toast_crown_share_url_failed">这个链接里的分享包没能导入</string>
-    <string name="toast_crown_store_loading">正在翻找王冠 Store</string>
-    <string name="toast_crown_store_empty">王冠 Store 现在还空空的</string>
-    <string name="toast_crown_store_failed">没能打开王冠 Store</string>
-    <string name="toast_crown_store_profile_failed">这套王冠配置导入失败了</string>
-    <string name="toast_crown_store_publish_started">正在把王冠配置送去 GitHub</string>
-    <string name="toast_crown_store_github_connected">GitHub 已准备好接收王冠投稿</string>
-    <string name="toast_crown_store_publish_failed">没能准备好这套王冠配置</string>
-    <string name="toast_crown_store_publish_failed_with_error">投稿失败：%1$s</string>
-    <string name="toast_crown_store_publish_terms_required">先确认投稿规则再发送哦</string>
-    <string name="toast_crown_store_publish_invalid_metadata">检查一下投稿信息：%1$s</string>
     <string name="toast_crown_store_delete_success">已删除 %1$s</string>
     <string name="toast_crown_store_delete_failed">这顶王冠没删掉，再试一次吧</string>
     <string name="toast_crown_store_delete_default_blocked">默认王冠先留着，它是小小的安全垫</string>
-    <string name="crown_store_validation_name_too_long">配置名太长了</string>
-    <string name="crown_store_validation_game_too_long">游戏名太长了</string>
-    <string name="crown_store_validation_author_too_long">作者昵称太长了</string>
-    <string name="crown_store_validation_summary_too_long">一句介绍太长了</string>
-    <string name="crown_store_validation_too_many_tags">小标签太多了</string>
-    <string name="crown_store_validation_tag_too_long">有个小标签太长了</string>
-    <string name="crown_store_validation_external_locator">Store 信息里先不要放链接或邮箱</string>
-    <string name="crown_store_validation_sensitive_metadata">不能公开隐私、token、密码或配对身份</string>
-    <string name="crown_store_validation_invalid_bundle">这不是公开用的纯王冠分享包</string>
     <string name="title_config_sync_backup_password">备份密码</string>
     <string name="summary_config_sync_backup_password_missing">保存到所选文件夹前，请先设置备份密码。</string>
     <string name="summary_config_sync_backup_password_set">已为所选文件夹中的备份保存密码。</string>
@@ -1963,17 +1782,12 @@
     <string name="toast_config_sync_password_saved">备份密码已保存</string>
     <string name="toast_config_sync_password_unavailable">自动保存到文件夹需要 Android 6.0 或更高版本</string>
     <string name="title_config_sync_restart_required">重启 Moonlight 以完成恢复</string>
-    <string name="message_config_sync_restart_required">电脑配对已恢复。请先重启 Moonlight V+，再查看已配对电脑。</string>
-    <string name="message_config_sync_restart_required_with_failures">电脑配对已恢复，但有 %1$d 项配对内容未能恢复。请先重启 Moonlight V+，再查看已配对电脑；失败的电脑可能需要重新配对。</string>
+    <string name="message_config_sync_restart_required">电脑配对已恢复。请先重启 Moonlight DS，再查看已配对电脑。</string>
+    <string name="message_config_sync_restart_required_with_failures">电脑配对已恢复，但有 %1$d 项配对内容未能恢复。请先重启 Moonlight DS，再查看已配对电脑；失败的电脑可能需要重新配对。</string>
     <string name="dialog_button_ok">确定</string>
     <string name="dialog_button_close">关闭</string>
     <string name="dialog_button_start">开始</string>
     <string name="dialog_button_stop">停止</string>
-    <string name="toast_image_picker_open_failed">无法打开图片选择器</string>
-    <string name="toast_background_image_saved">背景图片设置成功</string>
-    <string name="toast_image_save_failed">图片保存失败，请重试</string>
-    <string name="toast_image_pick_cancelled">图片选择已取消</string>
-    <string name="toast_background_image_reset">已恢复默认背景图片</string>
     <string name="bitrate_haptic_mode_all">震动：每档</string>
     <string name="bitrate_haptic_mode_key_nodes">震动：关键节点</string>
     <string name="bitrate_haptic_mode_none">震动：关闭</string>
@@ -2163,21 +1977,6 @@
     <string name="diag_pq_transfer">PQ透传</string>
 
     <!-- 赞助 -->
-    <string name="sponsor_github_title">投喂 Moonlight V+</string>
-    <string name="sponsor_github_summary">杂鱼维护组还在努力修 bug 呢，投喂一点点就能变成设备、咖啡和 token 补给。扫码或打开 GitHub Sponsors 即可。</string>
-    <string name="sponsor_github_action">打开 GitHub Sponsors</string>
-    <string name="sponsor_wechat_title">投喂 Moonlight V+</string>
-    <string name="sponsor_wechat_summary">杂鱼维护组还在努力修 bug 呢，扫码投喂一点点，就能变成设备、咖啡和 token 补给。</string>
-    <string name="sponsor_wechat_action">使用微信支付扫码</string>
-    <string name="sponsor_qr_content_description">赞助二维码</string>
-    <string name="sponsor_qr_dialog_title">赞助二维码</string>
-    <string name="sponsor_qr_long_press_hint">长按二维码可保存到相册，再用微信扫码</string>
-    <string name="sponsor_qr_saved">二维码已保存到相册</string>
-    <string name="sponsor_qr_save_failed">二维码保存失败</string>
-    <string name="sponsor_qr_permission_retry">允许存储权限后，请再次长按保存</string>
-    <string name="sponsor_qr_saved_open_wechat_hint">二维码已保存，打开微信后选择「扫一扫 → 相册」</string>
-    <string name="sponsor_open_wechat">打开微信</string>
-    <string name="sponsor_wechat_not_installed">未安装微信</string>
     <string name="toast_update_integrity_mismatch">更新下载内容不是有效安装包，请切换网络或使用浏览器下载。</string>
     <string name="iperf_output_title">测试输出</string>
     <string name="iperf_output_empty_hint">测试结果和详细日志将在这里显示。</string>
@@ -2195,7 +1994,7 @@
     <string name="handbook_error_timeout">文档加载超时，请点击重试</string>
     <string name="handbook_error_unavailable">文档手册暂时无法打开，请稍后再试</string>
     <string name="handbook_retry">点击重试</string>
-    <string name="title_about_us">关于 Moonlight V+</string>
+    <string name="title_about_us">关于 Moonlight DS</string>
     <!-- 功能发现引导 -->
     <string name="feature_guide_step">杂鱼也能发现的小秘密 · %1$d/%2$d</string>
     <string name="feature_guide_quick_actions_title">快捷栏也要我教吗？</string>
@@ -2209,8 +2008,6 @@
     <string name="pcview_guide_host_body">点主机卡片会进入应用列表，点头像会直接开始串流哦。长按卡片还藏着网络测试、副屏串流、Web UI 和更多操作。</string>
     <string name="pcview_guide_more_title">三个点也没发现吗？</string>
     <string name="pcview_guide_more_body">上次串流、未配对主机和主题切换都藏在这里。小小一颗，别再漏看啦。</string>
-    <string name="pcview_guide_scene_title">小标签可没在发呆</string>
-    <string name="pcview_guide_scene_body">点一下应用串流预设，长按保存当前分辨率、码率、HDR 和监控图层。记住了吗，小杂鱼？</string>
     <string name="appview_guide_panel_title">藏得这么浅也没发现？</string>
     <string name="appview_guide_panel_body">从顶部把手拉下，就能选背景、屏幕组合和目标显示器，也能进入完整串流设置。</string>
     <string name="appview_guide_resume_title">标题可不是摆设啦</string>
@@ -2235,7 +2032,6 @@
     <string name="network_quality_response_ms">响应 ms</string>
     <string name="network_quality_jitter_ms">波动 ms</string>
     <string name="network_quality_stable_recommendation">稳定推荐</string>
-    <string name="network_quality_save_scene_1">保存到场景 1</string>
     <string name="network_quality_use_and_continue">使用此设置继续</string>
     <string name="network_quality_continue_note">将更新当前设置，然后继续快捷启动或选择游戏；不会自动覆盖场景 1。</string>
     <string name="network_quality_no_stable_recommendation">当前连接低于 Moonlight 可安全使用的最低串流码率。</string>
@@ -2334,14 +2130,6 @@
     <string name="stick_calibration_summary">将摇杆当前位置设为此控制器的中立位置</string>
 
     <string name="osc_layout_title">虚拟手柄布局</string>
-    <string name="theme_appearance">明暗模式</string>
-    <string name="theme_accent_source">强调色来源</string>
-    <string name="theme_accent_pink">品牌粉</string>
-    <string name="theme_accent_background">跟随首页背景</string>
-    <string name="theme_icon_style">应用图标</string>
-    <string name="theme_icon_standard">标准</string>
-    <string name="theme_icon_dark">暗黑</string>
-    <string name="theme_summary">%1$s · %2$s</string>
     <string name="title_experimental_haptic_protocols">允许实验性触觉协议</string>
     <string name="summary_experimental_haptic_protocols">自动识别手柄。允许尝试已识别但尚未验证的波形协议；未知协议继续使用普通振动。更改后重新串流。</string>
     <string name="waveform_status_ready">波形通道已就绪，播放仍需触觉内容。</string>
@@ -2419,15 +2207,6 @@
     <string name="custom_frame_rate_hint">常用帧率只影响游戏菜单的展示，不会改变当前串流帧率；设置页始终保留完整列表。</string>
     <string name="custom_frame_rate_add_favorite">加入常用</string>
     <string name="frame_rate_show_all">全部帧率…</string>
-    <string name="title_float_ball_settings">悬浮球</string>
-    <string name="float_ball_appearance">悬浮显示</string>
-    <string name="float_ball_gestures">手势操作</string>
-    <string name="float_ball_settings_disabled_summary">开启悬浮球后可调整位置与操作。</string>
-    <string name="float_ball_summary_enabled">已启用 · %1$s · %2$s</string>
-    <string name="float_ball_summary_delay">%1$s 秒后隐藏</string>
-    <string name="float_ball_summary_no_hide">始终显示</string>
-    <string name="float_ball_summary_custom_position">已拖动定位</string>
-    <string name="float_ball_summary_search">%1$s\n包含：%2$s</string>
     <string name="toast_crown_config_export_failed">无法导出 Crown 配置</string>
     <string name="toast_crown_config_export_success">已导出 Crown 配置</string>
     <string name="toast_crown_config_import_failed">无法读取 Crown 配置</string>
@@ -2489,4 +2268,6 @@
     <string name="perf_sheet_previous_page">上一页</string>
     <string name="perf_sheet_next_page">下一页</string>
     <string name="perf_sheet_settings">设置</string>
+    <string name="title_sharpen_strength">锐化</string>
+    <string name="summary_sharpen_strength">在本机对画面进行锐化（0% 为关闭）。不适用于 HDR、插帧和 PyroWave。下次串流时生效。</string>
 </resources>

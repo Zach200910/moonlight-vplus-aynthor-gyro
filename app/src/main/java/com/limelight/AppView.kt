@@ -167,6 +167,8 @@ class AppView : ThemedComponentActivity(), AdapterFragmentCallbacks {
     private var notPairedExitUpdateCount = 0
     private var suspendGridUpdates = false
     private var inForeground = false
+    /** Bottom-screen quick stream settings before the stream starts (Thor). */
+    private val thorQuickSettings by lazy { ThorHomeQuickSettings(this) }
     private var showHiddenApps = false
     private val hiddenAppIds = HashSet<Int>()
 
@@ -1552,6 +1554,7 @@ class AppView : ThemedComponentActivity(), AdapterFragmentCallbacks {
         UiHelper.showDecoderCrashDialog(this)
 
         inForeground = true
+        thorQuickSettings.show()
         managerBinder?.setForegroundComputer(uuidString)
         refreshScreenCombinationModeFromPreferences()
         startComputerUpdates()
@@ -1597,6 +1600,7 @@ class AppView : ThemedComponentActivity(), AdapterFragmentCallbacks {
         super.onPause()
 
         inForeground = false
+        thorQuickSettings.dismiss()
         managerBinder?.clearForegroundComputer(uuidString)
         displayCheckRunnable?.let { displayCheckHandler.removeCallbacks(it) }
         displayCheckRunnable = null

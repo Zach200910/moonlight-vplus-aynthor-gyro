@@ -12,7 +12,7 @@
         android:id="@+id/category_item_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
+        android:minHeight="52dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:baselineAligned="false"
@@ -30,8 +30,8 @@
         <View
             android:id="@+id/category_indicator"
             android:layout_width="4dp"
-            android:layout_height="4dp"
-            android:layout_marginRight="8dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/category_indicator_shape"
             android:visibility="invisible" />
 

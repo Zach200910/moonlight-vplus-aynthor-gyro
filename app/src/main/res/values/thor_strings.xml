@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Thor home (Switch-style) chrome. -->
+    <string name="thor_home_search_hint">Make sure your PC is running Sunshine on the same network.</string>
+    <string name="thor_hint_a" translatable="false">A</string>
+    <string name="thor_hint_y" translatable="false">Y</string>
+    <string name="thor_hint_plus" translatable="false">+</string>
+    <string name="thor_hint_b" translatable="false">B</string>
+    <string name="thor_hint_ok">OK</string>
+    <string name="thor_hint_back">Back</string>
+    <string name="thor_hint_options">Options</string>
+    <string name="thor_hint_settings">Settings</string>
+    <string name="thor_hint_start">Start</string>
+    <string name="thor_battery_percent">%1$d%%</string>
+    <string name="thor_settings_button">Settings</string>
+    <string name="thor_network_button">Remote network</string>
+    <string name="thor_about_button">About</string>
+    <!-- Bottom-screen quick settings (shown before connecting) -->
+    <string name="thor_quick_title">Quick settings</string>
+    <string name="thor_quick_subtitle">Applies to your next stream.</string>
+    <string name="thor_quick_resolution">Resolution</string>
+    <string name="thor_quick_fps">Frame rate</string>
+    <string name="thor_quick_bitrate">Bitrate</string>
+    <string name="thor_quick_mbps">%1$.0f Mbps</string>
+    <string name="thor_quick_codec">Video codec</string>
+    <string name="thor_quick_codec_auto">Auto</string>
+    <string name="thor_quick_codec_h264" translatable="false">H.264</string>
+    <string name="thor_quick_codec_hevc" translatable="false">HEVC</string>
+    <string name="thor_quick_codec_av1" translatable="false">AV1</string>
+    <string name="thor_quick_hdr">HDR</string>
+    <string name="thor_quick_overlay">Performance overlay</string>
+    <string name="thor_quick_on">On</string>
+    <string name="thor_quick_off">Off</string>
+    <string name="thor_quick_all_settings">All settings</string>
+    <!-- Client-side sharpening -->
+    <string name="title_sharpen_strength">Sharpening</string>
+    <string name="summary_sharpen_strength">Sharpens the stream on this device (0% = off). Not applied to HDR streams, frame generation or PyroWave. Takes effect on the next stream.</string>
+    <string name="thor_quick_sharpen">Sharpening</string>
+    <string name="thor_quick_low">Low</string>
+    <string name="thor_quick_medium">Medium</string>
+    <string name="thor_quick_high">High</string>
+</resources>

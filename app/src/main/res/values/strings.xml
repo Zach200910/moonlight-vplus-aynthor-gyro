@@ -49,7 +49,7 @@
     <string name="sunshine_webui_auth_title">Sign in to %1$s (%2$s)</string>
     <string name="sunshine_webui_auth_user_hint">Username</string>
     <string name="sunshine_webui_auth_pass_hint">Password</string>
-    <string name="about_dialog_official_site">Official Website</string>
+    <string name="about_dialog_official_site">Moonlight</string>
     <string name="pcview_ipv6_disabled">IPv6 disabled for this PC</string>
     <string name="pcview_ipv6_enabled">IPv6 enabled for this PC</string>
 
@@ -134,7 +134,7 @@
     <string name="ip_hint">IP address of host PC</string>
     <string name="searching_pc">Searching for host PCs on your local network…\n\n
         Ensure Sunshine is running on your host PC or GameStream is enabled in the GeForce Experience SHIELD settings.</string>
-    <string name="searching_pc_title">SEARCHING FOR HOSTS…</string>
+    <string name="searching_pc_title">Looking for PCs…</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="lost_connection">Lost connection to PC</string>
@@ -585,21 +585,8 @@
     <string name="summary_osc_opacity">Make the on-screen controls more/less transparent</string>
     <string name="dialog_title_osc_opacity">On-screen control opacity</string>
     <string name="suffix_osc_opacity">%</string>
-    <string name="title_checkbox_enable_float_ball">Enable floating ball</string>
-    <string name="summary_checkbox_enable_float_ball">Show a floating ball for quick actions.</string>
-    <string name="title_list_float_ball_position">Floating ball position</string>
-    <string name="summary_list_float_ball_position">Place the floating ball at a screen edge. Dragging overrides this preset until you choose a preset again.</string>
-    <string name="title_seekbar_float_ball_auto_hide_delay">Auto-hide delay</string>
-    <string name="summary_seekbar_float_ball_auto_hide_delay">Time before the float ball automatically hides to the screen edge</string>
-    <string name="suffix_seekbar_float_ball_auto_hide_delay_ms">ms</string>
 
     <!-- Float Ball Gesture Actions -->
-    <string name="title_float_ball_single_click_action">Tap action</string>
-    <string name="summary_float_ball_single_click_action">Action performed when the floating ball is tapped once.</string>
-    <string name="title_float_ball_double_click_action">Double-tap action</string>
-    <string name="summary_float_ball_double_click_action">Action performed when the floating ball is tapped twice.</string>
-    <string name="title_float_ball_long_click_action">Long-press action</string>
-    <string name="summary_float_ball_long_click_action">Action performed when the floating ball is held down.</string>
     <string name="title_float_ball_swipe_up_action">Swipe Up Action</string>
     <string name="summary_float_ball_swipe_up_action">Action performed when swiping float ball upward</string>
     <string name="title_float_ball_swipe_down_action">Swipe Down Action</string>
@@ -613,7 +600,6 @@
     <string name="float_ball_action_none">No Action</string>
     <string name="float_ball_action_open_keyboard">Show Virtual Keyboard</string>
     <string name="float_ball_action_open_menu">Show Game Menu</string>
-    <string name="float_ball_action_toggle_visibility">Toggle Float Ball Visibility</string>
     <string name="float_ball_action_show_perf_overlay">Show Performance Overlay</string>
     <string name="float_ball_action_screenshot">Take Screenshot</string>
     <string name="float_ball_action_lock_screen">Lock Screen</string>
@@ -679,8 +665,8 @@
     <string name="toast_config_sync_password_saved">Backup password saved</string>
     <string name="toast_config_sync_password_unavailable">Automatic folder backups require Android 6.0 or later</string>
     <string name="title_config_sync_restart_required">Restart Moonlight to finish restoring</string>
-    <string name="message_config_sync_restart_required">Computer pairing was restored. Restart Moonlight V+ before checking paired computers.</string>
-    <string name="message_config_sync_restart_required_with_failures">Computer pairing was restored, but %1$d pairing items could not be restored. Restart Moonlight V+ before checking paired computers; failed computers may need to be paired again.</string>
+    <string name="message_config_sync_restart_required">Computer pairing was restored. Restart Moonlight DS before checking paired computers.</string>
+    <string name="message_config_sync_restart_required_with_failures">Computer pairing was restored, but %1$d pairing items could not be restored. Restart Moonlight DS before checking paired computers; failed computers may need to be paired again.</string>
     <string name="title_checkbox_resume_stream">Resume stream automatically</string>
     <string name="summary_checkbox_resume_stream">Automatically resume the stream when returning to Moonlight from the background</string>
 
@@ -799,14 +785,14 @@
     <string name="summary_about_mode">View app information and project details</string>
     
     <!-- About dialog strings -->
-    <string name="about_dialog_description">Moonlight V+ is an enhanced client built for Foundation Sunshine, delivering a smoother game-streaming experience.</string>
-    <string name="about_dialog_project_info">Based on Moonlight-Android open source project, crafted by the Foundation community</string>
-    <string name="about_dialog_thanks">Thank you for choosing and supporting us.</string>
-    <string name="about_dialog_bilibili_badge" translatable="false">TV</string>
-    <string name="about_dialog_bilibili_title">Moonlight V+ on Bilibili</string>
-    <string name="about_dialog_bilibili_summary">Follow for release news and feature demos</string>
-    <string name="about_dialog_handbook_action">Documentation</string>
-    <string name="about_dialog_ecosystem_action">Ecosystem</string>
+    <string name="about_dialog_description">Moonlight DS is a Moonlight V+ fork built for the AYN Thor: dual-screen controls, gyro aiming and a clean handheld interface.</string>
+    <string name="about_dialog_project_info">Fork maintained by Zach200910. Based on Moonlight V+ by qiin2333 and the Moonlight Android open-source project.</string>
+    <string name="about_dialog_thanks">Pair it with Sunshine on your PC to start streaming.</string>
+    <string name="about_dialog_bilibili_badge" translatable="false">V+</string>
+    <string name="about_dialog_bilibili_title">Built on Moonlight V+</string>
+    <string name="about_dialog_bilibili_summary">The upstream project this fork is based on</string>
+    <string name="about_dialog_handbook_action">Setup guide</string>
+    <string name="about_dialog_ecosystem_action">Releases</string>
     <string name="about_dialog_open_source_action">Licenses</string>
     <string name="open_source_title">Open source licenses</string>
     <string name="open_source_intro">Open source components included with this app and their licenses</string>
@@ -844,7 +830,7 @@
     <string name="about_dialog_ecosystem_mac_platform" translatable="false">Apple Silicon · Intel</string>
     <string name="about_dialog_ecosystem_mac_description">An enhanced Moonlight client optimized for a native macOS experience.</string>
     <string name="about_dialog_github">GitHub</string>
-    <string name="about_dialog_qq">Join QQ Group</string>
+    <string name="about_dialog_qq">Report an issue</string>
     <string name="about_dialog_close">Close</string>
     <string name="about_dialog_no_browser">No external browser is available</string>
     <string name="about_dialog_choose_browser">Open with browser</string>
@@ -918,9 +904,7 @@
     <string name="crown_config_action_import_legacy">Import Legacy .mdat</string>
     <string name="crown_config_no_profiles">No Crown profiles available</string>
     <string name="title_crown_store_view">Crown</string>
-    <string name="crown_store_tab_store">Crown Market</string>
     <string name="crown_store_tab_mine">My Crowns</string>
-    <string name="crown_store_store_summary">Browse Crown layouts shared on GitHub. Pick one you like and bring it home.</string>
     <string name="crown_store_my_summary">Manage profiles, import packages, and publish layouts.</string>
     <string name="crown_store_my_workspace_title">Your Crown space</string>
     <string name="crown_store_local_profiles">Local profiles</string>
@@ -930,71 +914,23 @@
     <string name="crown_store_legacy_tool_summary">Restore a Crown profile from a legacy .mdat file.</string>
     <string name="crown_store_action_open">Open</string>
     <string name="crown_store_action_import_package">Import package</string>
-    <string name="crown_store_action_refresh">Refresh</string>
-    <string name="crown_store_search_hint">Search crowns</string>
-    <string name="crown_store_clear_search">Clear search</string>
-    <string name="crown_store_sort_by">Sort: %1$s</string>
-    <string name="crown_store_sort_store_order">Store order</string>
-    <string name="crown_store_sort_newest">Recently updated</string>
-    <string name="crown_store_sort_oldest">Oldest updated</string>
-    <string name="crown_store_sort_name_asc">Name A–Z</string>
-    <string name="crown_store_sort_name_desc">Name Z–A</string>
-    <string name="crown_store_results_count">%1$d crowns</string>
-    <string name="crown_store_card_game">Game: %1$s</string>
-    <string name="crown_store_card_author">By %1$s</string>
-    <string name="crown_store_no_search_results">No matching crowns</string>
-    <string name="crown_store_try_another_search">Try another name, game, author, or tag.</string>
-    <string name="crown_store_action_import_profile">Bring Home</string>
-    <string name="crown_store_action_report_profile">Report</string>
     <string name="crown_store_action_edit_publish">Add Details and Submit</string>
-    <string name="crown_store_action_publish_profile">Submit</string>
     <string name="crown_store_action_export_share">Pack to Share</string>
     <string name="crown_store_action_export_legacy_short">Legacy .mdat</string>
     <string name="crown_store_action_merge_short">Merge In</string>
     <string name="action_crown_store_delete_profile">Delete</string>
     <string name="crown_store_action_back">Back</string>
-    <string name="crown_store_empty_state_title">No crowns here yet</string>
-    <string name="crown_store_empty_state_message">Once a profile is merged into the GitHub Store repo, it will pop up here.</string>
     <string name="crown_store_my_empty_message">No local profiles yet. Import or create a Crown profile and it will appear here.</string>
     <string name="crown_store_local_tools">Local toolkit</string>
     <string name="crown_store_local_profile_id">Local ID: %1$s</string>
-    <string name="crown_store_layout_basis">Fit: %1$s</string>
     <string name="crown_store_layout_orientation_landscape">landscape</string>
     <string name="crown_store_layout_orientation_portrait">portrait</string>
     <string name="crown_store_layout_orientation_unknown">screen</string>
-    <string name="title_crown_store_layout_check">Check the fit</string>
     <string name="message_crown_store_layout_match">Fit: tuned for this screen (%1$s).</string>
     <string name="message_crown_store_layout_missing">Fit: this Crown has no screen info. Your screen is %1$s, so you may need a tiny button nudge after import.</string>
     <string name="message_crown_store_layout_mismatch">Fit: this Crown was tuned for %1$s. Your screen is %2$s, so buttons may need a tiny nudge after import.</string>
-    <string name="action_crown_store_continue_import">Import Anyway</string>
-    <string name="crown_store_updated_at">Last updated: %1$s</string>
-    <string name="crown_store_action_publish">Submit to Crown Store</string>
-    <string name="crown_store_source_label">Crown Store: %1$s</string>
-    <string name="title_crown_store_publish_metadata">Introduce this profile</string>
-    <string name="title_crown_store_github_authorization">Connect GitHub first</string>
-    <string name="title_crown_store_publish_success">Store PR sent</string>
     <string name="title_crown_store_delete_profile">Delete this Crown?</string>
-    <string name="label_crown_store_profile_name">Profile name</string>
-    <string name="label_crown_store_game">Game</string>
-    <string name="label_crown_store_author">Creator</string>
-    <string name="label_crown_store_tags">Tags</string>
-    <string name="label_crown_store_summary">One-line intro</string>
-    <string name="hint_crown_store_profile_name">Give this profile a name</string>
-    <string name="hint_crown_store_game">Which game is it for?</string>
-    <string name="hint_crown_store_author">Name to show</string>
-    <string name="hint_crown_store_tags">fps, racing, handheld</string>
-    <string name="hint_crown_store_summary">What makes this layout shine?</string>
-    <string name="message_crown_store_publish_metadata">These details appear in the public GitHub Store. Moonlight V+ will create a pull request from your account for review.</string>
-    <string name="message_crown_store_publish_terms">I confirm this profile is mine or shared with permission, contains no private data, tokens, passwords, pairing identity, copyrighted media, or abusive content, and may be reviewed or removed from the public GitHub Store.</string>
-    <string name="message_crown_store_github_authorization_required">Connect GitHub before submitting. Moonlight V+ will fork the Crown Store, commit the profile, and open a pull request for you.</string>
-    <string name="message_crown_store_github_reauthorization_required">Submitting needs GitHub public repository access. Reconnect GitHub, approve repository access, then send it again.</string>
-    <string name="message_crown_store_device_code">Code copied for you: %1$s\n\n1. Open the authorization page and paste the code.\n2. Approve public repository access so Moonlight V+ can fork the Crown Store and open a pull request.\n3. Return here after authorization, then tap I have authorized.\n\nAuthorization page: %2$s</string>
-    <string name="message_crown_store_publish_success">Your Crown profile submission PR is ready:\n%1$s\n\n%2$s</string>
     <string name="message_crown_store_delete_profile">Delete \"%1$s\" from My Crowns? This only removes the local profile and its buttons.</string>
-    <string name="crown_store_report_issue_title">Report Crown Store profile: %1$s</string>
-    <string name="crown_store_report_issue_body">Profile: %1$s\nSource: %2$s\n\nReason:\nPlease describe what looks unsafe, private, infringing, or abusive.</string>
-    <string name="action_crown_store_authorize_github">Connect GitHub</string>
-    <string name="action_open_pull_request">Open pull request</string>
     <string name="crown_share_action_import">Import Share Package</string>
     <string name="crown_share_action_import_url">Import from Link</string>
     <string name="crown_share_install_as_new">Install as New</string>
@@ -1013,28 +949,9 @@
     <string name="toast_crown_share_url_invalid">Enter a valid HTTP or HTTPS link</string>
     <string name="toast_crown_share_url_loading">Downloading Crown share package</string>
     <string name="toast_crown_share_url_failed">Could not import the package from this link</string>
-    <string name="toast_crown_store_loading">Checking Crown Store</string>
-    <string name="toast_crown_store_empty">Crown Store is still empty</string>
-    <string name="toast_crown_store_failed">Could not open Crown Store</string>
-    <string name="toast_crown_store_profile_failed">This Crown profile did not import</string>
-    <string name="toast_crown_store_publish_started">Sending Crown profile to GitHub</string>
-    <string name="toast_crown_store_github_connected">GitHub is connected for Crown Store submissions</string>
-    <string name="toast_crown_store_publish_failed">Could not prepare this Crown profile</string>
-    <string name="toast_crown_store_publish_failed_with_error">Submission failed: %1$s</string>
-    <string name="toast_crown_store_publish_terms_required">Confirm the publishing rules before submitting</string>
-    <string name="toast_crown_store_publish_invalid_metadata">Check the Store fields: %1$s</string>
     <string name="toast_crown_store_delete_success">Deleted %1$s</string>
     <string name="toast_crown_store_delete_failed">Could not delete this Crown</string>
     <string name="toast_crown_store_delete_default_blocked">The default Crown stays as a tiny safety net</string>
-    <string name="crown_store_validation_name_too_long">profile name is too long</string>
-    <string name="crown_store_validation_game_too_long">game name is too long</string>
-    <string name="crown_store_validation_author_too_long">creator name is too long</string>
-    <string name="crown_store_validation_summary_too_long">intro is too long</string>
-    <string name="crown_store_validation_too_many_tags">too many tags</string>
-    <string name="crown_store_validation_tag_too_long">one tag is too long</string>
-    <string name="crown_store_validation_external_locator">links and email addresses cannot be published in Store fields</string>
-    <string name="crown_store_validation_sensitive_metadata">private data, tokens, passwords, or pairing identity cannot be published</string>
-    <string name="crown_store_validation_invalid_bundle">this is not a public Crown-only share package</string>
     <string name="toast_crown_config_export_success">Crown configuration exported</string>
     <string name="toast_crown_config_export_failed">Unable to export Crown configuration</string>
     <string name="toast_crown_config_import_success">Crown configuration imported</string>
@@ -1069,23 +986,11 @@
     <string name="summary_use_external_display">When a second display is connected, show the stream there instead of on this device\'s built-in display.</string>
     
     <!-- Background image API -->
-    <string name="title_background_image_api">Custom background URL</string>
-    <string name="summary_background_image_api">Enter an HTTPS image API or a direct image URL. Clearing it returns the source to Smart default.</string>
-    <string name="dialog_title_background_image_api">Custom background URL</string>
-    <string name="dialog_message_background_image_api">Enter a complete HTTPS image API or direct image URL.</string>
 
     <!-- Background source (issue #263) -->
-    <string name="title_background_source">Background source</string>
-    <string name="summary_background_source">Choose the home-screen background provider, a local image, or no background.</string>
     <string name="background_source_auto">Smart default (recommended)</string>
-    <string name="background_source_picsum">Photography (Lorem Picsum)</string>
-    <string name="background_source_pipw">Animé (Pipw)</string>
     <string name="background_source_api">Custom API URL</string>
     <string name="background_source_local">Local image</string>
-    <string name="background_source_none">No background</string>
-    <string name="background_source_dialog_title">Pick a background style</string>
-    <string name="background_source_dialog_message">Choose the style of random wallpapers shown on the home screen. You can change this anytime in Settings.</string>
-    <string name="background_source_dialog_later">Decide later</string>
 
     <!-- Crash report prompt -->
     <string name="crash_report_dialog_title">Moonlight closed unexpectedly last time</string>
@@ -1109,12 +1014,8 @@
     <string name="crash_report_unknown">Unknown</string>
     
     <!-- Local image picker -->
-    <string name="title_local_image_picker">Choose local background image</string>
-    <string name="summary_local_image_picker">Select one image from this device for the home-screen background.</string>
     
     <!-- Reset background image -->
-    <string name="title_reset_background_image">Return to smart background</string>
-    <string name="summary_reset_background_image">Clear the custom source and use the recommended automatic background again.</string>
     
     <!-- Reverse resolution -->
     <string name="title_checkbox_reverse_resolution">Swap stream width and height</string>
@@ -1123,25 +1024,10 @@
     <string name="summary_checkbox_rotable_screen">Rotate the stream layout when this device\'s orientation changes.</string>
     
     <!-- Moonlight V+ PC download -->
-    <string name="title_moonlight_vplus_pc_download">Moonlight V+ PC Download</string>
     
     <!-- Analytics settings -->
-    <string name="title_enable_analytics">Enable Analytics</string>
-    <string name="summary_enable_analytics">Help improve the app by sharing anonymous usage statistics</string>
 
     <!-- Tip strings -->
-    <string name="tip_esc_exit">💡 Tip: Use the "Exit" button to quickly and completely exit the stream, restoring your screen to its pre-stream state~</string>
-    <string name="tip_double_tap_mouse">💡 Tip: Long press the top blank area on the host list page to download the current wallpaper~</string>
-    <string name="tip_long_press_controller">💡 Tip: Long press an app to choose virtual display streaming, super convenient!</string>
-    <string name="tip_volume_keys">💡 Tip: Using 5GHz WiFi provides a better experience, lightning fast speeds~</string>
-    <string name="tip_wallpaper_change">💡 Tip: The wallpaper API option can set the API for random wallpaper sources, or a single image address</string>
-    <string name="tip_5ghz_wifi">💡 Tip: Using "Balanced" frame rate mode gives you the best balance of frame rate and latency, perfect!</string>
-    <string name="tip_close_apps">💡 Tip: Enabling HDR provides better color and contrast performance. In Sunshine base version, binding the corresponding HDR profile can more precisely sync with the client screen, gorgeous colors~</string>
-    <string name="tip_home_saves">💡 Tip: The 5 small sharks on the home page can quickly save and switch streaming configurations~</string>
-    <string name="tip_hdr_colors">💡 Tip: Adjusting resolution can balance quality and performance, find the perfect settings~</string>
-    <string name="tip_touch_modes">💡 Tip: You can switch touch modes in the game menu. Enhanced multi-touch is suitable for mobile games, trackpad mode is great for office work. Find the operation method that suits you best~</string>
-    <string name="tip_custom_keys">💡 Tip: You can add custom key combinations, like Ctrl+Shift+Esc to quickly open Task Manager, making operations more convenient~</string>
-    <string name="tip_performance_overlay">💡 Tip: customize the performance overlay and its gestures in the game menu.</string>
     <string name="title_perf_overlay_style">Overlay style</string>
     <string name="perf_overlay_style_mini">Mini</string>
     <string name="perf_overlay_style_standard">Standard</string>
@@ -1175,7 +1061,6 @@
     <string name="perf_hud_long_press_hint">Long-press a metric to see what it means.</string>
     <string name="perf_hud_hint">💡 Tip: customize the performance overlay and its gestures in the game menu.</string>
     <string name="perf_hud_dock_orientation_hint">The selected layout will apply when the overlay is no longer docked.</string>
-    <string name="tip_performance_overlay_classic">💡 Tip: customize the performance overlay and its gestures in the game menu.</string>
     <string name="perf_hud_label_one_percent_low" formatted="false">1%L</string>
     <string name="perf_hud_label_latency">Latency</string>
     <string name="perf_hud_label_latency_chain">Latency chain (est.)</string>
@@ -1229,11 +1114,6 @@
     <string name="perf_hud_host_latency_info">Host on the HUD is the time the host spends on one frame (capture plus encode), reported by the host.\n\nReference:\n• Under 5 ms: the host is relaxed\n• 5–10 ms: normal\n• Over 10 ms: the host is busy, check the game or background apps\n\nWhat\'s 🧋:\n• Shown when the host doesn\'t report this, so grab a milk tea\n• A host with Ver.V+ support fills it in ♡</string>
     <string name="perf_hud_packet_loss_info" formatted="false">Loss on the HUD is the share of video packets the network dropped recently.\n\nColors:\n• Green: under 1%\n• Yellow: 1–5%, occasional artifacts or hitches\n• Red: 5% and up, the mood turns into 📶\n\nFactors:\n• Wi‑Fi signal and band, 2.4GHz drops the most\n• Router performance\n• Bitrate above what the network can carry\n\n💡 Long-press the moon for a stream check-up and suggested fixes.</string>
     <string name="perf_hud_one_percent_low_info" formatted="false">1%L on the HUD is the frame rate of the slowest 1% of frames. It catches micro-stutter the average hides.\n\nHow it\'s computed:\n• Record each frame\'s render interval\n• Take the 99th percentile, the slowest 1%\n• Convert to FPS: 1000 ÷ that interval\n\nColors vs target:\n• Green: 85% and up\n• Yellow: 65–85%, occasional hitches\n• Red: below 65%, clear stutter\n\n💡 Streaming 101: full average FPS but low 1%L usually means network jitter or a host hiccup~</string>
-    <string name="tip_audio_config">💡 Tip: Enabling Dolby Atmos or DTS:X provides a more immersive audio experience, and you need to enable the system equalizer for the best effect~</string>
-    <string name="tip_external_display">💡 Tip: When connecting an external display, you can choose to display the stream on the external display in settings, making big screen gaming even more enjoyable~</string>
-    <string name="tip_virtual_display">💡 Tip: Virtual display function can create independent display spaces, especially suitable for multi-tasking scenarios, making streaming more flexible~</string>
-    <string name="tip_dynamic_bitrate">💡 Tip: When using HEVC or AV1 decoders, you can adjust the bitrate during streaming without exiting, finding the optimal bitrate for your network and device~</string>
-    <string name="tip_cards_show">💡 Tip: You can edit the displayed function cards in the game menu. Unnecessary cards can be hidden~</string>
 
     <!-- 触控模式切换菜单 -->
     <string name="game_menu_switch_touch_mode">Control method</string>
@@ -1454,51 +1334,25 @@
     <string name="time_unknown">Unknown time</string>
 
     <!-- PcView hardcoded strings -->
-    <string name="storage_permission_required">Storage permission required to save images, please grant permission in settings</string>
-    <string name="downloading_image_please_wait">Re-downloading image, please wait...</string>
     <string name="image_download_failed_retry">Image download failed, please retry</string>
     <string name="image_download_failed_with_error">Image download failed: %1$s</string>
-    <string name="image_not_loaded_please_retry">Image not loaded, please try again later</string>
     <string name="image_invalid">Invalid image</string>
-    <string name="image_saved_successfully">Image successfully saved to system directory (Pictures/vplus)</string>
-    <string name="image_save_failed_with_error">Image save failed: %1$s</string>
     <string name="config_save_failed">Configuration save failed</string>
-    <string name="scene_config_applied">Applied scene %1$d configuration: %2$dx%3$d@%4$dFPS %5$.2fMbps %6$s HDR %7$s</string>
     <string name="scene_not_configured">Scene %1$d not configured</string>
-    <string name="scene_empty_title">Scene %1$d is empty</string>
-    <string name="scene_empty_message">Save the current quality and display settings to Scene %1$d so this shortcut can be used next time?</string>
-    <string name="scene_configured_content_description">Scene %1$d saved. Tap to apply, long press to overwrite.</string>
-    <string name="scene_empty_content_description">Scene %1$d empty. Tap to save current settings.</string>
-    <string name="config_apply_failed">Configuration apply failed</string>
     <string name="pcview_toolbar_menu">PC view actions</string>
     <string name="pcview_toolbar_restore_session">Restore Session</string>
     <string name="pcview_toolbar_toggle_unpaired_show">Show Unpaired Hosts</string>
     <string name="pcview_toolbar_toggle_unpaired_hide">Hide Unpaired Hosts</string>
-    <string name="pcview_toolbar_theme">Theme</string>
-    <string name="pcview_theme_dialog_title">Theme</string>
-    <string name="pcview_theme_follow_system">Follow System</string>
-    <string name="pcview_theme_light">Light</string>
-    <string name="pcview_theme_dark">Dark</string>
     <string name="pcview_theme_applied">Theme set to %1$s</string>
 
     <string name="pcview_press_back_again_to_exit">Press Back again to exit</string>
-    <string name="save_to_scene">Save to Scene %1$d</string>
     <string name="overwrite_current_config">Overwrite current configuration?</string>
-    <string name="overwrite_scene_config">Save the current quality and display settings to Scene %1$d? This will overwrite the saved scene.</string>
-    <string name="save_current_config_to_scene">SAVE CURRENT</string>
-    <string name="scene_saved_successfully">Scene %1$d saved successfully</string>
     <string name="unable_to_get_pc_address">Unable to get PC address: %1$s</string>
     <string name="send_sleep_command">Send Sleep Command</string>
     <string name="network_bandwidth_test">Network Bandwidth Test (iPerf3)</string>
     <string name="no_online_computer_with_running_game">No online computer with running game found</string>
     <string name="restoring_session">Restoring session: %1$s</string>
-    <string name="please_wait_seconds">Please wait %1$ds</string>
-    <string name="daily_limit_reached">Daily limit reached (5/5). Try again tomorrow!</string>
-    <string name="refreshing_with_remaining">Refreshing... (%1$d left today)</string>
-    <string name="background_refreshed_with_remaining">Background refreshed! (%1$d left today)</string>
     <string name="refresh_failed_please_retry">Refresh failed, please retry</string>
-    <string name="refresh_failed_with_error">Refresh failed: %1$s</string>
-    <string name="refresh_failed_network">Network unavailable, can’t fetch background right now</string>
 
     <string name="game_menu_toggle_remote_mouse">Show/Hide Remote Mouse</string>
     <string name="toast_remote_mouse_toast">Remote mouse displayed/hidden</string>
@@ -1518,28 +1372,6 @@
     <string name="hevc_low_latency_off">Off</string>
 
     <!-- Frame Generation -->
-    <string name="title_developer_unlock">Unlock developer features</string>
-    <string name="summary_developer_unlock_locked">Verify your GitHub Star to unlock developer features.</string>
-    <string name="summary_developer_unlock_unlocked">Developer features are unlocked on this device. Thank you for supporting Moonlight V+.</string>
-    <string name="message_developer_unlock_required">Developer features are available to Moonlight V+ supporters. Sign in with GitHub and the app will verify that your account has starred the project. The same authorization can also publish Crown Store pull requests when you choose to share a profile.</string>
-    <string name="message_developer_unlock_done">Developer features are unlocked on this device. You can recheck your Star or open the project page.</string>
-    <string name="message_developer_oauth_unconfigured">This build has not configured a GitHub OAuth client ID, so Moonlight V+ cannot unlock developer features yet. Set githubOAuthClientId in local.properties, pass -PgithubOAuthClientId=..., or set GITHUB_OAUTH_CLIENT_ID when building.</string>
-    <string name="message_developer_device_code">Code copied for you: %1$s\n\n1. Open the authorization page and paste the code.\n2. Approve GitHub access, then Star Moonlight V+.\n3. Return here after authorization, then tap I have authorized.\n\nAuthorization page: %2$s</string>
-    <string name="developer_device_code_clip_label">GitHub authorization code</string>
-    <string name="message_developer_star_not_found">GitHub authorization succeeded, but the Star is not visible for this account yet. Star Moonlight V+, wait a moment if you just starred it, then verify again.</string>
-    <string name="action_developer_open_project">Open project</string>
-    <string name="action_developer_open_authorization">Open authorization</string>
-    <string name="action_developer_check_authorization">I have authorized</string>
-    <string name="action_developer_verify_star">Verify GitHub Star</string>
-    <string name="toast_developer_unlocked">Developer features unlocked. Thanks for the star!</string>
-    <string name="toast_developer_oauth_unconfigured">GitHub OAuth client ID is not configured for this build.</string>
-    <string name="toast_developer_verification_started">Starting developer feature unlock…</string>
-    <string name="toast_developer_verification_running">Developer feature unlock is already running.</string>
-    <string name="toast_developer_device_code_copied">GitHub code copied. Paste it on the authorization page.</string>
-    <string name="toast_developer_authorization_pending">Still waiting for GitHub authorization. Try again in a few seconds.</string>
-    <string name="toast_developer_verification_expired">GitHub authorization expired. Start verification again.</string>
-    <string name="toast_developer_verification_failed">Developer feature unlock failed: %1$s</string>
-    <string name="toast_developer_open_project_failed">Unable to open project page: %1$s</string>
     <string name="title_framegen_enabled">Frame generation</string>
     <string name="summary_framegen_enabled">Generate extra frames on the phone for smoother streaming. For 120 Hz output, set stream FPS to 60; values above half of the target refresh rate will not improve frame generation.</string>
     <string name="summary_framegen_enabled_locked">Unlock developer features first to enable frame generation.</string>
@@ -1698,11 +1530,6 @@ Tap again to replace it.</string>
     <string name="layout_capability_diagnostic_text_a5e80">Capability Detection</string>
     <string name="layout_capability_diagnostic_text_41b60">HDR · Decoder · Display</string>
     <string name="layout_capability_diagnostic_text_79d3a">Copy</string>
-    <string name="layout_pc_view_cd_1daed">Scene 1</string>
-    <string name="layout_pc_view_cd_f2a94">Scene 2</string>
-    <string name="layout_pc_view_cd_0a468">Scene 3</string>
-    <string name="layout_pc_view_cd_94f3b">Scene 4</string>
-    <string name="layout_pc_view_cd_4b18b">Scene 5</string>
     <string name="layout_address_list_item_text_12b27">Local Network</string>
     <string name="layout_address_list_item_cd_30f7d">Connect</string>
     <string name="layout_config_item_text_c8ce4">Rename</string>
@@ -2025,7 +1852,7 @@ Tap again to replace it.</string>
     <string name="update_install_permission_msg">To auto-install updates, please grant install permission.\n\nTap OK to open settings. Download will start automatically after you return.</string>
     <string name="toast_cannot_open_settings">Cannot open settings page</string>
     <string name="toast_download_service_unavailable">System download service unavailable</string>
-    <string name="update_download_notification_title">Moonlight V+ Update</string>
+    <string name="update_download_notification_title">Moonlight DS Update</string>
     <string name="toast_download_started">Download started, tap notification to install when complete</string>
     <string name="toast_download_failed">Download failed: %s</string>
     <string name="update_downloading_title">Downloading Update</string>
@@ -2042,11 +1869,6 @@ Tap again to replace it.</string>
     <string name="toast_install_launch_failed">Failed to launch installer, please install manually from downloads</string>
     <string name="toast_external_display_disconnected">External display disconnected, switching to main screen</string>
     <string name="toast_switched_to_external_display">Streaming switched to external display. If landscape is not shown correctly, try rotating on host.</string>
-    <string name="toast_image_picker_open_failed">Cannot open image picker</string>
-    <string name="toast_background_image_saved">Background image set</string>
-    <string name="toast_image_save_failed">Could not save image. Try again.</string>
-    <string name="toast_image_pick_cancelled">Image selection cancelled</string>
-    <string name="toast_background_image_reset">Default background restored</string>
     <string name="bitrate_haptic_mode_all">Haptics: every step</string>
     <string name="bitrate_haptic_mode_key_nodes">Haptics: milestones</string>
     <string name="bitrate_haptic_mode_none">Haptics: off</string>
@@ -2254,22 +2076,6 @@ Tap again to replace it.</string>
     <string name="seekbar_increase">Increase</string>
 
     <!-- Sponsorship -->
-    <string name="sponsor_github_url" translatable="false">https://github.com/sponsors/qiin2333</string>
-    <string name="sponsor_github_title">Feed Moonlight V+</string>
-    <string name="sponsor_github_summary">Tiny sponsor energy keeps fixes, devices, and token-fueled tinkering alive. Scan the code or open GitHub Sponsors.</string>
-    <string name="sponsor_github_action">Open GitHub Sponsors</string>
-    <string name="sponsor_wechat_title">Feed Moonlight V+</string>
-    <string name="sponsor_wechat_summary">Scan with WeChat Pay to toss in a tiny token snack for continued development.</string>
-    <string name="sponsor_wechat_action">Scan with WeChat Pay</string>
-    <string name="sponsor_qr_content_description">Sponsor QR code</string>
-    <string name="sponsor_qr_dialog_title">Sponsor QR code</string>
-    <string name="sponsor_qr_long_press_hint">Long press the QR code to save it for scanning in WeChat</string>
-    <string name="sponsor_qr_saved">QR code saved to Pictures/Moonlight V+</string>
-    <string name="sponsor_qr_save_failed">Couldn’t save the QR code</string>
-    <string name="sponsor_qr_permission_retry">Allow storage access, then long press again to save</string>
-    <string name="sponsor_qr_saved_open_wechat_hint">Saved. In WeChat, choose Scan → Album</string>
-    <string name="sponsor_open_wechat">Open WeChat</string>
-    <string name="sponsor_wechat_not_installed">WeChat isn’t installed</string>
 
     <string name="iperf_output_title">Test output</string>
     <string name="iperf_output_empty_hint">Test results and detailed logs will appear here.</string>
@@ -2287,7 +2093,7 @@ Tap again to replace it.</string>
     <string name="handbook_error_timeout">The handbook took too long to respond. Please try again.</string>
     <string name="handbook_error_unavailable">The handbook is temporarily unavailable. Please try again later.</string>
     <string name="handbook_retry">Tap to retry</string>
-    <string name="title_about_us">About Moonlight V+</string>
+    <string name="title_about_us">About Moonlight DS</string>
     <!-- Feature discovery -->
     <string name="feature_guide_step">A SECRET EVEN ROOKIES FIND · %1$d/%2$d</string>
     <string name="feature_guide_quick_actions_title">Need help with shortcuts too?</string>
@@ -2301,8 +2107,6 @@ Tap again to replace it.</string>
     <string name="pcview_guide_host_body">Tap the PC card for its app list, or tap the avatar to stream right away. Long-press the card for network tests, secondary-screen streaming, Web UI, and more hidden tricks.</string>
     <string name="pcview_guide_more_title">You missed the three dots?</string>
     <string name="pcview_guide_more_body">Your last session, unpaired PCs, and theme switch are all hiding here. Tiny button, useful secrets—don’t miss it again.</string>
-    <string name="pcview_guide_scene_title">Those tiny tabs aren’t idle</string>
-    <string name="pcview_guide_scene_body">Tap to apply a streaming preset. Long-press to save resolution, bitrate, HDR, and overlay settings. Remember that, little rookie?</string>
     <string name="appview_guide_panel_title">It wasn’t hiding that well</string>
     <string name="appview_guide_panel_body">Pull down the top handle for background style, screen combinations, target display, and complete streaming settings.</string>
     <string name="appview_guide_resume_title">That title isn’t decoration</string>
@@ -2327,7 +2131,6 @@ Tap again to replace it.</string>
     <string name="network_quality_response_ms">Response ms</string>
     <string name="network_quality_jitter_ms">Variation ms</string>
     <string name="network_quality_stable_recommendation">Stable recommendation</string>
-    <string name="network_quality_save_scene_1">Save to Scene 1</string>
     <string name="network_quality_use_and_continue">Use settings and continue</string>
     <string name="network_quality_continue_note">Updates the current settings, then continues to quick launch or game selection. Scene 1 is not overwritten.</string>
     <string name="network_quality_no_stable_recommendation">This connection is below Moonlight’s minimum safe streaming bitrate.</string>
@@ -2417,14 +2220,6 @@ Tap again to replace it.</string>
     <string name="stick_calibration_summary">Use the current stick position as neutral for this controller</string>
 
     <string name="osc_layout_title">Virtual controller layout</string>
-    <string name="theme_appearance">Appearance</string>
-    <string name="theme_accent_source">Accent color</string>
-    <string name="theme_accent_pink">Brand pink</string>
-    <string name="theme_accent_background">Follow home background</string>
-    <string name="theme_icon_style">App icon</string>
-    <string name="theme_icon_standard">Standard</string>
-    <string name="theme_icon_dark">Dark</string>
-    <string name="theme_summary">%1$s · %2$s</string>
     <string name="title_experimental_haptic_protocols">Allow experimental haptic protocols</string>
     <string name="summary_experimental_haptic_protocols">Controllers are detected automatically. Allow attempts to use recognized but unverified waveform protocols. Unknown protocols keep ordinary vibration. Reconnect the stream after changing.</string>
     <string name="waveform_status_ready">Waveform channel ready; playback requires haptic content.</string>
@@ -2505,15 +2300,6 @@ Tap again to replace it.</string>
     <string name="custom_frame_rate_hint">Favorites only change what the in-game menu shows. They never change the current stream frame rate, and Settings always keeps the full list.</string>
     <string name="custom_frame_rate_add_favorite">Add to favorites</string>
     <string name="frame_rate_show_all">All frame rates…</string>
-    <string name="title_float_ball_settings">Floating ball</string>
-    <string name="float_ball_appearance">Display</string>
-    <string name="float_ball_gestures">Gestures</string>
-    <string name="float_ball_settings_disabled_summary">Enable the floating ball to adjust its position and actions.</string>
-    <string name="float_ball_summary_enabled">Enabled · %1$s · %2$s</string>
-    <string name="float_ball_summary_delay">Hide after %1$s s</string>
-    <string name="float_ball_summary_no_hide">Always visible</string>
-    <string name="float_ball_summary_custom_position">Dragged position</string>
-    <string name="float_ball_summary_search">%1$s\nIncludes: %2$s</string>
     <string name="display_resolution_current_not_saved">Currently in use · Not saved in list</string>
     <!-- Previously hard-coded strings -->
     <string name="pacing_label_precise_sync_enhanced">Precise sync (enhanced)</string>

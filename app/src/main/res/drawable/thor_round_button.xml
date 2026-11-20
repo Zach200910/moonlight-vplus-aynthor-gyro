@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Circular system button (Switch home bottom row). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/thor_surface_elevated" />
+            <stroke android:width="3dp" android:color="@color/thor_accent" />
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/thor_surface_elevated" />
+            <stroke android:width="3dp" android:color="@color/thor_accent" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/thor_surface" />
+            <stroke android:width="@dimen/thor_border_width" android:color="@color/thor_border" />
+        </shape>
+    </item>
+</selector>
