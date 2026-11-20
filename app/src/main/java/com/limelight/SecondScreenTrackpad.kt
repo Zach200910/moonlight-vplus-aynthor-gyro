@@ -77,9 +77,11 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import com.limelight.binding.input.GyroCalibration
+import com.limelight.binding.input.GyroRatchetPlacement
 import com.limelight.nvstream.input.ControllerPacket
 import com.limelight.nvstream.input.MouseButtonPacket
 import com.limelight.nvstream.jni.MoonBridge
+import com.limelight.ui.GyroRatchetButton
 import java.io.File
 import java.io.InputStream
 import java.util.Locale
@@ -95,6 +97,9 @@ class SecondScreenTrackpad(private val game: Game) {
     private val actions by lazy { StreamActionExecutor(game, { game.conn }) }
     private val prefs by lazy { game.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
+    /** Whether the bottom-screen touchpad is up. */
+    val isShowing: Boolean get() = presentation != null
+
     @Volatile private var lastTouchUptime = 0L
     @Volatile private var touchesDown = 0
 
@@ -108,6 +113,7 @@ class SecondScreenTrackpad(private val game: Game) {
         try {
             created.show()
             presentation = created
+            game.refreshGyroRatchet()
             LimeLog.info("Bottom-screen DS4 touchpad shown on display ${display.displayId}")
         } catch (e: WindowManager.InvalidDisplayException) {
             LimeLog.warning("Bottom-screen DS4 touchpad unavailable: ${e.message}")
@@ -117,6 +123,7 @@ class SecondScreenTrackpad(private val game: Game) {
     fun dismiss() {
         val current = presentation ?: return
         presentation = null
+        game.refreshGyroRatchet()
         current.release()
         try {
             current.dismiss()
@@ -493,7 +500,11 @@ class SecondScreenTrackpad(private val game: Game) {
         private val wheel = RadialWheelView(context, mainItems)
         private val hub = HubView(context, wheel, mainItems.size)
         private val banner = BannerView(context)
-        private val gamepadViews: List<View> = listOf(leftPad, rightPad, hub, leftClick, rightClick, typeButton)
+        // Gyro ratchet, top-right over the right pad, when the setting puts it on this screen.
+        private val ratchet: GyroRatchetButton? =
+            if (GyroRatchetPlacement.read(context) == GyroRatchetPlacement.BOTTOM && GyroRatchetButton.deviceHasGyro(context))
+                GyroRatchetButton(context, releaseOnFocusLoss = false) else null
+        private val gamepadViews: List<View> = listOfNotNull(leftPad, rightPad, hub, leftClick, rightClick, typeButton, ratchet)
 
         // Keyboard page
         private val mousePad = MousePadView(context)
@@ -723,6 +734,10 @@ class SecondScreenTrackpad(private val game: Game) {
                 place(leftClick, 0f, rowTop, clickW, rowBottom)
                 place(rightClick, w - clickW, rowTop, w, rowBottom)
                 place(typeButton, clickW + gap, rowTop, w - clickW - gap, rowBottom)
+                ratchet?.let {
+                    val size = GyroRatchetButton.SIZE_DP * density
+                    place(it, w - 2 * gap - size, 2 * gap, w - 2 * gap, 2 * gap + size)
+                }
             } else {
                 // [ KEYBOARD | DONE ], trackpad, [ MIDDLE | LEFT | RIGHT ], then Android's keyboard.
                 val usable = (h - imeBottom).coerceAtLeast(h * .35f)

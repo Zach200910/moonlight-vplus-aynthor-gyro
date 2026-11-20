@@ -377,6 +377,10 @@
     <string name="summary_combine_joycons">Use a first-generation left and right Joy-Con as one player, held vertically. Automatically pairs only when one unpaired controller of each side is connected. Applies to the next stream.</string>
     <string name="title_checkbox_multi_controller">Assign controllers to separate players</string>
     <string name="summary_checkbox_multi_controller">Expose each connected controller as a separate controller on the host. Turn off to combine them as one.</string>
+    <string name="title_list_gyro_ratchet_placement">Gyro pause button</string>
+    <string name="gyro_ratchet_placement_top">Top screen (stream)</string>
+    <string name="gyro_ratchet_placement_bottom">Bottom screen (touchpad)</string>
+    <string name="gyro_ratchet_placement_off">Off</string>
     <string name="title_list_game_rumble_mode">Host game rumble output</string>
     <string name="summary_list_game_rumble_mode">Choose where rumble events sent by the game are delivered. This is separate from audio-simulated vibration.</string>
     <string name="game_rumble_mode_coordinated">Coordinated vibration</string>

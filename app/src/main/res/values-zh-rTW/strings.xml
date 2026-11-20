@@ -163,6 +163,10 @@
     <string name="summary_checkbox_touch_keyboard_auto_invoke">啟用後，串流的電腦在文字方塊獲得焦點時會自動彈出其觸摸鍵盤（需要帶有虛擬觸摸屏的 Sunshine 主機）。</string>
     <string name="title_checkbox_multi_controller">將手把識別為獨立玩家</string>
     <string name="summary_checkbox_multi_controller">讓主機分別識別每個已連線手把；關閉後會將它們合併為一個手把。</string>
+    <string name="title_list_gyro_ratchet_placement">陀螺儀暫停按鈕</string>
+    <string name="gyro_ratchet_placement_top">上螢幕（串流畫面）</string>
+    <string name="gyro_ratchet_placement_bottom">下螢幕（觸控板）</string>
+    <string name="gyro_ratchet_placement_off">關閉</string>
     <string name="title_list_game_rumble_mode">主機遊戲振動輸出</string>
     <string name="summary_list_game_rumble_mode">選擇遊戲傳送的原生振動輸出到哪裡；它與根據音訊產生的模擬振動不同。</string>
     <string name="game_rumble_mode_coordinated">協同振動</string>

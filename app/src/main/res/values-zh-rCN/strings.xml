@@ -292,6 +292,10 @@
 
     <string name="title_checkbox_multi_controller">将手柄识别为独立玩家</string>
     <string name="summary_checkbox_multi_controller">让主机分别识别每个已连接手柄；关闭后会将它们合并为一个手柄。</string>
+    <string name="title_list_gyro_ratchet_placement">陀螺仪暂停按钮</string>
+    <string name="gyro_ratchet_placement_top">上屏（串流画面）</string>
+    <string name="gyro_ratchet_placement_bottom">下屏（触控板）</string>
+    <string name="gyro_ratchet_placement_off">关闭</string>
     <string name="title_list_game_rumble_mode">主机游戏振动输出</string>
     <string name="summary_list_game_rumble_mode">选择游戏发送的原生振动输出到哪里；它与根据音频生成的模拟振动不同。</string>
     <string name="game_rumble_mode_coordinated">协同振动</string>
