@@ -166,37 +166,4 @@
 
     </RelativeLayout>
 
-    <!-- Stream setting presets (scenes 1-5), left side of the hint bar: tap to apply, long-press to save -->
-    <LinearLayout
-        android:id="@+id/scenePresetContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/thor_space_xl"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/scene1Btn"
-            style="@style/ThorSceneButton"
-            android:contentDescription="@string/layout_pc_view_cd_1daed" />
-        <ImageButton
-            android:id="@+id/scene2Btn"
-            style="@style/ThorSceneButton"
-            android:contentDescription="@string/layout_pc_view_cd_f2a94" />
-        <ImageButton
-            android:id="@+id/scene3Btn"
-            style="@style/ThorSceneButton"
-            android:contentDescription="@string/layout_pc_view_cd_0a468" />
-        <ImageButton
-            android:id="@+id/scene4Btn"
-            style="@style/ThorSceneButton"
-            android:contentDescription="@string/layout_pc_view_cd_94f3b" />
-        <ImageButton
-            android:id="@+id/scene5Btn"
-            style="@style/ThorSceneButton"
-            android:contentDescription="@string/layout_pc_view_cd_4b18b" />
-    </LinearLayout>
-
 </RelativeLayout>

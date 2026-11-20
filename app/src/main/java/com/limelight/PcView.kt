@@ -168,8 +168,6 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
         private const val VPN_PERMISSION_REQUEST_CODE = 101
         private const val ADD_COMPUTER_REQUEST_CODE = 102
 
-        private const val SCENE_PREF_NAME = "SceneConfigs"
-        private const val SCENE_KEY_PREFIX = "scene_"
 
         // Menu item IDs
         private const val PAIR_ID = 2
@@ -210,7 +208,6 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
     private var completeOnCreateCalled = false
     private var pendingSplashFadeIn = true
     private var startupUpdateCheckRan = false
-    private var activeSceneNumber: Int? = null
     private var pendingAddedComputerUuid: String? = null
     private val exitGate = PcViewExitGate()
 
@@ -513,36 +510,11 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
             }
         }
 
-        // Keep the edge-anchored scene rail clear of navigation bars and display cutouts.
-        findViewById<View>(R.id.scenePresetContainer)?.let { sceneRail ->
-            val initialParams = sceneRail.layoutParams as ViewGroup.MarginLayoutParams
-            val baseBottomMargin = initialParams.bottomMargin
-            val baseEndMargin = initialParams.marginEnd
-            ViewCompat.setOnApplyWindowInsetsListener(sceneRail) { v, windowInsets ->
-                val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-                val displayCutout = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
-                val safeBottom = maxOf(systemBars.bottom, displayCutout.bottom)
-                val safeEnd = if (ViewCompat.getLayoutDirection(v) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-                    maxOf(systemBars.left, displayCutout.left)
-                } else {
-                    maxOf(systemBars.right, displayCutout.right)
-                }
-                (v.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                    bottomMargin = baseBottomMargin + safeBottom
-                    marginEnd = baseEndMargin + safeEnd
-                    v.layoutParams = this
-                }
-                windowInsets
-            }
-            ViewCompat.requestApplyInsets(sceneRail)
-        }
-
         clientName = Settings.Global.getString(contentResolver, "device_name")
             ?: Build.MODEL
             ?: "Moonlight V+ Client"
         bindThorTopBar()
 
-        initSceneButtons()
         // Surface any uncaught crash captured by CrashReporter on a previous run
         // so the user can ship the log back to the dev with one tap.
         com.limelight.crash.CrashReportPrompt.maybeShow(this)
@@ -576,13 +548,6 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
                         it,
                         getString(R.string.pcview_guide_more_title),
                         getString(R.string.pcview_guide_more_body)
-                    ))
-                }
-                findViewById<View>(R.id.scenePresetContainer)?.let {
-                    add(ViewFeatureGuideStep(
-                        it,
-                        getString(R.string.pcview_guide_scene_title),
-                        getString(R.string.pcview_guide_scene_body)
                     ))
                 }
             }
@@ -1080,316 +1045,6 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
         val newState = !pcGridAdapter.isShowUnpairedDevices()
         pcGridAdapter.setShowUnpairedDevices(newState)
         showToast(if (newState) getString(R.string.unpaired_devices_shown) else getString(R.string.unpaired_devices_hidden))
-    }
-
-    // Scene Configuration Methods
-
-    private data class SceneConfiguration(
-            val width: Int,
-            val height: Int,
-            val isNativeResolution: Boolean,
-            val isCustomResolution: Boolean,
-            val fps: Int,
-            val bitrate: Int,
-            val enableAdaptiveBitrate: Boolean,
-            val abrMode: String,
-            val videoFormat: PreferenceConfiguration.FormatOption,
-            val framePacing: Int,
-            val stretchVideo: Boolean,
-            val enableSops: Boolean,
-            val unlockFps: Boolean,
-            val reduceRefreshRate: Boolean,
-            val fullRange: Boolean,
-            val enableHdr: Boolean,
-            val enableHdrHighBrightness: Boolean,
-            val hdrMode: Int,
-            val enablePerfOverlay: Boolean,
-            val perfOverlayLocked: Boolean,
-            val perfOverlayBgOpacity: Int,
-            val perfOverlayOrientation: PreferenceConfiguration.PerfOverlayOrientation,
-            val perfOverlayPosition: PreferenceConfiguration.PerfOverlayPosition,
-            val perfOverlayStyle: PerfHudDensity
-    ) {
-        fun applyTo(prefs: PreferenceConfiguration): PreferenceConfiguration {
-            prefs.width = width
-            prefs.height = height
-            prefs.isNativeResolution = isNativeResolution
-            prefs.isCustomResolution = isCustomResolution
-            prefs.fps = fps
-            prefs.bitrate = bitrate
-            prefs.enableAdaptiveBitrate = enableAdaptiveBitrate
-            prefs.abrMode = abrMode
-            prefs.videoFormat = videoFormat
-            prefs.framePacing = framePacing
-            prefs.stretchVideo = stretchVideo
-            prefs.enableSops = enableSops
-            prefs.unlockFps = unlockFps
-            prefs.reduceRefreshRate = reduceRefreshRate
-            prefs.fullRange = fullRange
-            prefs.enableHdr = enableHdr
-            prefs.enableHdrHighBrightness = enableHdrHighBrightness
-            prefs.hdrMode = hdrMode
-            prefs.enablePerfOverlay = enablePerfOverlay
-            prefs.perfOverlayLocked = perfOverlayLocked
-            prefs.perfOverlayBgOpacity = perfOverlayBgOpacity
-            prefs.perfOverlayOrientation = perfOverlayOrientation
-            prefs.perfOverlayPosition = perfOverlayPosition
-            prefs.perfOverlayStyle = perfOverlayStyle
-            return prefs
-        }
-
-        fun toJson(): JSONObject {
-            return JSONObject().apply {
-                put("width", width)
-                put("height", height)
-                put("isNativeResolution", isNativeResolution)
-                put("isCustomResolution", isCustomResolution)
-                put("fps", fps)
-                put("bitrate", bitrate)
-                put("enableAdaptiveBitrate", enableAdaptiveBitrate)
-                put("abrMode", abrMode)
-                put("videoFormat", videoFormat.name)
-                put("framePacing", framePacing)
-                put("stretchVideo", stretchVideo)
-                put("enableSops", enableSops)
-                put("unlockFps", unlockFps)
-                put("reduceRefreshRate", reduceRefreshRate)
-                put("fullRange", fullRange)
-                put("enableHdr", enableHdr)
-                put("enableHdrHighBrightness", enableHdrHighBrightness)
-                put("hdrMode", hdrMode)
-                put("enablePerfOverlay", enablePerfOverlay)
-                put("perfOverlayLocked", perfOverlayLocked)
-                put("perfOverlayBgOpacity", perfOverlayBgOpacity)
-                put("perfOverlayOrientation", perfOverlayOrientation.name)
-                put("perfOverlayPosition", perfOverlayPosition.name)
-                put("perfOverlayStyle", perfOverlayStyle.prefValue)
-            }
-        }
-
-        companion object {
-            fun fromPreferences(prefs: PreferenceConfiguration): SceneConfiguration {
-                return SceneConfiguration(
-                        width = prefs.width,
-                        height = prefs.height,
-                        isNativeResolution = prefs.isNativeResolution,
-                        isCustomResolution = prefs.isCustomResolution,
-                        fps = prefs.fps,
-                        bitrate = prefs.bitrate,
-                        enableAdaptiveBitrate = prefs.enableAdaptiveBitrate,
-                        abrMode = prefs.abrMode,
-                        videoFormat = prefs.videoFormat,
-                        framePacing = prefs.framePacing,
-                        stretchVideo = prefs.stretchVideo,
-                        enableSops = prefs.enableSops,
-                        unlockFps = prefs.unlockFps,
-                        reduceRefreshRate = prefs.reduceRefreshRate,
-                        fullRange = prefs.fullRange,
-                        enableHdr = prefs.enableHdr,
-                        enableHdrHighBrightness = prefs.enableHdrHighBrightness,
-                        hdrMode = prefs.hdrMode,
-                        enablePerfOverlay = prefs.enablePerfOverlay,
-                        perfOverlayLocked = prefs.perfOverlayLocked,
-                        perfOverlayBgOpacity = prefs.perfOverlayBgOpacity,
-                        perfOverlayOrientation = prefs.perfOverlayOrientation,
-                        perfOverlayPosition = prefs.perfOverlayPosition,
-                        perfOverlayStyle = prefs.perfOverlayStyle)
-            }
-
-            fun fromJson(json: JSONObject, fallback: PreferenceConfiguration): SceneConfiguration {
-                val width = json.optInt("width", fallback.width)
-                val height = json.optInt("height", fallback.height)
-                val resolutionMode = resolveSceneResolutionMode(
-                    json,
-                    width,
-                    height,
-                    PreferenceConfiguration.RESOLUTIONS.asList()
-                )
-                return SceneConfiguration(
-                        width = width,
-                        height = height,
-                        isNativeResolution = resolutionMode.isNative,
-                        isCustomResolution = resolutionMode.isCustom,
-                        fps = json.optInt("fps", fallback.fps),
-                        bitrate = json.optInt("bitrate", fallback.bitrate),
-                        enableAdaptiveBitrate = json.optBoolean("enableAdaptiveBitrate", fallback.enableAdaptiveBitrate),
-                        abrMode = json.optString("abrMode", fallback.abrMode),
-                        videoFormat = parseEnum(json.optString("videoFormat", fallback.videoFormat.name), fallback.videoFormat),
-                        framePacing = json.optInt("framePacing", fallback.framePacing),
-                        stretchVideo = json.optBoolean("stretchVideo", fallback.stretchVideo),
-                        enableSops = json.optBoolean("enableSops", fallback.enableSops),
-                        unlockFps = json.optBoolean("unlockFps", fallback.unlockFps),
-                        reduceRefreshRate = json.optBoolean("reduceRefreshRate", fallback.reduceRefreshRate),
-                        fullRange = json.optBoolean("fullRange", fallback.fullRange),
-                        enableHdr = json.optBoolean("enableHdr", fallback.enableHdr),
-                        enableHdrHighBrightness = json.optBoolean("enableHdrHighBrightness", fallback.enableHdrHighBrightness),
-                        hdrMode = json.optInt("hdrMode", fallback.hdrMode),
-                        enablePerfOverlay = json.optBoolean("enablePerfOverlay", fallback.enablePerfOverlay),
-                        perfOverlayLocked = json.optBoolean("perfOverlayLocked", fallback.perfOverlayLocked),
-                        perfOverlayBgOpacity = json.optInt("perfOverlayBgOpacity", fallback.perfOverlayBgOpacity),
-                        perfOverlayOrientation = parseEnum(json.optString("perfOverlayOrientation", fallback.perfOverlayOrientation.name), fallback.perfOverlayOrientation),
-                        perfOverlayPosition = parseEnum(json.optString("perfOverlayPosition", fallback.perfOverlayPosition.name), fallback.perfOverlayPosition),
-                        perfOverlayStyle = if (json.has("perfOverlayStyle")) {
-                            PerfHudDensity.fromPreference(json.optString("perfOverlayStyle"))
-                        } else {
-                            fallback.perfOverlayStyle
-                        })
-            }
-
-            private inline fun <reified T : Enum<T>> parseEnum(value: String, fallback: T): T {
-                return runCatching { enumValueOf<T>(value.uppercase(Locale.US)) }.getOrDefault(fallback)
-            }
-        }
-    }
-
-    private fun initSceneButtons() {
-        try {
-            val sceneButtonIds = intArrayOf(R.id.scene1Btn, R.id.scene2Btn, R.id.scene3Btn, R.id.scene4Btn, R.id.scene5Btn)
-
-            for (i in sceneButtonIds.indices) {
-                val sceneNumber = i + 1
-                val btn = findViewById<ImageButton>(sceneButtonIds[i])
-
-                if (btn == null) {
-                    LimeLog.warning("Scene button $sceneNumber not found!")
-                    continue
-                }
-
-                btn.isFocusable = true
-                btn.isFocusableInTouchMode = true
-                btn.nextFocusUpId = sceneButtonIds[(i - 1).coerceAtLeast(0)]
-                btn.nextFocusDownId = sceneButtonIds[(i + 1).coerceAtMost(sceneButtonIds.lastIndex)]
-                btn.setOnClickListener { applySceneConfiguration(sceneNumber) }
-                btn.setOnLongClickListener {
-                    showSaveConfirmationDialog(sceneNumber)
-                    true
-                }
-                btn.setOnKeyListener { _, keyCode, event ->
-                    if (keyCode != KeyEvent.KEYCODE_BUTTON_A) {
-                        false
-                    } else {
-                        if (event.action == KeyEvent.ACTION_UP) btn.performClick()
-                        true
-                    }
-                }
-            }
-            updateSceneButtonStates()
-        } catch (e: Exception) {
-            LimeLog.warning("Scene init failed: $e")
-        }
-    }
-
-    private fun updateSceneButtonStates() {
-        val sceneButtonIds = intArrayOf(R.id.scene1Btn, R.id.scene2Btn, R.id.scene3Btn, R.id.scene4Btn, R.id.scene5Btn)
-        val prefs = getSharedPreferences(SCENE_PREF_NAME, MODE_PRIVATE)
-
-        for (i in sceneButtonIds.indices) {
-            val sceneNumber = i + 1
-            val btn = findViewById<ImageButton>(sceneButtonIds[i]) ?: continue
-            val isConfigured = prefs.contains(SCENE_KEY_PREFIX + sceneNumber)
-            val isActive = activeSceneNumber == sceneNumber
-
-            btn.alpha = when {
-                isActive -> 1.0f
-                isConfigured -> 0.9f
-                else -> 0.68f
-            }
-            btn.imageTintList = ColorStateList.valueOf(when {
-                isActive -> Color.WHITE
-                isConfigured -> Color.argb(230, 255, 255, 255)
-                else -> Color.argb(190, 255, 255, 255)
-            })
-            btn.contentDescription = getString(
-                    if (isConfigured) R.string.scene_configured_content_description else R.string.scene_empty_content_description,
-                    sceneNumber)
-        }
-    }
-
-    @SuppressLint("DefaultLocale")
-    private fun applySceneConfiguration(sceneNumber: Int) {
-        try {
-            val prefs = getSharedPreferences(SCENE_PREF_NAME, MODE_PRIVATE)
-            val configJson = prefs.getString(SCENE_KEY_PREFIX + sceneNumber, null)
-
-            if (configJson == null) {
-                showUnconfiguredSceneDialog(sceneNumber)
-                return
-            }
-
-            val configPrefs = PreferenceConfiguration.readPreferences(this)
-            SceneConfiguration.fromJson(JSONObject(configJson), configPrefs).applyTo(configPrefs)
-
-            if (!configPrefs.writeScenePreferences(this)) {
-                showToast(getString(R.string.config_save_failed))
-                return
-            }
-
-            pcGridAdapter.updateLayoutWithPreferences(this, configPrefs)
-            activeSceneNumber = sceneNumber
-            updateSceneButtonStates()
-            showToast(getString(R.string.scene_config_applied, sceneNumber, configPrefs.width, configPrefs.height,
-                    configPrefs.fps, configPrefs.bitrate / 1000.0, configPrefs.videoFormat.toString(),
-                    if (configPrefs.enableHdr) "On" else "Off"))
-
-        } catch (e: Exception) {
-            LimeLog.warning("Scene apply failed: $e")
-            showToast(getString(R.string.config_apply_failed))
-        }
-    }
-
-    private fun showUnconfiguredSceneDialog(sceneNumber: Int) {
-        AlertDialog.Builder(this, R.style.AppDialogStyle)
-                .setTitle(getString(R.string.scene_empty_title, sceneNumber))
-                .setMessage(getString(R.string.scene_empty_message, sceneNumber))
-                .setPositiveButton(R.string.save_current_config_to_scene) { _, _ -> saveCurrentConfiguration(sceneNumber) }
-                .setNegativeButton(R.string.dialog_button_cancel, null)
-                .show()
-                .also { AppDialogStyler.installDismissKeys(it) }
-    }
-
-    private fun showSaveConfirmationDialog(sceneNumber: Int) {
-        AlertDialog.Builder(this, R.style.AppDialogStyle)
-                .setTitle(getString(R.string.save_to_scene, sceneNumber))
-                .setMessage(getString(R.string.overwrite_scene_config, sceneNumber))
-                .setPositiveButton(R.string.dialog_button_save) { _, _ -> saveCurrentConfiguration(sceneNumber) }
-                .setNegativeButton(R.string.dialog_button_cancel, null)
-                .show()
-                .also { AppDialogStyler.installDismissKeys(it) }
-    }
-
-    private fun saveCurrentConfiguration(sceneNumber: Int) {
-        saveConfigurationToScene(
-            sceneNumber,
-            PreferenceConfiguration.readPreferences(this),
-            markActive = true
-        )
-    }
-
-    private fun saveConfigurationToScene(
-        sceneNumber: Int,
-        preferences: PreferenceConfiguration,
-        markActive: Boolean
-    ): Boolean {
-        try {
-            val config = SceneConfiguration
-                    .fromPreferences(preferences)
-                    .toJson()
-
-            getSharedPreferences(SCENE_PREF_NAME, MODE_PRIVATE)
-                    .edit {
-                        putString(SCENE_KEY_PREFIX + sceneNumber, config.toString())
-                    }
-
-            if (markActive) {
-                activeSceneNumber = sceneNumber
-            }
-            updateSceneButtonStates()
-            showToast(getString(R.string.scene_saved_successfully, sceneNumber))
-            return true
-        } catch (e: JSONException) {
-            showToast(getString(R.string.config_save_failed))
-            return false
-        }
     }
 
     // PC Actions
@@ -2353,9 +2008,6 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
                         computer.name.orEmpty(),
                         result,
                         recommendation,
-                        onSaveToSceneOne = {
-                            recommendation?.let(::saveNetworkRecommendationToSceneOne)
-                        },
                         onContinue = {
                             if (recommendation != null && applyNetworkRecommendation(recommendation)) {
                                 quickStartStream(computer, itemView = null, isSecondaryScreen = false)
@@ -2407,15 +2059,6 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
             bitrate = recommendation.bitrateKbps
             enableAdaptiveBitrate = true
         }
-
-    private fun saveNetworkRecommendationToSceneOne(recommendation: StreamNetworkRecommendation): Boolean {
-        persistRecommendedCustomResolution(recommendation)
-        return saveConfigurationToScene(
-            sceneNumber = 1,
-            preferences = recommendedPreferences(recommendation),
-            markActive = false
-        )
-    }
 
     private fun applyNetworkRecommendation(recommendation: StreamNetworkRecommendation): Boolean {
         val prefs = recommendedPreferences(recommendation)

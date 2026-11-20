@@ -1123,18 +1123,8 @@
     <string name="image_download_failed_with_error">图片下载失败: %1$s</string>
     <string name="image_invalid">图片无效</string>
     <string name="config_save_failed">配置保存失败</string>
-    <string name="scene_config_applied">已应用场景%1$d配置: %2$dx%3$d@%4$dFPS %5$.2fMbps %6$s HDR %7$s</string>
     <string name="scene_not_configured">场景%1$d未配置</string>
-    <string name="scene_empty_title">场景%1$d还没有保存配置</string>
-    <string name="scene_empty_message">是否将当前画质与显示配置保存到场景%1$d？保存后下次可直接点按使用。</string>
-    <string name="scene_configured_content_description">场景%1$d已保存。点按应用，长按覆盖。</string>
-    <string name="scene_empty_content_description">场景%1$d为空。点按保存当前设置。</string>
-    <string name="config_apply_failed">配置应用失败</string>
-    <string name="save_to_scene">保存到场景%1$d</string>
     <string name="overwrite_current_config">是否覆盖当前配置？</string>
-    <string name="overwrite_scene_config">是否将当前画质与显示配置保存到场景%1$d？这会覆盖已保存的场景。</string>
-    <string name="save_current_config_to_scene">保存当前配置</string>
-    <string name="scene_saved_successfully">场景%1$d保存成功</string>
     <string name="unable_to_get_pc_address">无法获取PC地址: %1$s</string>
     <string name="send_sleep_command">发送睡眠指令</string>
     <string name="network_bandwidth_test">网络带宽测试 (iPerf3)</string>
@@ -1281,11 +1271,6 @@
     <string name="layout_capability_diagnostic_text_a5e80">能力检测</string>
     <string name="layout_capability_diagnostic_text_41b60">HDR · 解码器 · 屏幕</string>
     <string name="layout_capability_diagnostic_text_79d3a">复制</string>
-    <string name="layout_pc_view_cd_1daed">场景1</string>
-    <string name="layout_pc_view_cd_f2a94">场景2</string>
-    <string name="layout_pc_view_cd_0a468">场景3</string>
-    <string name="layout_pc_view_cd_94f3b">场景4</string>
-    <string name="layout_pc_view_cd_4b18b">场景5</string>
     <string name="layout_address_list_item_text_12b27">本地网络</string>
     <string name="layout_address_list_item_cd_30f7d">连接</string>
     <string name="layout_config_item_text_c8ce4">重命名</string>
@@ -2009,8 +1994,6 @@
     <string name="pcview_guide_host_body">点主机卡片会进入应用列表，点头像会直接开始串流哦。长按卡片还藏着网络测试、副屏串流、Web UI 和更多操作。</string>
     <string name="pcview_guide_more_title">三个点也没发现吗？</string>
     <string name="pcview_guide_more_body">上次串流、未配对主机和主题切换都藏在这里。小小一颗，别再漏看啦。</string>
-    <string name="pcview_guide_scene_title">小标签可没在发呆</string>
-    <string name="pcview_guide_scene_body">点一下应用串流预设，长按保存当前分辨率、码率、HDR 和监控图层。记住了吗，小杂鱼？</string>
     <string name="appview_guide_panel_title">藏得这么浅也没发现？</string>
     <string name="appview_guide_panel_body">从顶部把手拉下，就能选背景、屏幕组合和目标显示器，也能进入完整串流设置。</string>
     <string name="appview_guide_resume_title">标题可不是摆设啦</string>
@@ -2035,7 +2018,6 @@
     <string name="network_quality_response_ms">响应 ms</string>
     <string name="network_quality_jitter_ms">波动 ms</string>
     <string name="network_quality_stable_recommendation">稳定推荐</string>
-    <string name="network_quality_save_scene_1">保存到场景 1</string>
     <string name="network_quality_use_and_continue">使用此设置继续</string>
     <string name="network_quality_continue_note">将更新当前设置，然后继续快捷启动或选择游戏；不会自动覆盖场景 1。</string>
     <string name="network_quality_no_stable_recommendation">当前连接低于 Moonlight 可安全使用的最低串流码率。</string>

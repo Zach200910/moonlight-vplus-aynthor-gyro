@@ -529,8 +529,6 @@
     <string name="pcview_guide_host_body">點主機卡片會進入應用程式列表，點頭像會直接開始串流喔。長按卡片還藏著網路測試、副螢幕串流、Web UI 和更多操作。</string>
     <string name="pcview_guide_more_title">三個點也沒發現嗎？</string>
     <string name="pcview_guide_more_body">上次串流、未配對主機和主題切換都藏在這裡。小小一顆，別再漏看啦。</string>
-    <string name="pcview_guide_scene_title">小標籤可沒在發呆</string>
-    <string name="pcview_guide_scene_body">點一下套用串流預設，長按儲存目前解析度、位元率、HDR 和監控圖層。記住了嗎，小雜魚？</string>
     <string name="appview_guide_panel_title">藏得這麼淺也沒發現？</string>
     <string name="appview_guide_panel_body">從頂部把手拉下，就能選背景、螢幕組合和目標顯示器，也能進入完整串流設定。</string>
     <string name="appview_guide_resume_title">標題可不是擺設啦</string>

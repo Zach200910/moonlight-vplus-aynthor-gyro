@@ -33,12 +33,4 @@
         <item name="android:focusable">true</item>
     </style>
 
-    <style name="ThorSceneButton">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">32dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:background">@drawable/thor_round_button</item>
-        <item name="android:src">@drawable/thor_scene_dot</item>
-        <item name="android:scaleType">center</item>
-    </style>
 </resources>
