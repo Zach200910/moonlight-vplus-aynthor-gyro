@@ -336,6 +336,7 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
 
         analyticsManager?.startUsageTracking()
         updateThorBattery()
+        thorQuickSettings.show()
     }
 
     @Deprecated("Deprecated in Android")
@@ -404,6 +405,7 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
         exitGate.cancel()
         inForeground = false
         stopComputerUpdates()
+        thorQuickSettings.dismiss()
 
         analyticsManager?.stopUsageTracking()
     }
@@ -2367,6 +2369,9 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
     }
 
     private var tileRowObserver: DataSetObserver? = null
+
+    /** Bottom-screen quick stream settings while browsing hosts (Thor). */
+    private val thorQuickSettings by lazy { ThorHomeQuickSettings(this) }
 
     /**
      * Thor home: fixed square tiles in one centered row (wrapping only when more hosts
