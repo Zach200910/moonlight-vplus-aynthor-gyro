@@ -20,6 +20,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import com.limelight.preferences.PreferenceConfiguration
 import com.limelight.preferences.StreamSettings
 
@@ -121,6 +122,14 @@ class ThorHomeQuickSettings(private val activity: Activity) {
             addChoiceRow(column, R.string.thor_quick_hdr, listOf(context.getString(R.string.thor_quick_off), context.getString(R.string.thor_quick_on)),
                 current = { p -> if (p.enableHdr) 1 else 0 }
             ) { p, i -> p.enableHdr = i == 1 }
+            addChoiceRow(column, R.string.thor_quick_sharpen,
+                listOf(R.string.thor_quick_off, R.string.thor_quick_low, R.string.thor_quick_medium, R.string.thor_quick_high)
+                    .map { context.getString(it) },
+                current = { p ->
+                    if (p.sharpenStrength <= 0) 0
+                    else (1..3).minByOrNull { kotlin.math.abs(SHARPEN_LEVELS[it] - p.sharpenStrength) } ?: 0
+                }
+            ) { p, i -> p.sharpenStrength = SHARPEN_LEVELS[i] }
             addChoiceRow(column, R.string.thor_quick_overlay, listOf(context.getString(R.string.thor_quick_off), context.getString(R.string.thor_quick_on)),
                 current = { p -> if (p.enablePerfOverlay) 1 else 0 }
             ) { p, i -> p.enablePerfOverlay = i == 1 }
@@ -197,6 +206,10 @@ class ThorHomeQuickSettings(private val activity: Activity) {
             if (!prefs.writeScenePreferences(activity)) {
                 LimeLog.warning("Quick settings: failed to save preferences")
             }
+            // Sharpening is not part of the stream-settings bundle above; store it directly.
+            PreferenceManager.getDefaultSharedPreferences(activity).edit()
+                .putInt(PreferenceConfiguration.SHARPEN_STRENGTH_PREF_STRING, prefs.sharpenStrength)
+                .apply()
             refresh()
         }
 
@@ -243,6 +256,7 @@ class ThorHomeQuickSettings(private val activity: Activity) {
         val KNOWN_DUAL_SCREEN_MODELS = setOf("retroid pocket duo", "ayn thor")
         val RESOLUTIONS = listOf("1280x720" to "720p", "1920x1080" to "1080p", "2560x1440" to "1440p", "3840x2160" to "4K")
         val FPS = listOf(30, 60, 90, 120)
+        val SHARPEN_LEVELS = listOf(0, 30, 55, 80)
         val BITRATES_MBPS = listOf(5, 10, 15, 20, 30, 40, 50, 60, 80, 100, 120, 150)
         val CODECS = listOf(
             PreferenceConfiguration.FormatOption.AUTO to R.string.thor_quick_codec_auto,

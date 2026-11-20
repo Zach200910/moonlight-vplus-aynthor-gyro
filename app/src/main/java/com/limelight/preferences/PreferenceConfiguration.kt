@@ -147,6 +147,8 @@ class PreferenceConfiguration {
     @JvmField var showGuideButton = false
     @JvmField var halfHeightOscPortrait = false
     var enableHdr = false
+    /** Client-side sharpening strength, 0 (off) to 100. SDR streams only. */
+    var sharpenStrength = 0
     var enableHdrHighBrightness = false
     var hdrBrightnessOverride = false
     var hdrPeakBrightnessNits = 1000
@@ -660,6 +662,7 @@ class PreferenceConfiguration {
         private const val HALF_HEIGHT_OSC_PORTRAIT_PREF_STRING = "checkbox_half_height_osc_portrait"
         private const val LEGACY_DISABLE_FRAME_DROP_PREF_STRING = "checkbox_disable_frame_drop"
         private const val ENABLE_HDR_PREF_STRING = "checkbox_enable_hdr"
+        const val SHARPEN_STRENGTH_PREF_STRING = "seekbar_sharpen_strength"
         private const val ENABLE_HDR_HIGH_BRIGHTNESS_PREF_STRING = "checkbox_enable_hdr_high_brightness"
         private const val HDR_BRIGHTNESS_OVERRIDE_PREF_STRING = "checkbox_hdr_brightness_override"
         private const val HDR_PEAK_BRIGHTNESS_NITS_PREF_STRING = "seekbar_hdr_peak_brightness_nits"
@@ -1326,6 +1329,7 @@ class PreferenceConfiguration {
                 .remove(VIDEO_FORMAT_PREF_STRING)
                 .remove(DECODER_INPUT_BUFFER_MODE_PREF_STRING)
                 .remove(ENABLE_HDR_PREF_STRING)
+                .remove(SHARPEN_STRENGTH_PREF_STRING)
                 .remove(ENABLE_HDR_HIGH_BRIGHTNESS_PREF_STRING)
                 .remove(HDR_BRIGHTNESS_OVERRIDE_PREF_STRING)
                 .remove(HDR_PEAK_BRIGHTNESS_NITS_PREF_STRING)
@@ -1591,6 +1595,11 @@ class PreferenceConfiguration {
             config.showGuideButton = prefs.getBoolean(SHOW_GUIDE_BUTTON_PREF_STRING, SHOW_GUIDE_BUTTON_DEFAULT)
             config.halfHeightOscPortrait = prefs.getBoolean(HALF_HEIGHT_OSC_PORTRAIT_PREF_STRING, HALF_HEIGHT_OSC_PORTRAIT_DEFAULT)
             config.enableHdr = prefs.getBoolean(ENABLE_HDR_PREF_STRING, DEFAULT_ENABLE_HDR) && !isShieldAtvFirmwareWithBrokenHdr()
+            config.sharpenStrength = try {
+                prefs.getInt(SHARPEN_STRENGTH_PREF_STRING, 0)
+            } catch (e: ClassCastException) {
+                0
+            }.coerceIn(0, 100)
             config.enableHdrHighBrightness = prefs.getBoolean(ENABLE_HDR_HIGH_BRIGHTNESS_PREF_STRING, DEFAULT_ENABLE_HDR_HIGH_BRIGHTNESS)
             config.hdrBrightnessOverride = prefs.getBoolean(HDR_BRIGHTNESS_OVERRIDE_PREF_STRING, DEFAULT_HDR_BRIGHTNESS_OVERRIDE)
             config.hdrPeakBrightnessNits = prefs.getInt(HDR_PEAK_BRIGHTNESS_NITS_PREF_STRING, DEFAULT_HDR_PEAK_BRIGHTNESS_NITS).coerceIn(300, 4000)

@@ -32,4 +32,11 @@
     <string name="thor_quick_on">On</string>
     <string name="thor_quick_off">Off</string>
     <string name="thor_quick_all_settings">All settings</string>
+    <!-- Client-side sharpening -->
+    <string name="title_sharpen_strength">Sharpening</string>
+    <string name="summary_sharpen_strength">Sharpens the stream on this device (0% = off). Not applied to HDR streams, frame generation or PyroWave. Takes effect on the next stream.</string>
+    <string name="thor_quick_sharpen">Sharpening</string>
+    <string name="thor_quick_low">Low</string>
+    <string name="thor_quick_medium">Medium</string>
+    <string name="thor_quick_high">High</string>
 </resources>
