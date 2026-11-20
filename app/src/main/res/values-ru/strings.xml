@@ -2035,4 +2035,6 @@
     <string name="perf_overlay_anchor_bottom_left">Снизу слева</string>
     <string name="perf_overlay_anchor_bottom_center">Снизу по центру</string>
     <string name="perf_overlay_anchor_bottom_right">Снизу справа</string>
+    <string name="title_sharpen_strength">Резкость</string>
+    <string name="summary_sharpen_strength">Повышает резкость изображения на этом устройстве (0% — выкл.). Не применяется к HDR, генерации кадров и PyroWave. Вступает в силу со следующего стрима.</string>
 </resources>

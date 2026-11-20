@@ -1169,4 +1169,6 @@
     <string name="perf_sheet_previous_page">上一頁</string>
     <string name="perf_sheet_next_page">下一頁</string>
     <string name="perf_sheet_settings">設定</string>
+    <string name="title_sharpen_strength">銳利化</string>
+    <string name="summary_sharpen_strength">在本機對畫面進行銳利化（0% 為關閉）。不適用於 HDR、插幀與 PyroWave。下次串流時生效。</string>
 </resources>
