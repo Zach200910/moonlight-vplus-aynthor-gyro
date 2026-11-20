@@ -799,16 +799,13 @@ class StreamSettings : ThemedAppCompatActivity() {
             val isLandscapeSidebar = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
             // 横屏常驻侧栏通过图标和文字颜色表示状态，释放装饰元素占用的标题空间。
-            holder.indicator.visibility = when {
-                isLandscapeSidebar -> View.GONE
-                isSelected -> View.VISIBLE
-                else -> View.INVISIBLE
-            }
+            // Thor (Switch style): the selected category gets an accent bar at its left edge.
+            holder.indicator.visibility = if (isSelected) View.VISIBLE else View.INVISIBLE
 
             // 文字 + 图标颜色三态切换
             val textColor: Int; val textAlpha: Float; val iconColor: Int; val iconAlpha: Float
             when {
-                isSelected -> { textColor = primaryText; textAlpha = 1.0f; iconColor = accentColor; iconAlpha = 1.0f }
+                isSelected -> { textColor = accentColor; textAlpha = 1.0f; iconColor = accentColor; iconAlpha = 1.0f }
                 hasFocus   -> { textColor = accentColor; textAlpha = 1.0f; iconColor = accentColor; iconAlpha = 0.95f }
                 else       -> { textColor = secondaryText; textAlpha = 0.9f; iconColor = secondaryText; iconAlpha = 0.7f }
             }

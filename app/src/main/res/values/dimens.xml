@@ -23,13 +23,13 @@
 
     <!-- Drawer width -->
     <dimen name="drawer_width">280dp</dimen>
-    <dimen name="settings_landscape_sidebar_width">224dp</dimen>
+    <dimen name="settings_landscape_sidebar_width">248dp</dimen>
     <dimen name="settings_category_item_outer_horizontal_margin">14dp</dimen>
     <dimen name="settings_category_item_horizontal_padding">16dp</dimen>
     <dimen name="settings_category_item_control_gap">12dp</dimen>
     <dimen name="settings_category_item_title_end_margin">10dp</dimen>
     <dimen name="settings_category_item_title_text_size">15sp</dimen>
-    <dimen name="settings_preference_item_vertical_padding">10dp</dimen>
+    <dimen name="settings_preference_item_vertical_padding">12dp</dimen>
 
     <!-- Crown store -->
 
