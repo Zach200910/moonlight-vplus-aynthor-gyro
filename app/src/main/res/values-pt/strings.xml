@@ -480,11 +480,6 @@
     <!-- Analytics settings -->
     
     <!-- Tips -->
-    <string name="tip_audio_config">💡 Dica: Ativar Dolby Atmos ou DTS:X proporciona uma experiência de áudio mais imersiva~</string>
-    <string name="tip_external_display">💡 Dica: Ao conectar um display externo, você pode escolher exibir o stream no display externo nas configurações~</string>
-    <string name="tip_virtual_display">💡 Dica: A função de display virtual pode criar espaços de exibição independentes, especialmente adequada para cenários de multitarefa~</string>
-    <string name="tip_dynamic_bitrate">💡 Dica: Ao usar decodificadores HEVC ou AV1, você pode ajustar a taxa de bits durante o streaming sem sair~</string>
-    <string name="tip_cards_show">💡 Dica: Você pode editar os cartões de função exibidos no menu do jogo. Cartões desnecessários podem ser ocultados~</string>
     
     <!-- Touch mode switch menu -->
     <string name="game_menu_switch_touch_mode">Método de controle</string>

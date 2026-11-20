@@ -441,11 +441,6 @@
     <string name="summary_seekbar_scale">La resolución solicitada al host es equivalente a la resolución base del cliente * factor de escala. Esto cambiará la precisión del material de renderizado del juego en el lado del host (transmisión de super-resolución). Reducir esta proporción también puede usarse para reducir la presión de GPU en el lado del host. ⚠Nota: Verificar si el host soporta la resolución escalada antes de aplicar esta opción.</string>
     <string name="summary_show_guide_button">Mostrar el botón de guía en pantalla</string>
     <string name="summary_use_external_display">Si se conecta una pantalla externa, mostrar la transmisión en la pantalla externa</string>
-    <string name="tip_audio_config">💡 Consejo: Habilitar Dolby Atmos o DTS:X proporciona una experiencia de audio más inmersiva, y necesitas habilitar el ecualizador del sistema para el mejor efecto~</string>
-    <string name="tip_cards_show">💡 Consejo: Puedes editar las tarjetas de función mostradas en el menú del juego. Las tarjetas innecesarias pueden ocultarse~</string>
-    <string name="tip_dynamic_bitrate">💡 Consejo: Cuando uses decodificadores HEVC o AV1, puedes ajustar la tasa de bits durante la transmisión sin salir, encontrando la tasa de bits óptima para tu red y dispositivo~</string>
-    <string name="tip_external_display">💡 Consejo: Al conectar una pantalla externa, puedes elegir mostrar la transmisión en la pantalla externa en configuraciones, haciendo el juego en pantalla grande aún más agradable~</string>
-    <string name="tip_virtual_display">💡 Consejo: La función de pantalla virtual puede crear espacios de pantalla independientes, especialmente adecuada para escenarios de multi-tarea, haciendo la transmisión más flexible~</string>
     <string name="title_about_mode">Acerca de</string>
     <string name="title_checkbox_enable_enhanced_touch">Habilitar toque mejorado</string>
     <string name="title_checkbox_enable_esc_menu">Permitir tecla ESC para abrir menú de retorno</string>

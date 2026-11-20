@@ -871,14 +871,6 @@
     <string name="summary_checkbox_reverse_resolution">Запрашивать выбранное разрешение, поменяв ширину и высоту местами. Для портретных и нестандартных конфигураций экрана.</string>
     <string name="title_checkbox_rotable_screen">Автоповорот</string>
     <string name="summary_checkbox_rotable_screen">Автоматически синхронизировать ориентацию трансляции при переключении устройства между книжной и альбомной ориентацией.</string>
-    <string name="title_moonlight_vplus_pc_download">Скачать Moonlight V+ для ПК</string>
-    <string name="title_enable_analytics">Аналитика</string>
-    <string name="summary_enable_analytics">Анонимная статистика использования для улучшения приложения</string>
-    <string name="tip_audio_config">💡 Dolby Atmos или DTS:X дают объёмный звук. Для лучшего эффекта включите системный эквалайзер.</string>
-    <string name="tip_external_display">💡 В настройках можно направить трансляцию на подключённый внешний экран.</string>
-    <string name="tip_virtual_display">💡 Виртуальный экран создаёт отдельное рабочее пространство и удобен для многозадачности.</string>
-    <string name="tip_dynamic_bitrate">💡 С HEVC или AV1 можно менять битрейт во время трансляции, подбирая его под сеть и устройство.</string>
-    <string name="tip_cards_show">💡 В игровом меню можно скрыть ненужные карточки функций.</string>
     <string name="game_menu_switch_touch_mode">Способ управления</string>
     <string name="game_menu_control">Управление</string>
     <string name="game_menu_touch_mode_enhanced">Прямые касания</string>
