@@ -53,10 +53,10 @@ index e1b9e0d7..a073acd1 100644
  
 diff --git a/app/src/main/java/com/limelight/SecondScreenTrackpad.kt b/app/src/main/java/com/limelight/SecondScreenTrackpad.kt
 new file mode 100644
-index 00000000..9ee2cff2
+index 00000000..79529509
 --- /dev/null
 +++ b/app/src/main/java/com/limelight/SecondScreenTrackpad.kt
-@@ -0,0 +1,1619 @@
+@@ -0,0 +1,1626 @@
 +@file:Suppress("DEPRECATION")
 +package com.limelight
 +
@@ -73,7 +73,7 @@ index 00000000..9ee2cff2
 +// from the CLICK button under each pad, which holds that pad's contact while pressed so the host
 +// knows which half was clicked.
 +//
-+// Hub wheel: MENU, KEYS, ESC, COLOR, OPTIONS. Press the hub and slide onto an item, or tap the hub
++// Hub wheel: Menu, Keys, Calibrate gyro, Options, Esc. Press the hub and slide onto an item, or tap the hub
 +// and then tap an item. OPTIONS opens a second wheel: pixel shift on/off, mouse speed down/up,
 +// gyro calibrate/test/reset (see GyroCalibration), reload style, back.
 +//
@@ -216,30 +216,29 @@ index 00000000..9ee2cff2
 +     * colours as #RRGGBB, sizes in dp, times in seconds or ms as named, *_percent as 0–100.
 +     */
 +    private class BottomScreenStyle(p: Properties) {
-+        val accentColors = colors(p, "accent_colors", intArrayOf(
-+            0x1A9FFF, 0xFF3B3B, 0x2BD96B, 0xA06BFF, 0xFF8A1F, 0xFF4FA3, 0x2EE6E6, 0xB0B0B0))
-+        val textColor = color(p, "text_color", 0xB4B9C1)
-+        val textDimColor = color(p, "text_dim_color", 0x505660)
-+        val pressedTextColor = color(p, "pressed_text_color", 0xFFFFFF)
++        val accentColors = colors(p, "accent_colors", intArrayOf(0x55B8D4))
++        val textColor = color(p, "text_color", 0xA3AFB9)
++        val textDimColor = color(p, "text_dim_color", 0x5E6A74)
++        val pressedTextColor = color(p, "pressed_text_color", 0xF1F4F6)
 +        val backgroundColor = color(p, "background_color", 0x000000)
 +
-+        val padCornerDp = num(p, "pad_corner_dp", 22f)
-+        val buttonCornerDp = num(p, "button_corner_dp", 16f)
++        val padCornerDp = num(p, "pad_corner_dp", 14f)
++        val buttonCornerDp = num(p, "button_corner_dp", 10f)
 +        val lineWidthDp = num(p, "line_width_dp", 1.5f)
 +        val litLineWidthDp = num(p, "lit_line_width_dp", 2f)
 +        val idleLineOpacity = pct(p, "idle_line_opacity_percent", 29f)
 +        val cornerMarkLengthDp = num(p, "corner_mark_length_dp", 28f)
-+        val litFillOpacity = pct(p, "lit_fill_opacity_percent", 22f)
-+        val gradientWhiteMix = pct(p, "gradient_white_mix_percent", 45f)
++        val litFillOpacity = pct(p, "lit_fill_opacity_percent", 14f)
++        val gradientWhiteMix = pct(p, "gradient_white_mix_percent", 0f)
 +        val labelSizeDp = num(p, "label_size_dp", 15f)
 +        val captionSizeDp = num(p, "caption_size_dp", 11f)
 +
-+        val glowSizeDp = num(p, "touch_glow_size_dp", 64f)
-+        val glowOpacity = pct(p, "touch_glow_opacity_percent", 38f)
++        val glowSizeDp = num(p, "touch_glow_size_dp", 40f)
++        val glowOpacity = pct(p, "touch_glow_opacity_percent", 18f)
 +        val dotSizeDp = num(p, "touch_dot_size_dp", 10f)
-+        val trailLength = num(p, "trail_length", 14f).toInt().coerceIn(0, 64)
++        val trailLength = num(p, "trail_length", 0f).toInt().coerceIn(0, 64)
 +        val trailFadeMs = num(p, "trail_fade_ms", 260f).toLong().coerceAtLeast(1L)
-+        val rippleMs = num(p, "ripple_ms", 320f).toLong().coerceAtLeast(1L)
++        val rippleMs = num(p, "ripple_ms", 160f).toLong().coerceAtLeast(1L)
 +
 +        val rowHeightPercent = pct(p, "button_row_height_percent", 17f)
 +        val gapDp = num(p, "gap_dp", 10f)
@@ -321,10 +320,6 @@ index 00000000..9ee2cff2
 +        mouseSpeed = prefs.getFloat(PREF_MOUSE_SPEED, style.mouseSpeedDefault).coerceIn(MOUSE_SPEEDS.first(), MOUSE_SPEEDS.last())
 +    }
 +
-+    private fun nextTheme() {
-+        themeIndex = (themeIndex + 1) % style.accentColors.size
-+        prefs.edit().putInt(PREF_THEME, themeIndex).apply()
-+    }
 +
 +    private fun stepMouseSpeed(up: Boolean) {
 +        val i = MOUSE_SPEEDS.indexOfFirst { it >= mouseSpeed - 0.001f }.let { if (it < 0) MOUSE_SPEEDS.size - 1 else it }
@@ -357,7 +352,8 @@ index 00000000..9ee2cff2
 +
 +    // ---------------------------------------------------------------- colours
 +
-+    private val accent: Int get() = style.accentColors[themeIndex.coerceIn(0, style.accentColors.size - 1)]
++    // Thor: single accent (first entry of accent_colors); the COLOR cycle was removed.
++    private val accent: Int get() = style.accentColors[0]
 +
 +    /** Second gradient stop: the accent lifted towards white. */
 +    private val accentLight: Int get() = blend(accent, Color.WHITE, style.gradientWhiteMix)
@@ -529,26 +525,27 @@ index 00000000..9ee2cff2
 +        // Gamepad page
 +        private val leftPad = TrackpadView(context, LEFT)
 +        private val rightPad = TrackpadView(context, RIGHT)
-+        private val leftClick = ButtonView(context, "CLICK", hold = true) { leftPad.clickButton(it) }
-+        private val rightClick = ButtonView(context, "CLICK", hold = true) { rightPad.clickButton(it) }
-+        private val typeButton = ButtonView(context, "TYPE") { openKeyboardPage() }
++        private val leftClick = ButtonView(context, "Click", hold = true) { leftPad.clickButton(it) }
++        private val rightClick = ButtonView(context, "Click", hold = true) { rightPad.clickButton(it) }
++        private val typeButton = ButtonView(context, "Type") { openKeyboardPage() }
 +
 +        private val mainItems: List<WheelItem> = listOf(
-+            WheelItem({ "MENU" }) { actions.execute("open_menu") },
-+            WheelItem({ "KEYS" }) { actions.execute("open_keyboard") },
-+            WheelItem({ "COLOR" }, keepOpen = true) { nextTheme(); invalidateAll() },
-+            WheelItem({ "OPTIONS" }, keepOpen = true) { wheel.showItems(optionItems) },
-+            WheelItem({ "ESC" }) { actions.execute("send_esc") },
++            WheelItem({ "Menu" }) { actions.execute("open_menu") },
++            WheelItem({ "Keys" }) { actions.execute("open_keyboard") },
++            // Thor: one-tap gyro calibration replaces the old accent-colour cycle.
++            WheelItem({ "Calibrate\ngyro" }) { calibrateGyro() },
++            WheelItem({ "Options" }, keepOpen = true) { wheel.showItems(optionItems) },
++            WheelItem({ "Esc" }) { actions.execute("send_esc") },
 +        )
 +        private val optionItems: List<WheelItem> = listOf(
-+            WheelItem({ "BACK" }, keepOpen = true) { wheel.showItems(mainItems) },
-+            WheelItem({ "PIXEL SHIFT\n" + if (pixelShiftOn) "ON" else "OFF" }, keepOpen = true) { togglePixelShift() },
-+            WheelItem({ "MOUSE −\n" + speedLabel() }, keepOpen = true) { stepMouseSpeed(false) },
-+            WheelItem({ "MOUSE +\n" + speedLabel() }, keepOpen = true) { stepMouseSpeed(true) },
-+            WheelItem({ "GYRO\nCALIBRATE" }) { calibrateGyro() },
-+            WheelItem({ "GYRO\nTEST" }) { testGyro() },
-+            WheelItem({ "GYRO\nRESET" }) { resetGyro() },
-+            WheelItem({ "RELOAD\nSTYLE" }) { reloadStyle() },
++            WheelItem({ "Back" }, keepOpen = true) { wheel.showItems(mainItems) },
++            WheelItem({ "Pixel shift\n" + if (pixelShiftOn) "On" else "Off" }, keepOpen = true) { togglePixelShift() },
++            WheelItem({ "Mouse −\n" + speedLabel() }, keepOpen = true) { stepMouseSpeed(false) },
++            WheelItem({ "Mouse +\n" + speedLabel() }, keepOpen = true) { stepMouseSpeed(true) },
++            WheelItem({ "Calibrate\ngyro" }) { calibrateGyro() },
++            WheelItem({ "Test\ngyro" }) { testGyro() },
++            WheelItem({ "Reset\ngyro" }) { resetGyro() },
++            WheelItem({ "Reload\nstyle" }) { reloadStyle() },
 +        )
 +        private val wheel = RadialWheelView(context, mainItems)
 +        private val hub = HubView(context, wheel, mainItems.size)
@@ -557,11 +554,11 @@ index 00000000..9ee2cff2
 +
 +        // Keyboard page
 +        private val mousePad = MousePadView(context)
-+        private val mouseMiddle = ButtonView(context, "MIDDLE", hold = true) { setMiddle(it) }
-+        private val mouseLeft = ButtonView(context, "LEFT", hold = true) { setMouseButton(0, it) }
-+        private val mouseRight = ButtonView(context, "RIGHT", hold = true) { setMouseButton(1, it) }
-+        private val keyboardToggle = ButtonView(context, "KEYBOARD") { toggleIme() }
-+        private val done = ButtonView(context, "DONE") { closeKeyboardPage() }
++        private val mouseMiddle = ButtonView(context, "Middle", hold = true) { setMiddle(it) }
++        private val mouseLeft = ButtonView(context, "Left", hold = true) { setMouseButton(0, it) }
++        private val mouseRight = ButtonView(context, "Right", hold = true) { setMouseButton(1, it) }
++        private val keyboardToggle = ButtonView(context, "Keyboard") { toggleIme() }
++        private val done = ButtonView(context, "Done") { closeKeyboardPage() }
 +        private val textSink = TextSinkView(context)
 +        private val keyboardViews: List<View> =
 +            listOf(mousePad, mouseMiddle, mouseLeft, mouseRight, keyboardToggle, done)
@@ -933,12 +930,12 @@ index 00000000..9ee2cff2
 +        }
 +        protected val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
 +            textAlign = Paint.Align.CENTER
-+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-+            letterSpacing = 0.12f
++            typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
++            letterSpacing = 0.01f
 +        }
 +        protected val captionPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
 +            textAlign = Paint.Align.CENTER
-+            letterSpacing = 0.2f
++            letterSpacing = 0.02f
 +        }
 +
 +        /**
@@ -950,14 +947,14 @@ index 00000000..9ee2cff2
 +            rect.set(inset, inset, width - inset, height - inset)
 +            val radius = corner * density
 +            if (lit) {
-+                fill.shader = LinearGradient(0f, 0f, 0f, height.toFloat(),
-+                    withOpacity(accent, style.litFillOpacity), Color.TRANSPARENT, Shader.TileMode.CLAMP)
++                // Flat accent wash + solid accent outline (Nintendo Minimal: no gradients).
++                fill.shader = null
++                fill.color = withOpacity(accent, style.litFillOpacity)
 +                canvas.drawRoundRect(rect, radius, radius, fill)
-+                stroke.shader = LinearGradient(0f, 0f, width.toFloat(), height.toFloat(),
-+                    accentLight, accent, Shader.TileMode.CLAMP)
++                stroke.shader = null
++                stroke.color = accent
 +                stroke.strokeWidth = style.litLineWidthDp * density
 +                canvas.drawRoundRect(rect, radius, radius, stroke)
-+                stroke.shader = null
 +            } else {
 +                drawCornerMarks(canvas, radius)
 +            }
@@ -1078,7 +1075,7 @@ index 00000000..9ee2cff2
 +    private inner class TrackpadView(context: Context, val side: Int) : TouchSurface(context) {
 +        private var fingerDown = false
 +        private var clickHeld = false
-+        private val caption = if (side == LEFT) "L  TOUCHPAD" else "R  TOUCHPAD"
++        private val caption = if (side == LEFT) "Left touchpad" else "Right touchpad"
 +
 +        override fun onDraw(canvas: Canvas) {
 +            drawFrame(canvas, touching || clickHeld, style.padCornerDp)
@@ -1165,7 +1162,7 @@ index 00000000..9ee2cff2
 +
 +        override fun onDraw(canvas: Canvas) {
 +            drawFrame(canvas, touching, style.padCornerDp)
-+            val caption = if (scrolling || (touching && middleHeld)) "SCROLL" else "MOUSE  " + speedLabel()
++            val caption = if (scrolling || (touching && middleHeld)) "Scroll" else "Mouse · " + speedLabel()
 +            drawTouch(canvas, mouseButtons[0] || mouseButtons[1], caption)
 +        }
 +
@@ -1331,13 +1328,14 @@ index 00000000..9ee2cff2
 +
 +    // ---------------------------------------------------------------- radial wheel
 +
-+    /** keepOpen: the wheel stays open after it (COLOR, OPTIONS and the option toggles). */
++    /** keepOpen: the wheel stays open after it (Options and the option toggles). */
 +    private class WheelItem(val label: () -> String, val keepOpen: Boolean = false, val action: () -> Unit)
 +
 +    /** Round button between the pads. Press-and-slide picks a wheel item; a tap leaves the wheel open. */
 +    private inner class HubView(context: Context, private val wheel: RadialWheelView, private val dots: Int) : Surface(context) {
 +        private var downTime = 0L
 +        private val dot = Paint(Paint.ANTI_ALIAS_FLAG)
++        private val status = Paint(Paint.ANTI_ALIAS_FLAG)
 +        private val ring = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
 +
 +        override fun onDraw(canvas: Canvas) {
@@ -1354,6 +1352,11 @@ index 00000000..9ee2cff2
 +                val a = Math.toRadians((-90.0 + i * 360.0 / dots))
 +                canvas.drawCircle(cx + (r * .5f * Math.cos(a)).toFloat(), cy + (r * .5f * Math.sin(a)).toFloat(), 2.2f * density, dot)
 +            }
++            // Connection status: green while the stream connection is up, amber otherwise.
++            val connected = game.conn != null
++            status.color = if (connected) STATUS_CONNECTED else STATUS_WAITING
++            canvas.drawCircle(cx, cy, 3.2f * density, status)
++            if (!connected) postInvalidateDelayed(1_000L)
 +        }
 +
 +        @SuppressLint("ClickableViewAccessibility")
@@ -1512,8 +1515,8 @@ index 00000000..9ee2cff2
 +                segment.strokeWidth = thick
 +                arcRect.set(cx - mid, cy - mid, cx + mid, cy + mid)
 +                if (lit) {
-+                    segment.shader = RadialGradient(cx, cy, ro, accentLight, accent, Shader.TileMode.CLAMP)
-+                    segment.alpha = 0xD0
++                    segment.shader = null
++                    segment.color = withAlpha(accent, 0xD0)
 +                } else {
 +                    segment.shader = null
 +                    segment.color = withOpacity(accent, style.litFillOpacity * .7f)
@@ -1534,7 +1537,7 @@ index 00000000..9ee2cff2
 +            if (sticky) {
 +                captionPaint.textSize = 10 * density
 +                captionPaint.color = style.textDimColor
-+                canvas.drawText("TAP OUTSIDE TO CLOSE", cx, min(height - 8 * density, cy + ro + 18 * density), captionPaint)
++                canvas.drawText("Tap outside to close", cx, min(height - 8 * density, cy + ro + 18 * density), captionPaint)
 +            }
 +        }
 +    }
@@ -1664,6 +1667,10 @@ index 00000000..9ee2cff2
 +        const val FADE_MS = 400L
 +        const val VERIFY_MS = 2_000L
 +        const val TEST_MS = 3_000L
++
++        // Hub connection dot (Thor palette success / warning)
++        const val STATUS_CONNECTED = 0xFF72C99A.toInt()
++        const val STATUS_WAITING = 0xFFE9BB69.toInt()
 +
 +        // Mouse
 +        const val MOUSE_GAIN = 1.6f // PC pixels per dp of finger travel at speed 1x, before acceleration
