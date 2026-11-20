@@ -336,7 +336,6 @@
     <string name="pyrowave_diag_copy">Копіювати</string>
     <string name="pyrowave_diag_copy_success">Звіт скопійовано до буфера обміну</string>
     <string name="pyrowave_diag_unavailable">Не вдалося отримати</string>
-    <string name="tip_double_tap_mouse">Порада: натисніть і утримуйте порожню область угорі списку комп\'ютерів, щоб зберегти поточне фонове зображення.</string>
     <string name="pyrowave_negotiation_fallback">Не вдалося узгодити PyroWave. Перехід на %1$s.</string>
     <string name="title_list_mouse_axis_correction">Корекція напрямку миші</string>
     <string name="summary_list_mouse_axis_correction">Повертати зафіксований рух миші перед надсиланням на хост. Змінюйте це лише якщо пристрій Android повідомляє про повернуті осі миші.</string>

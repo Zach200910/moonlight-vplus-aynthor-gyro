@@ -685,7 +685,6 @@
     <string name="perf_hud_long_press_hint">長按某個指標能看它的說明哦，雜魚～</string>
     <string name="perf_hud_hint">💡 串流小課堂：單擊切資訊密度，雙擊切橫豎，長按指標看說明，拖曳挪位置～記不住的話就是雜魚喵♡</string>
     <string name="perf_hud_dock_orientation_hint">停在畫面下面哪來的橫豎啦，雜魚～轉到橫屏再雙擊♡</string>
-    <string name="tip_performance_overlay_classic">💡 串流小課堂：覆蓋層可以拖到任意位置，雙擊切換橫豎版面，點各項指標還有說明～人家這麼貼心，雜魚還不快說謝謝♡</string>
     <string name="perf_hud_label_latency">延遲</string>
     <string name="perf_hud_label_latency_chain">延遲鏈（估算）</string>
     <string name="perf_hud_label_network">網路</string>
@@ -1065,7 +1064,6 @@
     <string name="pyrowave_diag_copy">複製</string>
     <string name="pyrowave_diag_copy_success">報告已複製到剪貼簿</string>
     <string name="pyrowave_diag_unavailable">無法取得</string>
-    <string name="tip_double_tap_mouse">提示：在主機清單頁面長按頂部空白區域，可儲存目前的背景圖片。</string>
     <string name="title_fec_mode">封包遺失保護（FEC）</string>
     <string name="summary_fec_mode">跟隨主機、自動調整或固定比例；下次連線支援此功能的 Sunshine 時生效。</string>
     <string name="title_fec_percentage">固定 FEC 比例</string>
@@ -1146,6 +1144,5 @@
     <string name="host_unlock_close">關閉</string>
     <string name="title_ds5_single_tap_to_click">DS5 單擊點擊（相容）</string>
     <string name="summary_ds5_single_tap_to_click">關閉：點兩下即可點擊，第二下按住可長按；開啟：恢復單擊點擊。兩種方式均支援用力按壓。</string>
-    <string name="tip_performance_overlay">💡 串流小課堂：單擊效能 HUD 能在 迷你 / 標準 / 詳細 之間切換，雙擊切橫豎排，長按指標看說明，還能拖著到處跑哦～這都不會用的話，就是雜魚♡</string>
     <string name="perf_hud_label_one_percent_low" formatted="false">1%L</string>
 </resources>

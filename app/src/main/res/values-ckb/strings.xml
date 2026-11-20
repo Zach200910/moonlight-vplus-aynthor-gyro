@@ -52,7 +52,6 @@
     <string name="pyrowave_diag_copy">کۆپی</string>
     <string name="pyrowave_diag_copy_success">ڕاپۆرتەکە بۆ کلیپبۆرد کۆپی کرا</string>
     <string name="pyrowave_diag_unavailable">بەردەست نییە</string>
-    <string name="tip_double_tap_mouse">ئامۆژگاری: بۆ پاشەکەوتکردنی وێنەی پاشبنەمای ئێستا، شوێنی بەتاڵی سەرەوەی لیستی کۆمپیوتەرەکان بە درێژی دابگرە.</string>
     <string name="pyrowave_negotiation_fallback">گفتوگۆی PyroWave سەرکەوتوو نەبوو. لەبری ئەوە %1$s بەکاردێت.</string>
     <string name="title_list_mouse_axis_correction">ڕاستکردنەوەی ئاراستەی ماوس</string>
     <string name="summary_list_mouse_axis_correction">جوڵەی ماوسی گیراو پێش ناردن بۆ هۆست بسووڕێنەوە. تەنها ئەگەر ئامێرێکی ئەندرۆید ئاكسەكانی ماوس بە سووڕاو ڕابگەیەنێت بیگۆڕە.</string>

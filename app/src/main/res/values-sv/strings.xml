@@ -325,7 +325,6 @@
     <string name="pyrowave_diag_copy">Kopiera</string>
     <string name="pyrowave_diag_copy_success">Rapporten har kopierats till urklipp</string>
     <string name="pyrowave_diag_unavailable">Kan inte hämtas</string>
-    <string name="tip_double_tap_mouse">Tips: tryck och håll på det tomma området överst i datorlistan för att spara den aktuella bakgrundsbilden.</string>
     <string name="pyrowave_negotiation_fallback">PyroWave-förhandlingen misslyckades. Växlar till %1$s.</string>
     <string name="title_list_mouse_axis_correction">Korrigering av musriktning</string>
     <string name="summary_list_mouse_axis_correction">Rotera registrerade musrörelser innan de skickas till värden. Ändra bara detta om en Android-enhet rapporterar roterade musaxlar.</string>

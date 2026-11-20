@@ -46,8 +46,8 @@ class FeatureGuideStore internal constructor(
         }
     )
 
-    fun shouldShow(spec: FeatureGuideSpec): Boolean =
-        !preferences.getBoolean(spec.completionKey)
+    /** Thor build: first-run tips & feature-guide popups are disabled everywhere. */
+    fun shouldShow(spec: FeatureGuideSpec): Boolean = GUIDES_ENABLED && !preferences.getBoolean(spec.completionKey)
 
     fun markCompleted(spec: FeatureGuideSpec) {
         preferences.putBoolean(spec.completionKey, true)
@@ -55,5 +55,6 @@ class FeatureGuideStore internal constructor(
 
     companion object {
         private const val PREFS_NAME = "feature_guides"
+        internal var GUIDES_ENABLED = false
     }
 }

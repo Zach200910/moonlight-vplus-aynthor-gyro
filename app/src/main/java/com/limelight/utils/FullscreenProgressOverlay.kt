@@ -35,7 +35,6 @@ class FullscreenProgressOverlay(
     private val appPosterBackgroundBlur: ImageView
     private val appPosterBackgroundClear: ImageView
     private val rootView: ViewGroup
-    private val tips: Array<String>
     private val random = Random()
     private val backgroundMode = AppBackgroundMode.read(activity)
     private var isShowing = false
@@ -50,29 +49,6 @@ class FullscreenProgressOverlay(
     var computer: ComputerDetails? = null
 
     init {
-        tips = arrayOf(
-            activity.getString(R.string.tip_esc_exit),
-            activity.getString(R.string.tip_double_tap_mouse),
-            activity.getString(R.string.tip_long_press_controller),
-            activity.getString(R.string.tip_volume_keys),
-            activity.getString(R.string.tip_wallpaper_change),
-            activity.getString(R.string.tip_5ghz_wifi),
-            activity.getString(R.string.tip_close_apps),
-            activity.getString(R.string.tip_home_saves),
-            activity.getString(R.string.tip_hdr_colors),
-            activity.getString(R.string.tip_touch_modes),
-            activity.getString(R.string.tip_custom_keys),
-            activity.getString(
-                if (isClassicPerfOverlay(activity)) R.string.tip_performance_overlay_classic
-                else R.string.tip_performance_overlay
-            ),
-            activity.getString(R.string.tip_audio_config),
-            activity.getString(R.string.tip_external_display),
-            activity.getString(R.string.tip_virtual_display),
-            activity.getString(R.string.tip_dynamic_bitrate),
-            activity.getString(R.string.tip_cards_show)
-        )
-
         rootView = activity.findViewById(android.R.id.content)
 
         val inflater = LayoutInflater.from(activity)
@@ -112,8 +88,9 @@ class FullscreenProgressOverlay(
                 statusText.text = title.trim()
                 progressText.text = message
 
-                val tip = tips[random.nextInt(tips.size)]
-                randomTip.text = tip
+                // Thor: the rotating tips are removed; the slot stays empty and hidden.
+                randomTip.text = ""
+                randomTip.visibility = View.GONE
 
                 if (overlayView.parent == null) {
                     rootView.addView(overlayView)

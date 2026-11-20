@@ -297,7 +297,6 @@
     <string name="pyrowave_diag_copy">Másolás</string>
     <string name="pyrowave_diag_copy_success">A jelentés a vágólapra másolva</string>
     <string name="pyrowave_diag_unavailable">Nem állapítható meg</string>
-    <string name="tip_double_tap_mouse">Tipp: a jelenlegi háttérkép mentéséhez tartsa nyomva a számítógéplista tetején lévő üres területet.</string>
     <string name="pyrowave_negotiation_fallback">A PyroWave egyeztetése sikertelen. Átváltás erre: %1$s.</string>
     <string name="title_list_mouse_axis_correction">Egérirány korrekciója</string>
     <string name="summary_list_mouse_axis_correction">A rögzített egérmozgás elforgatása a gazdagépre küldés előtt. Csak akkor módosítsa, ha egy Android-eszköz elforgatott egértengelyeket jelez.</string>
