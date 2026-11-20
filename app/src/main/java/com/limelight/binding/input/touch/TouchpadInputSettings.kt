@@ -44,5 +44,12 @@ internal class TouchpadInputSettings(private val game: Game) {
         ElementController.setMouseScrollRepeatInterval(120 - values.wheelSpeed)
     }
 
-    fun save() = TouchpadInputPreferences.save(game, values)
+    fun save() {
+        TouchpadInputPreferences.save(game, values)
+        // Fork: keep the active on-screen-controls profile in step, or it resets these next stream.
+        runCatching {
+            game.controllerManager?.pageConfigController
+                ?.syncInputValuesFromSession(values.sensitivity, values.wheelSpeed)
+        }.onFailure { com.limelight.LimeLog.warning("Touchpad profile sync failed: $it") }
+    }
 }

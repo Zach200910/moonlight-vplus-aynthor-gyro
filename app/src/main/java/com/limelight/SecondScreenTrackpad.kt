@@ -503,7 +503,7 @@ class SecondScreenTrackpad(private val game: Game) {
         // Gyro ratchet, top-right over the right pad, when the setting puts it on this screen.
         private val ratchet: GyroRatchetButton? =
             if (GyroRatchetPlacement.read(context) == GyroRatchetPlacement.BOTTOM && GyroRatchetButton.deviceHasGyro(context))
-                GyroRatchetButton(context, releaseOnFocusLoss = false) else null
+                GyroRatchetButton(context, releaseOnFocusLoss = false, positionKey = GyroRatchetButton.POSITION_BOTTOM) else null
         private val gamepadViews: List<View> = listOfNotNull(leftPad, rightPad, hub, leftClick, rightClick, typeButton, ratchet)
 
         // Keyboard page

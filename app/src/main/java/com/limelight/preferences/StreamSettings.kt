@@ -2061,6 +2061,11 @@ class StreamSettings : ThemedAppCompatActivity() {
 
         /** Binds backup, sync and reset actions, then refreshes their directory and status summaries. */
         private fun setupConfigSyncPreferences() {
+            findPreference<Preference>("reset_gyro_ratchet_position")?.setOnPreferenceClickListener {
+                com.limelight.ui.GyroRatchetButton.resetPositions(requireContext())
+                Toast.makeText(requireContext(), R.string.toast_gyro_ratchet_position_reset, Toast.LENGTH_SHORT).show()
+                true
+            }
             findPreference<Preference>(ResetSettingsDialogFragment.TAG)?.setOnPreferenceClickListener {
                 if (parentFragmentManager.findFragmentByTag(ResetSettingsDialogFragment.TAG) == null) {
                     ResetSettingsDialogFragment().showNow(parentFragmentManager, ResetSettingsDialogFragment.TAG)

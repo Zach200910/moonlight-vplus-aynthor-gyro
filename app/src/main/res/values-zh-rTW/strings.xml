@@ -167,6 +167,10 @@
     <string name="gyro_ratchet_placement_top">上螢幕（串流畫面）</string>
     <string name="gyro_ratchet_placement_bottom">下螢幕（觸控板）</string>
     <string name="gyro_ratchet_placement_off">關閉</string>
+    <string name="summary_list_gyro_ratchet_placement" formatted="false">%s。按住可暫停陀螺儀；點兩下後拖曳可移動按鈕。</string>
+    <string name="title_reset_gyro_ratchet_position">重設陀螺儀暫停按鈕位置</string>
+    <string name="summary_reset_gyro_ratchet_position">將兩個螢幕上的按鈕放回預設角落。</string>
+    <string name="toast_gyro_ratchet_position_reset">陀螺儀暫停按鈕已放回預設位置</string>
     <string name="title_list_game_rumble_mode">主機遊戲振動輸出</string>
     <string name="summary_list_game_rumble_mode">選擇遊戲傳送的原生振動輸出到哪裡；它與根據音訊產生的模擬振動不同。</string>
     <string name="game_rumble_mode_coordinated">協同振動</string>
