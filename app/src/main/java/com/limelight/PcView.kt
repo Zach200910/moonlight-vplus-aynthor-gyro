@@ -134,6 +134,7 @@ import android.widget.TextView
 import android.widget.Toast
 
 import javax.microedition.khronos.egl.EGLConfig
+import javax.microedition.khronos.egl.EGL10
 import javax.microedition.khronos.opengles.GL10
 
 import androidx.core.content.ContextCompat
@@ -442,6 +443,23 @@ class PcView : ThemedActivity(), AdapterFragmentCallbacks, EasyTierController.Vp
 
     private fun initGlRenderer(glPrefs: GlPreferences) {
         val surfaceView = GLSurfaceView(this)
+        // This surface only queries GL_RENDERER. The default chooser insists on
+        // RGB888 with no alpha and a depth buffer, which some devices lack.
+        surfaceView.setEGLConfigChooser { egl, display ->
+            val attributes = intArrayOf(
+                EGL10.EGL_RED_SIZE, 4,
+                EGL10.EGL_GREEN_SIZE, 4,
+                EGL10.EGL_BLUE_SIZE, 4,
+                EGL10.EGL_SURFACE_TYPE, EGL10.EGL_WINDOW_BIT,
+                EGL10.EGL_NONE
+            )
+            val configs = arrayOfNulls<EGLConfig>(1)
+            val count = IntArray(1)
+            check(egl.eglChooseConfig(display, attributes, configs, configs.size, count) && count[0] > 0) {
+                "No EGL window config available for renderer probe"
+            }
+            checkNotNull(configs[0])
+        }
         surfaceView.setRenderer(object : GLSurfaceView.Renderer {
             override fun onSurfaceCreated(gl10: GL10, eglConfig: EGLConfig) {
                 glPrefs.glRenderer = gl10.glGetString(GL10.GL_RENDERER)

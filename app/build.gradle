@@ -22,7 +22,8 @@ def escapeBuildConfigString = { value ->
     value.replace("\\", "\\\\").replace("\"", "\\\"")
 }
 def enableX86TestAbi = (project.findProperty("enableX86TestAbi") ?: "false").toString().toBoolean()
-def audioHapticsAppLabel = "Moonlight V+"
+// Fork: public name of this build. Debug builds (CI test builds) get " Dev".
+def audioHapticsAppLabel = "Moonlight DS"
 def audioHapticsSdkDir = (
         project.findProperty("audioHapticsSdkDir")
                 ?: localProperties.getProperty("audioHapticsSdkDir")
@@ -197,9 +198,8 @@ android {
             if (hasThorDebugKeystore) {
                 signingConfig signingConfigs.thorDebug
             }
-            // Thor fork: debug builds are labelled separately from the release app.
-            resValue "string", "app_label", "Moonlight Thor Debug"
-            resValue "string", "app_label_root", "Moonlight Thor Debug"
+            resValue "string", "app_label", "${audioHapticsAppLabel} Dev"
+            resValue "string", "app_label_root", "${audioHapticsAppLabel} Dev"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
@@ -236,19 +236,17 @@ android {
             // is to please change the applicationId before you publish.
             //
             // TL;DR: Leave the following line alone!
-            // Thor fork: own application ID so it never collides with upstream V+ (.qiin).
-            applicationIdSuffix ".thor"
-            resValue "string", "app_label", "Moonlight Thor"
-            resValue "string", "app_label_root", "Moonlight Thor (Root)"
+            //
+            // Fork: Moonlight DS publishes under its own ID (com.limelight.ds), as asked
+            // above, so it never collides with Moonlight or Moonlight V+.
+            applicationIdSuffix ".ds"
+            resValue "string", "app_label", audioHapticsAppLabel
+            resValue "string", "app_label_root", "${audioHapticsAppLabel} (Root)"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             if (hasSigningConfig && signingConfigs.hasProperty('release')) {
                 signingConfig signingConfigs.release
-            } else if (hasThorDebugKeystore) {
-                // Thor fork: without a release keystore, CI signs release builds with the
-                // fixed Thor key so every published build installs as an update.
-                signingConfig signingConfigs.thorDebug
             }
         }
     }
@@ -285,9 +283,11 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.gson
     implementation libs.glide
+    implementation libs.glide.transformations
     implementation libs.cardview
     implementation libs.recyclerview
     annotationProcessor libs.glide.compiler
+    implementation libs.seismic
     implementation libs.flexbox
     implementation libs.tvprovider
     implementation libs.zxing.embedded

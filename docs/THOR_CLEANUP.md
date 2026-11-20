@@ -58,7 +58,7 @@ improvements and drops features that are decorative, promotional, or tied to ups
 - Bottom screen before connecting: Quick settings (resolution, frame rate, bitrate, codec, HDR,
   performance overlay, All settings). Written to the normal stream preferences.
 - Bottom screen during streams: Nintendo Minimal restyle, one-tap gyro calibration, connection dot.
-- Master builds publish the R8 release APK (`com.limelight.thor`, "Moonlight Thor").
+- Master builds publish the R8 release APK (`com.limelight.thor`, "Moonlight DS").
 
 ## Not changed yet
 

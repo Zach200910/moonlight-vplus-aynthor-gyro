@@ -1,6 +1,7 @@
 @file:Suppress("DEPRECATION")
 package com.limelight
 
+import com.limelight.ui.GyroRatchetButton
 import com.limelight.ui.ThemedComponentActivity
 
 import com.limelight.binding.input.haptics.WaveformHapticsDevices
@@ -281,6 +282,7 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
     var cursorVisible = false
     lateinit var streamView: StreamView
     val screenDs5Touchpad = ScreenDs5Touchpad(this)
+    private val secondScreenTrackpad = SecondScreenTrackpad(this)
 
     /** Host support for controller touch, learned from the first touch packet of a stream. */
     enum class ScreenDs5HostSupport { UNKNOWN, SUPPORTED, UNSUPPORTED }
@@ -398,6 +400,8 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
         volumeControlStream = AudioManager.STREAM_MUSIC
         setContentView(R.layout.activity_game)
         window.decorView.findViewById<View>(android.R.id.content).isFocusable = true
+        // Fork: hold-to-pause gyro button, top-right of the stream.
+        GyroRatchetButton.attachIfDeviceHasGyro(this)
 
         targetDisplayResolver = TargetDisplayResolver(this)
         val initialTargetDisplay = targetDisplayResolver.resolve(
@@ -493,9 +497,12 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
             MicrophoneButtonPositionController.attach(this, it)
         }
 
-        performanceOverlayManager = PerformanceOverlayManager(this, prefConfig) { enabled ->
-            jitterMonitorManager?.setEnabled(enabled)
-        }
+        performanceOverlayManager = PerformanceOverlayManager(
+            this,
+            prefConfig,
+            onJitterMonitorChanged = { enabled -> jitterMonitorManager?.setEnabled(enabled) },
+            onOpenSettings = { showPerformanceOverlayMenu() }
+        )
         performanceOverlayManager?.initialize()
 
         jitterMonitorManager = JitterMonitorManager(this, prefConfig)
@@ -1475,6 +1482,7 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
 
     override fun onResume() {
         super.onResume()
+        if (connected) secondScreenTrackpad.show()
         usbForeground = true
         withUsbForwarding { it.startForeground() }
         if (::floatBallHandler.isInitialized &&
@@ -1929,6 +1937,7 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
         if (::inputCaptureProvider.isInitialized) {
             inputCaptureProvider.destroy()
         }
+        secondScreenTrackpad.dismiss()
         externalDisplayManager?.cleanup()
         microphoneManager?.stopMicrophoneStream()
         clipboardSyncManager?.stop()
@@ -1938,6 +1947,7 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
     }
 
     override fun onPause() {
+        performanceOverlayManager?.cancelOverlayInteraction()
         if (::prefConfig.isInitialized && prefConfig.screenDs5Touchpad &&
             ::touchInputHandler.isInitialized && ::controllerHandler.isInitialized
         ) {
@@ -2122,6 +2132,7 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
 
     override fun onStop() {
         super.onStop()
+        secondScreenTrackpad.dismiss()
         resolutionSwitchController.onStop(isChangingResolution)
         usbForeground = false
         usbForwarding?.stopForeground()
@@ -2575,6 +2586,7 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
             // Retries run first so pending arrivals populate the metadata cache;
             // the DS5 declaration then re-declares slot 0 with DualSense capabilities.
             controllerHandler.retryPendingControllerArrivals { screenDs5Touchpad.redeclareOnHost() }
+            secondScreenTrackpad.show()
             startClipboardSyncIfEnabled()
         }
     }
@@ -3422,11 +3434,20 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
         return showGameMenuInternal(device, openedFromUsbShortcut = false)
     }
 
+    fun showPerformanceOverlayMenu(): Boolean {
+        return showGameMenuInternal(null, openedFromUsbShortcut = false) { menu ->
+            menu.showPerformancePage()
+        }
+    }
+
     private fun showGameMenuInternal(
         device: GameInputDevice?,
-        openedFromUsbShortcut: Boolean
+        openedFromUsbShortcut: Boolean,
+        directPage: ((GameMenu) -> Unit)? = null
     ): Boolean {
         if (isApplyingDisplaySettings) return true
+        if (directPage != null) return showGameMenuDialog(device, afterShow = directPage)
+
         return when (crownSessionController.backKeyMenuMode) {
             BackKeyMenuMode.CROWN_MODE -> {
                 if (controllerManager != null && prefConfig.enableCrownFeatures) {
@@ -3441,36 +3462,47 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
                 false
             }
             BackKeyMenuMode.NO_MENU_LOCKED -> false
-            BackKeyMenuMode.GAME_MENU -> {
-                val existingMenu = activeGameMenu
-                if (existingMenu?.isShowing() == true) {
-                    true
-                } else {
-                    existingMenu?.dismiss()
-                    activeGameMenu = null
+            BackKeyMenuMode.GAME_MENU -> showGameMenuDialog(device, openedFromUsbShortcut = openedFromUsbShortcut)
+        }
+    }
 
-                    val menu = GameMenu(this, app, conn!!, device) { dismissedMenu ->
-                        if (activeGameMenu === dismissedMenu) {
-                            activeGameMenu = null
-                            updateKeyboardInterception()
-                        }
-                        if (::controllerHandler.isInitialized) {
-                            controllerHandler.onExternalGameMenuDismissed()
-                        }
-                        // Preserve the opener-specific dismissal callback. USB contexts are also
-                        // covered by the handler-wide reset above; their callback is idempotent.
-                        device?.onGameMenuDismissed()
-                    }
-                    activeGameMenu = menu
-                    updateKeyboardInterception()
-                    val opened = activeGameMenu?.isShowing() == true
-                    if (opened && !openedFromUsbShortcut && ::controllerHandler.isInitialized) {
-                        controllerHandler.onExternalGameMenuOpened()
-                    }
-                    opened
-                }
+    private fun showGameMenuDialog(
+        device: GameInputDevice?,
+        openedFromUsbShortcut: Boolean = false,
+        afterShow: ((GameMenu) -> Unit)? = null
+    ): Boolean {
+        val existingMenu = activeGameMenu
+        if (existingMenu?.isShowing() == true) {
+            afterShow?.invoke(existingMenu)
+            return true
+        }
+
+        existingMenu?.dismiss()
+        activeGameMenu = null
+        performanceOverlayManager?.cancelOverlayInteraction()
+
+        val menu = GameMenu(this, app, conn!!, device) { dismissedMenu ->
+            if (activeGameMenu === dismissedMenu) {
+                activeGameMenu = null
+                updateKeyboardInterception()
+            }
+            if (::controllerHandler.isInitialized) {
+                controllerHandler.onExternalGameMenuDismissed()
+            }
+            // Preserve the opener-specific dismissal callback. USB contexts are also
+            // covered by the handler-wide reset above; their callback is idempotent.
+            device?.onGameMenuDismissed()
+        }
+        activeGameMenu = menu
+        updateKeyboardInterception()
+        val opened = activeGameMenu?.isShowing() == true
+        if (opened) {
+            afterShow?.invoke(menu)
+            if (!openedFromUsbShortcut && ::controllerHandler.isInitialized) {
+                controllerHandler.onExternalGameMenuOpened()
             }
         }
+        return opened
     }
 
     override fun showGameMenuFromUsb(device: GameInputDevice): Boolean {
@@ -3629,6 +3661,8 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
     @SuppressLint("MissingSuperCall")
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+        // An edge swipe on the bottom-screen touchpad arrives as Back; don't open the menu for it.
+        if (secondScreenTrackpad.shouldSwallowBack()) return
         showGameMenu(null)
     }
 
@@ -3669,8 +3703,62 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
     val perfOverlayStyle: PerfHudDensity
         get() = prefConfig.perfOverlayStyle
 
+    val isPerfOverlayDocked: Boolean
+        get() = performanceOverlayManager?.isPerfOverlayDocked == true
+
+    val isPerfOverlayMovable: Boolean
+        get() = performanceOverlayMode != PerformanceOverlayMode.HIDDEN &&
+            performanceOverlayManager?.isPerfOverlayMovable == true
+
+    val perfOverlayAnchor: PerfOverlayAnchor?
+        get() = performanceOverlayManager?.perfOverlayAnchor
+
     fun setPerfOverlayStyle(style: PerfHudDensity) {
         performanceOverlayManager?.setPerfOverlayStyle(style)
+    }
+
+    val perfOverlayHealthVisible: Boolean
+        get() = performanceOverlayManager?.perfOverlayHealthVisible ?: true
+
+    val perfOverlaySingleTapEnabled: Boolean
+        get() = performanceOverlayManager?.perfOverlaySingleTapEnabled ?: false
+
+    val perfOverlayDoubleTapEnabled: Boolean
+        get() = performanceOverlayManager?.perfOverlayDoubleTapEnabled ?: false
+
+    val perfOverlayLongPressEnabled: Boolean
+        get() = performanceOverlayManager?.perfOverlayLongPressEnabled ?: true
+
+    fun setPerfOverlayHealthVisible(enabled: Boolean) {
+        performanceOverlayManager?.setPerfOverlayHealthVisible(enabled)
+    }
+
+    fun setPerfOverlaySingleTapEnabled(enabled: Boolean) {
+        performanceOverlayManager?.setPerfOverlaySingleTapEnabled(enabled)
+    }
+
+    fun setPerfOverlayDoubleTapEnabled(enabled: Boolean) {
+        performanceOverlayManager?.setPerfOverlayDoubleTapEnabled(enabled)
+    }
+
+    fun setPerfOverlayLongPressEnabled(enabled: Boolean) {
+        performanceOverlayManager?.setPerfOverlayLongPressEnabled(enabled)
+    }
+
+    fun setPerfOverlayOrientation(orientation: PreferenceConfiguration.PerfOverlayOrientation) {
+        performanceOverlayManager?.setPerfOverlayOrientation(orientation)
+    }
+
+    fun setPerfOverlayDisplayItems(items: Set<String>) {
+        performanceOverlayManager?.setPerfOverlayDisplayItems(items)
+    }
+
+    fun setPerfOverlayAnchor(anchor: PerfOverlayAnchor) {
+        performanceOverlayManager?.setPerfOverlayAnchor(anchor)
+    }
+
+    fun resetPerfOverlayPosition() {
+        performanceOverlayManager?.resetPerfOverlayPosition()
     }
 
     fun toggleMicrophoneButton() {

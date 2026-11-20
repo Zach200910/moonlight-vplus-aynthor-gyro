@@ -3,6 +3,7 @@ package com.limelight.binding.input
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.os.SystemClock
 import android.os.Looper
 import android.view.KeyEvent
 import android.view.Surface
@@ -656,7 +657,9 @@ class ControllerGyroManager(private val handler: ControllerHandler) {
                 handler.defaultContext.sensorManager = handler.deviceSensorManager
             }
             val sensorManager = handler.defaultContext.sensorManager!!
-            val gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+            // Prefer the raw (uncalibrated) gyroscope; values[0..2] carry the rate either way.
+            val gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE_UNCALIBRATED)
+                ?: sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
             if (gyroSensor == null) {
                 LimeLog.warning("No gyroscope sensor available on this device")
                 return DeviceGyroRegistrationResult.UNAVAILABLE
@@ -814,6 +817,9 @@ class ControllerGyroManager(private val handler: ControllerHandler) {
     fun createSensorListener(controllerNumber: Short, motionType: Byte, needsDeviceOrientationCorrection: Boolean,
                              sourceActive: (SensorEventListener) -> Boolean): SensorEventListener {
         return object : SensorEventListener {
+            private val calibrated = FloatArray(3)
+            private var ratchetPaused = false
+
             override fun onSensorChanged(sensorEvent: SensorEvent) {
                 if (handler.stopped) return
 
@@ -844,9 +850,22 @@ class ControllerGyroManager(private val handler: ControllerHandler) {
                     }
                 }
 
-                val vx = sensorEvent.values[x] * xFactor
-                val vy = sensorEvent.values[y] * yFactor
-                val vz = sensorEvent.values[z] * zFactor
+                var vx = sensorEvent.values[x] * xFactor
+                var vy = sensorEvent.values[y] * yFactor
+                var vz = sensorEvent.values[z] * zFactor
+                // The handheld's own gyroscope: apply the zero-rate calibration here, before any
+                // use of the sample. From the uncalibrated sensor, values[3..5] are Android's own
+                // bias estimate, used only when no calibration is stored (see GyroCalibration).
+                if (motionType == MoonBridge.LI_MOTION_TYPE_GYRO && needsDeviceOrientationCorrection) {
+                    val raw = sensorEvent.sensor.type == Sensor.TYPE_GYROSCOPE_UNCALIBRATED && sensorEvent.values.size >= 6
+                    val ax = if (raw) sensorEvent.values[3 + x] * xFactor else 0f
+                    val ay = if (raw) sensorEvent.values[3 + y] * yFactor else 0f
+                    val az = if (raw) sensorEvent.values[3 + z] * zFactor else 0f
+                    GyroCalibration.apply(vx, vy, vz, ax, ay, az, raw, SystemClock.uptimeMillis(), calibrated)
+                    vx = calibrated[0]
+                    vy = calibrated[1]
+                    vz = calibrated[2]
+                }
                 // Conversion/display lookup stays outside the commit lock. A queued or
                 // already-running callback must still own its listener when it takes effect.
                 handler.withControllerInputLock {
@@ -859,6 +878,16 @@ class ControllerGyroManager(private val handler: ControllerHandler) {
                             if (isUsingDeviceGyroFallback(controllerNumber)) return@withControllerInputLock
                             onControllerGyroSample(vx, vy, vz, controllerNumber, sensorEvent.timestamp)
                         }
+                        // Ratchet held: send nothing, so the camera stays put while the device is
+                        // re-centred. One stop event per hold zeroes the last rate; release resumes.
+                        if (GyroRatchet.held) {
+                            if (!ratchetPaused) {
+                                handler.motionSender.pauseGyro(controllerNumber)
+                                ratchetPaused = true
+                            }
+                            return@withControllerInputLock
+                        }
+                        ratchetPaused = false
                         // Convert rad/s to deg/s; mouse mapping continues to use rad/s.
                         val gx = vx * 57.2957795f
                         val gy = vy * 57.2957795f
