@@ -1,6 +1,7 @@
 @file:Suppress("DEPRECATION")
 package com.limelight
 
+import com.limelight.ui.GyroRatchetButton
 import com.limelight.ui.ThemedComponentActivity
 
 import com.limelight.binding.input.haptics.WaveformHapticsDevices
@@ -399,6 +400,8 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
         volumeControlStream = AudioManager.STREAM_MUSIC
         setContentView(R.layout.activity_game)
         window.decorView.findViewById<View>(android.R.id.content).isFocusable = true
+        // Fork: hold-to-pause gyro button, top-right of the stream.
+        GyroRatchetButton.attachIfDeviceHasGyro(this)
 
         targetDisplayResolver = TargetDisplayResolver(this)
         val initialTargetDisplay = targetDisplayResolver.resolve(

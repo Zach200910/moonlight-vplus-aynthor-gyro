@@ -32,4 +32,8 @@ require app/src/main/java/com/limelight/utils/UpdateMetadataClient.kt \
   'repos/Zach200910/moonlight-vplus-aynthor-gyro/releases/latest' \
   "update check reads this fork's releases"
 
+require app/src/main/java/com/limelight/binding/input/ControllerGyroManager.kt \
+  'GyroRatchet\.held' \
+  "gyro ratchet button pauses gyro"
+
 exit $failed
