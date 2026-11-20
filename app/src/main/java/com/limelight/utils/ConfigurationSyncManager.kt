@@ -3405,6 +3405,7 @@ class ConfigurationSyncManager(private val context: Context) {
             "list_fps",
             "list_framegen_quality_preset",
             "list_game_rumble_mode",
+            "list_gyro_ratchet_placement",
             "list_hdr_mode",
             "list_hevc_low_latency_mode",
             "list_languages",

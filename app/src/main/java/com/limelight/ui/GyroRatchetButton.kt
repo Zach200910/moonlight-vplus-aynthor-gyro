@@ -13,13 +13,18 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import com.limelight.binding.input.GyroRatchet
+import com.limelight.binding.input.GyroRatchetPlacement
 
 /**
- * Small hold-to-pause button in the top-right corner of the stream: while it is held, gyro input
- * stops (see [GyroRatchet]); releasing it resumes gyro from the device's new position.
+ * Small hold-to-pause button: while it is held, gyro input stops (see [GyroRatchet]); releasing it
+ * resumes gyro from the device's new position. Shown top-right on the stream or on the bottom-screen
+ * touchpad, per [GyroRatchetPlacement].
+ *
+ * @param releaseOnFocusLoss Release when this window loses focus. True on the stream; false on the
+ * bottom screen, where touching the top screen moves focus while the button is still held.
  */
 @SuppressLint("ViewConstructor")
-class GyroRatchetButton(context: Context) : View(context) {
+class GyroRatchetButton(context: Context, private val releaseOnFocusLoss: Boolean = true) : View(context) {
 
     private val density = resources.displayMetrics.density
     private val fill = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -69,7 +74,7 @@ class GyroRatchetButton(context: Context) : View(context) {
     }
 
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        if (!hasWindowFocus) setHeld(false)
+        if (!hasWindowFocus && releaseOnFocusLoss) setHeld(false)
         super.onWindowFocusChanged(hasWindowFocus)
     }
 
@@ -81,17 +86,41 @@ class GyroRatchetButton(context: Context) : View(context) {
     }
 
     companion object {
-        private const val SIZE_DP = 40
+        const val SIZE_DP = 40
         private const val MARGIN_DP = 12
+
+        fun deviceHasGyro(context: Context): Boolean {
+            val sensors = context.getSystemService(Context.SENSOR_SERVICE) as? SensorManager
+            return sensors?.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null
+        }
+
+        /**
+         * Show the stream (top-screen) button when the setting says so: always for
+         * [GyroRatchetPlacement.TOP], and for [GyroRatchetPlacement.BOTTOM] only while no
+         * bottom-screen touchpad is showing it.
+         *
+         * @param button The stream button from [attachIfDeviceHasGyro], or null.
+         * @param bottomScreenShowing Whether the bottom-screen touchpad is up.
+         */
+        fun updateStreamButton(button: GyroRatchetButton?, bottomScreenShowing: Boolean) {
+            button ?: return
+            val visible = when (GyroRatchetPlacement.read(button.context)) {
+                GyroRatchetPlacement.TOP -> true
+                GyroRatchetPlacement.BOTTOM -> !bottomScreenShowing
+                GyroRatchetPlacement.OFF -> false
+            }
+            if (!visible) button.setHeld(false)
+            button.visibility = if (visible) VISIBLE else GONE
+        }
 
         /**
          * Add the button to [activity]'s content view if the device has a gyroscope.
+         * Call [updateStreamButton] to apply the placement setting.
          *
          * @return The added button, or null when the device has no gyroscope.
          */
         fun attachIfDeviceHasGyro(activity: Activity): GyroRatchetButton? {
-            val sensors = activity.getSystemService(Context.SENSOR_SERVICE) as? SensorManager
-            if (sensors?.getDefaultSensor(Sensor.TYPE_GYROSCOPE) == null) return null
+            if (!deviceHasGyro(activity)) return null
 
             val content = activity.findViewById<FrameLayout>(android.R.id.content) ?: return null
             val density = activity.resources.displayMetrics.density
