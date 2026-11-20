@@ -235,14 +235,19 @@ android {
             // is to please change the applicationId before you publish.
             //
             // TL;DR: Leave the following line alone!
-            applicationIdSuffix ".qiin"
-            resValue "string", "app_label", audioHapticsAppLabel
+            // Thor fork: own application ID so it never collides with upstream V+ (.qiin).
+            applicationIdSuffix ".thor"
+            resValue "string", "app_label", "Moonlight Thor"
             resValue "string", "app_label_root", "Moonlight (Root)"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             if (hasSigningConfig && signingConfigs.hasProperty('release')) {
                 signingConfig signingConfigs.release
+            } else if (hasThorDebugKeystore) {
+                // Thor fork: without a release keystore, CI signs release builds with the
+                // fixed Thor key so every published build installs as an update.
+                signingConfig signingConfigs.thorDebug
             }
         }
     }

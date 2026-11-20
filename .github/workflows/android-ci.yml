@@ -219,6 +219,8 @@ jobs:
           set -euo pipefail
           IFS=$'\t' read -r base code < <(bash .github/release/gradle-version.sh read app/build.gradle)
           version="${base}.${GITHUB_RUN_NUMBER}"
+          # versionCode also climbs with every build so release APKs always install as updates.
+          code=$((10#$code + GITHUB_RUN_NUMBER))
           bash .github/release/gradle-version.sh write app/build.gradle "$version" "$code"
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
@@ -241,9 +243,28 @@ jobs:
             exit 1
           fi
 
-      - name: Build NonRoot Release validation APK
-        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && !startsWith(github.ref, 'refs/tags/')
+      # Thor fork: master builds also produce the R8-optimised release APK (app id
+      # com.limelight.thor), which is what gets published.
+      - name: Build NonRoot Release APK
+        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/master')) && !startsWith(github.ref, 'refs/tags/')
         run: ./gradlew :app:assembleNonRootRelease --stacktrace
+
+      - name: Verify release APK uses the fixed key
+        if: steps.debug_keystore.outputs.installed == 'true' && !startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        env:
+          EXPECTED_SHA256: d2e5e0671f84d6b837655dfec76db2e7a8852dc2a7ff28f9f426259195c09b2f
+        run: |
+          set -euo pipefail
+          apk=$(find app/build/outputs/apk/nonRoot/release -maxdepth 1 -type f -name '*.apk' -print -quit)
+          test -n "$apk"
+          apksigner="${ANDROID_HOME:-$ANDROID_SDK_ROOT}/build-tools/36.0.0/apksigner"
+          actual=$("$apksigner" verify --print-certs "$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')
+          echo "Release APK signer SHA-256: $actual"
+          if [ "$actual" != "$EXPECTED_SHA256" ]; then
+            echo "::error::Release APK was not signed with the fixed Thor key"
+            exit 1
+          fi
 
       - name: Verify PyroWave runtime is packaged
         shell: bash
@@ -266,7 +287,7 @@ jobs:
 
       # Thor fork: publish each master build as the repo's latest release. The app's
       # update check reads releases/latest, so the Thor offers it on next launch.
-      # Requires the fixed debug key, otherwise the update could not install.
+      # Publishes the release APK, signed with the fixed Thor key so updates install.
       - name: Publish Thor build release
         if: steps.thor_version.outputs.version != '' && steps.debug_keystore.outputs.installed == 'true'
         shell: bash
@@ -277,7 +298,8 @@ jobs:
           COMPARE_URL: ${{ github.event.compare }}
         run: |
           set -euo pipefail
-          src=$(find app/build/outputs/apk/nonRoot/debug -maxdepth 1 -type f -name '*.apk' -print -quit)
+          src=$(find app/build/outputs/apk/nonRoot/release -maxdepth 1 -type f -name '*.apk' -print -quit)
+          test -n "$src"
           apk="$RUNNER_TEMP/moonlight-thor-${VERSION}.apk"
           cp "$src" "$apk"
           sha=$(sha256sum "$apk" | awk '{print $1}')
@@ -312,7 +334,7 @@ jobs:
             app/build/outputs/apk/nonRoot/debug/*.apk
 
       - name: Upload Release validation APK
-        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch') && !startsWith(github.ref, 'refs/tags/')
+        if: (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/master')) && !startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@v4
         with:
           name: app-nonroot-release-validation-apk
