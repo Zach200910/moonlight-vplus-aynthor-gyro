@@ -623,6 +623,17 @@
                     android:title="@string/title_checkbox_gamepad_touchpad_as_mouse"
                     android:summary="@string/summary_checkbox_gamepad_touchpad_as_mouse"
                     android:defaultValue="false" />
+                <ListPreference
+                    android:key="list_gyro_ratchet_placement"
+                    android:title="@string/title_list_gyro_ratchet_placement"
+                    android:summary="@string/summary_list_gyro_ratchet_placement"
+                    android:entries="@array/gyro_ratchet_placement_names"
+                    android:entryValues="@array/gyro_ratchet_placement_values"
+                    android:defaultValue="top" />
+                <Preference
+                    android:key="reset_gyro_ratchet_position"
+                    android:title="@string/title_reset_gyro_ratchet_position"
+                    android:summary="@string/summary_reset_gyro_ratchet_position" />
             </PreferenceCategory>
             <PreferenceCategory
                 android:key="category_settings_gamepad_players"

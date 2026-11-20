@@ -21,6 +21,7 @@ import com.limelight.utils.AppSwitchStyle;
 import com.limelight.Game; // 确保导入 Game 类
 import com.limelight.R;
 import com.limelight.binding.input.advance_setting.ControllerManager;
+import com.limelight.binding.input.advance_setting.sqlite.SuperConfigDatabaseHelper;
 import com.limelight.binding.input.advance_setting.superpage.NumberSeekbar;
 import com.limelight.binding.input.advance_setting.superpage.SuperPageLayout;
 
@@ -490,6 +491,25 @@ public class PageConfigController {
 
     public Long getCurrentConfigId(){
         return currentConfigId;
+    }
+
+    /**
+     * Fork: write touchpad values changed outside this page (the in-stream menu) into the active
+     * profile when it applies them. Without this the profile's stored value (100% by default)
+     * overwrote the user's sensitivity at the start of every new stream.
+     */
+    public void syncInputValuesFromSession(int touchSense, int wheelSpeed) {
+        SuperConfigDatabaseHelper db = controllerManager.getSuperConfigDatabaseHelper();
+        if (db == null || !db.queryAllConfigIds().contains(currentConfigId)) return;
+        ContentValues values = new ContentValues();
+        if (shouldApply(COLUMN_APPLY_TOUCHPAD_SENSITIVITY)) values.put(COLUMN_INT_TOUCH_SENSE, touchSense);
+        if (shouldApply(COLUMN_APPLY_MOUSE_WHEEL_SPEED)) values.put(COLUMN_INT_MOUSE_WHEEL_SPEED, wheelSpeed);
+        if (values.size() == 0) return;
+        db.updateConfig(currentConfigId, values);
+        NumberSeekbar sense = pageConfig.findViewById(R.id.mouse_sense_number_seekbar);
+        if (sense != null && values.containsKey(COLUMN_INT_TOUCH_SENSE)) sense.setValueWithNoCallBack(touchSense);
+        NumberSeekbar wheel = pageConfig.findViewById(R.id.mouse_wheel_speed_number_seekbar);
+        if (wheel != null && values.containsKey(COLUMN_INT_MOUSE_WHEEL_SPEED)) wheel.setValueWithNoCallBack(wheelSpeed);
     }
 
     /**

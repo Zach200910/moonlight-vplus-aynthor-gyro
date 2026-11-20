@@ -322,6 +322,14 @@
     <string name="summary_combine_joycons">Левый и правый Joy-Con первого поколения как один геймпад, вертикально. Автопара создаётся, только если подключено по одному свободному Joy-Con каждой стороны. Со следующей трансляции.</string>
     <string name="title_checkbox_multi_controller">Назначать геймпады разным игрокам</string>
     <string name="summary_checkbox_multi_controller">Каждый геймпад определяется на ПК отдельно. Отключите, чтобы объединить их в один.</string>
+    <string name="title_list_gyro_ratchet_placement">Кнопка паузы гироскопа</string>
+    <string name="gyro_ratchet_placement_top">Верхний экран (трансляция)</string>
+    <string name="gyro_ratchet_placement_bottom">Нижний экран (тачпад)</string>
+    <string name="gyro_ratchet_placement_off">Выкл.</string>
+    <string name="summary_list_gyro_ratchet_placement" formatted="false">%s. Удерживайте, чтобы приостановить гироскоп; дважды коснитесь и перетащите, чтобы переместить.</string>
+    <string name="title_reset_gyro_ratchet_position">Сбросить положение кнопки паузы гироскопа</string>
+    <string name="summary_reset_gyro_ratchet_position">Вернуть кнопку в исходный угол на обоих экранах.</string>
+    <string name="toast_gyro_ratchet_position_reset">Кнопка паузы гироскопа возвращена в угол</string>
     <string name="title_list_game_rumble_mode">Вывод игровой вибрации</string>
     <string name="summary_list_game_rumble_mode">Куда направлять вибрацию из игры. Не влияет на вибрацию, создаваемую из звука.</string>
     <string name="game_rumble_mode_coordinated">Совместная вибрация</string>

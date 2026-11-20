@@ -283,6 +283,12 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
     lateinit var streamView: StreamView
     val screenDs5Touchpad = ScreenDs5Touchpad(this)
     private val secondScreenTrackpad = SecondScreenTrackpad(this)
+    private var gyroRatchetButton: GyroRatchetButton? = null
+
+    /** Fork: show the stream's gyro ratchet button per its setting and the bottom screen's state. */
+    fun refreshGyroRatchet() {
+        GyroRatchetButton.updateStreamButton(gyroRatchetButton, secondScreenTrackpad.isShowing)
+    }
 
     /** Host support for controller touch, learned from the first touch packet of a stream. */
     enum class ScreenDs5HostSupport { UNKNOWN, SUPPORTED, UNSUPPORTED }
@@ -400,8 +406,9 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
         volumeControlStream = AudioManager.STREAM_MUSIC
         setContentView(R.layout.activity_game)
         window.decorView.findViewById<View>(android.R.id.content).isFocusable = true
-        // Fork: hold-to-pause gyro button, top-right of the stream.
-        GyroRatchetButton.attachIfDeviceHasGyro(this)
+        // Fork: hold-to-pause gyro button, top-right of the stream (or on the bottom screen).
+        gyroRatchetButton = GyroRatchetButton.attachIfDeviceHasGyro(this)
+        refreshGyroRatchet()
 
         targetDisplayResolver = TargetDisplayResolver(this)
         val initialTargetDisplay = targetDisplayResolver.resolve(

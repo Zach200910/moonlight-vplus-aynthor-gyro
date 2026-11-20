@@ -15,6 +15,8 @@ For the original app's features and documentation, see the [upstream README](htt
 
 | Date | Change |
 | --- | --- |
+| 2026-11-20 | **Movable gyro pause button, sensitivity that sticks.** Double-tap the gyro pause button, then drag to move it (saved per screen; Settings → Gamepad → Controls → Reset gyro pause button position). Touchpad sensitivity set in the stream menu no longer resets to 100% on the next stream, and gyro sensitivity is saved when the menu closes. |
+| 2026-11-19 | **Gyro pause button placement.** Settings → Gamepad → Controls → Gyro pause button: top screen, bottom screen (falls back to top without one), or off. |
 | 2026-11-19 | **Gyro ratchet button.** A small button in the top-right of the stream (on devices with a gyroscope): hold it to stop gyro input, re-centre the handheld, then release. |
 | 2026-11-18 | **Renamed to Moonlight DS and opened to everyone.** Public builds are signed release builds with their own app ID (`com.limelight.ds`), published as `ds-<version>` releases. |
 | 2026-11-18 | **Patch cleanup.** Touchpad moved from a patch into source. The ENet fix is applied by one script in every CI job, so lint and unit tests now run on the fork's code, and CI fails if a fork fix goes missing. Unused patches moved to `patches/archive/`. |

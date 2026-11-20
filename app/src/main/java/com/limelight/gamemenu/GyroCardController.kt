@@ -99,11 +99,16 @@ internal class GyroCardController(private val game: Game) {
     fun previewSensitivity(sensitivity: Float) {
         val bounded = sensitivity.coerceIn(0.5f, 10.0f)
         game.prefConfig.gyroSensitivityMultiplier = bounded
+        sensitivityPending = true
         state = state.copy(sensitivity = bounded)
         emitState()
     }
 
+    // Fork: set while a sensitivity change hasn't been written yet, so closing the menu saves it.
+    private var sensitivityPending = false
+
     fun persistSensitivity() {
+        sensitivityPending = false
         game.prefConfig.writePreferences(game)
     }
 
@@ -122,6 +127,7 @@ internal class GyroCardController(private val game: Game) {
     }
 
     fun dispose() {
+        if (sensitivityPending) persistSensitivity()
         onStateChanged = null
     }
 

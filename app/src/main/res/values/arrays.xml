@@ -565,6 +565,16 @@
         <item>both</item>
     </string-array>
 
+    <string-array name="gyro_ratchet_placement_names">
+        <item>@string/gyro_ratchet_placement_top</item>
+        <item>@string/gyro_ratchet_placement_bottom</item>
+        <item>@string/gyro_ratchet_placement_off</item>
+    </string-array>
+    <string-array name="gyro_ratchet_placement_values" translatable="false">
+        <item>top</item>
+        <item>bottom</item>
+        <item>off</item>
+    </string-array>
     <string-array name="game_rumble_mode_names">
         <item>@string/game_rumble_mode_coordinated</item>
         <item>@string/game_rumble_mode_device</item>
