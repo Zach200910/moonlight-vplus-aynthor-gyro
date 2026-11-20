@@ -818,6 +818,7 @@ class ControllerGyroManager(private val handler: ControllerHandler) {
                              sourceActive: (SensorEventListener) -> Boolean): SensorEventListener {
         return object : SensorEventListener {
             private val calibrated = FloatArray(3)
+            private var ratchetPaused = false
 
             override fun onSensorChanged(sensorEvent: SensorEvent) {
                 if (handler.stopped) return
@@ -877,6 +878,16 @@ class ControllerGyroManager(private val handler: ControllerHandler) {
                             if (isUsingDeviceGyroFallback(controllerNumber)) return@withControllerInputLock
                             onControllerGyroSample(vx, vy, vz, controllerNumber, sensorEvent.timestamp)
                         }
+                        // Ratchet held: send nothing, so the camera stays put while the device is
+                        // re-centred. One stop event per hold zeroes the last rate; release resumes.
+                        if (GyroRatchet.held) {
+                            if (!ratchetPaused) {
+                                handler.motionSender.pauseGyro(controllerNumber)
+                                ratchetPaused = true
+                            }
+                            return@withControllerInputLock
+                        }
+                        ratchetPaused = false
                         // Convert rad/s to deg/s; mouse mapping continues to use rad/s.
                         val gx = vx * 57.2957795f
                         val gy = vy * 57.2957795f
