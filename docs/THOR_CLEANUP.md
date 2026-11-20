@@ -40,6 +40,8 @@ improvements and drops features that are decorative, promotional, or tied to ups
 | Crown Market (community store, publish to GitHub, report) | Depends on upstream services | **Kept:** local Crown profiles, share-package import/export (file and URL), legacy `.mdat` tools |
 | Floating ball | Redundant with Thor's buttons and the bottom-screen MENU | `FloatBallHandler` is an inert stub so `Game.kt` (and the patch context) is untouched |
 | Analytics toggle | Firebase analytics needs a secret this fork doesn't ship | Usage analytics are always **off**. Crash reporting is unchanged |
+| Tips & tricks (first-run feature-guide popups, rotating tips on the connecting screen) | Noise; the Switch-style hint bars show the controls | `FeatureGuideStore.shouldShow` is gated off |
+| Scene presets (5 home-screen slots, save/apply dialogs, "Save to scene 1") | Replaced by bottom-screen Quick settings | Stored `SceneConfigs` stay in backup/reset lists |
 
 ## Compatibility
 
@@ -49,10 +51,17 @@ improvements and drops features that are decorative, promotional, or tied to ups
   not modified, so `ds4-bottom-trackpad.patch` and `gyro-throttle.patch` still apply in CI.
 - The unapplied `gyro-*.patch` files are left untouched.
 
+## Added
+
+- Switch-style home (status bar, tile row, round buttons, hint bar), game list and Settings
+  (gear title, accent selection bar, flat divided rows, bold focus frame, hint bar).
+- Bottom screen before connecting: Quick settings (resolution, frame rate, bitrate, codec, HDR,
+  performance overlay, All settings). Written to the normal stream preferences.
+- Bottom screen during streams: Nintendo Minimal restyle, one-tap gyro calibration, connection dot.
+- Master builds publish the R8 release APK (`com.limelight.thor`, "Moonlight Thor").
+
 ## Not changed yet
 
-- The bottom-screen Control Strip (`SecondScreenTrackpad`, `GyroCalibration`). It lives in
-  `ds4-bottom-trackpad.patch` and was deliberately left alone in this pass.
 - Settings structure. The existing categories already map onto Streaming / Controls / Settings.
 - Decorative but functional loaders (Moonwax connection loader, host-search radar) and the
   optional moon-phase perf-HUD item. They now use the aqua accent.
