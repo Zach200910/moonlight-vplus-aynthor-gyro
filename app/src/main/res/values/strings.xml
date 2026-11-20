@@ -49,7 +49,7 @@
     <string name="sunshine_webui_auth_title">Sign in to %1$s (%2$s)</string>
     <string name="sunshine_webui_auth_user_hint">Username</string>
     <string name="sunshine_webui_auth_pass_hint">Password</string>
-    <string name="about_dialog_official_site">Official Website</string>
+    <string name="about_dialog_official_site">Moonlight</string>
     <string name="pcview_ipv6_disabled">IPv6 disabled for this PC</string>
     <string name="pcview_ipv6_enabled">IPv6 enabled for this PC</string>
 
@@ -665,8 +665,8 @@
     <string name="toast_config_sync_password_saved">Backup password saved</string>
     <string name="toast_config_sync_password_unavailable">Automatic folder backups require Android 6.0 or later</string>
     <string name="title_config_sync_restart_required">Restart Moonlight to finish restoring</string>
-    <string name="message_config_sync_restart_required">Computer pairing was restored. Restart Moonlight V+ before checking paired computers.</string>
-    <string name="message_config_sync_restart_required_with_failures">Computer pairing was restored, but %1$d pairing items could not be restored. Restart Moonlight V+ before checking paired computers; failed computers may need to be paired again.</string>
+    <string name="message_config_sync_restart_required">Computer pairing was restored. Restart Moonlight Thor before checking paired computers.</string>
+    <string name="message_config_sync_restart_required_with_failures">Computer pairing was restored, but %1$d pairing items could not be restored. Restart Moonlight Thor before checking paired computers; failed computers may need to be paired again.</string>
     <string name="title_checkbox_resume_stream">Resume stream automatically</string>
     <string name="summary_checkbox_resume_stream">Automatically resume the stream when returning to Moonlight from the background</string>
 
@@ -785,14 +785,14 @@
     <string name="summary_about_mode">View app information and project details</string>
     
     <!-- About dialog strings -->
-    <string name="about_dialog_description">Moonlight V+ is an enhanced client built for Foundation Sunshine, delivering a smoother game-streaming experience.</string>
-    <string name="about_dialog_project_info">Based on Moonlight-Android open source project, crafted by the Foundation community</string>
-    <string name="about_dialog_thanks">Thank you for choosing and supporting us.</string>
-    <string name="about_dialog_bilibili_badge" translatable="false">TV</string>
-    <string name="about_dialog_bilibili_title">Moonlight V+ on Bilibili</string>
-    <string name="about_dialog_bilibili_summary">Follow for release news and feature demos</string>
-    <string name="about_dialog_handbook_action">Documentation</string>
-    <string name="about_dialog_ecosystem_action">Ecosystem</string>
+    <string name="about_dialog_description">Moonlight Thor is a Moonlight V+ fork built for the AYN Thor: dual-screen controls, gyro aiming and a clean handheld interface.</string>
+    <string name="about_dialog_project_info">Fork maintained by Zach200910. Based on Moonlight V+ by qiin2333 and the Moonlight Android open-source project.</string>
+    <string name="about_dialog_thanks">Pair it with Sunshine on your PC to start streaming.</string>
+    <string name="about_dialog_bilibili_badge" translatable="false">V+</string>
+    <string name="about_dialog_bilibili_title">Built on Moonlight V+</string>
+    <string name="about_dialog_bilibili_summary">The upstream project this fork is based on</string>
+    <string name="about_dialog_handbook_action">Setup guide</string>
+    <string name="about_dialog_ecosystem_action">Releases</string>
     <string name="about_dialog_open_source_action">Licenses</string>
     <string name="open_source_title">Open source licenses</string>
     <string name="open_source_intro">Open source components included with this app and their licenses</string>
@@ -830,7 +830,7 @@
     <string name="about_dialog_ecosystem_mac_platform" translatable="false">Apple Silicon · Intel</string>
     <string name="about_dialog_ecosystem_mac_description">An enhanced Moonlight client optimized for a native macOS experience.</string>
     <string name="about_dialog_github">GitHub</string>
-    <string name="about_dialog_qq">Join QQ Group</string>
+    <string name="about_dialog_qq">Report an issue</string>
     <string name="about_dialog_close">Close</string>
     <string name="about_dialog_no_browser">No external browser is available</string>
     <string name="about_dialog_choose_browser">Open with browser</string>
@@ -1829,7 +1829,7 @@ Tap again to replace it.</string>
     <string name="update_install_permission_msg">To auto-install updates, please grant install permission.\n\nTap OK to open settings. Download will start automatically after you return.</string>
     <string name="toast_cannot_open_settings">Cannot open settings page</string>
     <string name="toast_download_service_unavailable">System download service unavailable</string>
-    <string name="update_download_notification_title">Moonlight V+ Update</string>
+    <string name="update_download_notification_title">Moonlight Thor Update</string>
     <string name="toast_download_started">Download started, tap notification to install when complete</string>
     <string name="toast_download_failed">Download failed: %s</string>
     <string name="update_downloading_title">Downloading Update</string>
@@ -2070,7 +2070,7 @@ Tap again to replace it.</string>
     <string name="handbook_error_timeout">The handbook took too long to respond. Please try again.</string>
     <string name="handbook_error_unavailable">The handbook is temporarily unavailable. Please try again later.</string>
     <string name="handbook_retry">Tap to retry</string>
-    <string name="title_about_us">About Moonlight V+</string>
+    <string name="title_about_us">About Moonlight Thor</string>
     <!-- Feature discovery -->
     <string name="feature_guide_step">A SECRET EVEN ROOKIES FIND · %1$d/%2$d</string>
     <string name="feature_guide_quick_actions_title">Need help with shortcuts too?</string>

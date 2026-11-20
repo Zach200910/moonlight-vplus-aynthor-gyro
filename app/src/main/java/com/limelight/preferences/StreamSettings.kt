@@ -413,7 +413,7 @@ class StreamSettings : ThemedAppCompatActivity() {
         val versionText = findViewById<TextView>(R.id.drawer_version) ?: return
         try {
             val versionName = packageManager.getPackageInfo(packageName, 0).versionName
-            versionText.text = "v$versionName"
+            versionText.text = "Moonlight Thor v$versionName"
         } catch (e: PackageManager.NameNotFoundException) {
             versionText.visibility = View.GONE
         }

@@ -40,7 +40,6 @@
     <string name="sunshine_webui_auth_title">Вход в %1$s (%2$s)</string>
     <string name="sunshine_webui_auth_user_hint">Логин</string>
     <string name="sunshine_webui_auth_pass_hint">Пароль</string>
-    <string name="about_dialog_official_site">Официальный сайт</string>
     <string name="pcview_ipv6_disabled">IPv6 отключён для этого ПК</string>
     <string name="pcview_ipv6_enabled">IPv6 включён для этого ПК</string>
     <string name="nettest_title_waiting">Проверка сети</string>
@@ -590,8 +589,8 @@
     <string name="toast_config_sync_password_saved">Пароль копии сохранён</string>
     <string name="toast_config_sync_password_unavailable">Для автокопий в папке нужен Android 6.0+</string>
     <string name="title_config_sync_restart_required">Перезапустите Moonlight</string>
-    <string name="message_config_sync_restart_required">Сопряжения восстановлены. Перезапустите Moonlight V+ перед проверкой ПК.</string>
-    <string name="message_config_sync_restart_required_with_failures">Сопряжения восстановлены, кроме %1$d элементов. Перезапустите Moonlight V+ перед проверкой ПК. Для части ПК может потребоваться повторное сопряжение.</string>
+    <string name="message_config_sync_restart_required">Сопряжения восстановлены. Перезапустите Moonlight Thor перед проверкой ПК.</string>
+    <string name="message_config_sync_restart_required_with_failures">Сопряжения восстановлены, кроме %1$d элементов. Перезапустите Moonlight Thor перед проверкой ПК. Для части ПК может потребоваться повторное сопряжение.</string>
     <string name="title_checkbox_resume_stream">Автовозобновление трансляции</string>
     <string name="summary_checkbox_resume_stream">Продолжать трансляцию при возврате в Moonlight из фона</string>
     <string name="category_host_settings">ПК</string>
@@ -700,13 +699,6 @@
     <string name="summary_privacy_policy">Политика конфиденциальности Moonlight</string>
     <string name="title_about_mode">О приложении</string>
     <string name="summary_about_mode">Сведения о приложении и проекте</string>
-    <string name="about_dialog_description">Moonlight V+ — расширенный клиент для Foundation Sunshine с улучшенной плавностью игровых трансляций.</string>
-    <string name="about_dialog_project_info">Создан сообществом Foundation на основе открытого проекта Moonlight-Android</string>
-    <string name="about_dialog_thanks">Спасибо за ваш выбор и поддержку.</string>
-    <string name="about_dialog_bilibili_title">Moonlight V+ на Bilibili</string>
-    <string name="about_dialog_bilibili_summary">Новости версий и демонстрации функций</string>
-    <string name="about_dialog_handbook_action">Документация</string>
-    <string name="about_dialog_ecosystem_action">Экосистема</string>
     <string name="about_dialog_ecosystem_title">Экосистема AlkaidLab</string>
     <string name="about_dialog_ecosystem_lead">Выберите клиент для своей платформы: телефона, планшета, телевизора или компьютера.</string>
     <string name="about_dialog_ecosystem_footer">Проекты открываются в защищённом внешнем браузере.</string>
@@ -719,7 +711,6 @@
     <string name="about_dialog_ecosystem_harmony_description">Нативный клиент Moonlight V+ для телефонов и планшетов HarmonyOS.</string>
     <string name="about_dialog_ecosystem_mac_description">Расширенный клиент Moonlight, адаптированный для macOS.</string>
     <string name="about_dialog_github">GitHub</string>
-    <string name="about_dialog_qq">Группа QQ</string>
     <string name="about_dialog_close">Закрыть</string>
     <string name="about_dialog_no_browser">Внешний браузер недоступен</string>
     <string name="about_dialog_choose_browser">Открыть в браузере</string>
@@ -1474,7 +1465,7 @@
     <string name="update_install_permission_msg">Разрешите установку для автообновлений.\n\nНажмите ОК для открытия настроек. После возврата загрузка начнётся автоматически.</string>
     <string name="toast_cannot_open_settings">Не удалось открыть настройки</string>
     <string name="toast_download_service_unavailable">Системная служба загрузки недоступна</string>
-    <string name="update_download_notification_title">Обновление Moonlight V+</string>
+    <string name="update_download_notification_title">Обновление Moonlight Thor</string>
     <string name="toast_download_started">Загрузка началась. После завершения нажмите уведомление для установки</string>
     <string name="toast_download_failed">Ошибка загрузки: %s</string>
     <string name="update_downloading_title">Загрузка обновления</string>
@@ -1699,7 +1690,7 @@
     <string name="handbook_error_timeout">Руководство не ответило вовремя. Повторите попытку.</string>
     <string name="handbook_error_unavailable">Руководство временно недоступно. Повторите позже.</string>
     <string name="handbook_retry">Повторить</string>
-    <string name="title_about_us">О Moonlight V+</string>
+    <string name="title_about_us">О Moonlight Thor</string>
     <string name="feature_guide_step">ПОДСКАЗКИ ДЛЯ НОВИЧКОВ · %1$d/%2$d</string>
     <string name="feature_guide_quick_actions_title">Настроим быстрые действия?</string>
     <string name="feature_guide_quick_actions_body">Удерживайте кнопку, чтобы добавить, удалить или переместить её. Расположите любимые действия в удобном порядке.</string>

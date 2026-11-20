@@ -44,7 +44,13 @@ object AboutDialogLauncher {
 
     private const val OFFICIAL_SITE_CN_URL = "https://www.alkaidlab.cn/"
     private const val OFFICIAL_SITE_GLOBAL_URL = "https://www.alkaidlab.com/"
-    private const val GITHUB_URL = "https://github.com/qiin2333/moonlight-vplus"
+    // Thor fork links (About dialog)
+    private const val FORK_REPO_URL = "https://github.com/Zach200910/moonlight-vplus-aynthor-gyro"
+    private const val FORK_RELEASES_URL = "$FORK_REPO_URL/releases"
+    private const val FORK_ISSUES_URL = "$FORK_REPO_URL/issues"
+    private const val SETUP_GUIDE_URL = "https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide"
+    private const val MOONLIGHT_PROJECT_URL = "https://moonlight-stream.org/"
+    private const val UPSTREAM_VPLUS_URL = "https://github.com/qiin2333/moonlight-vplus"
     private const val BILIBILI_URL = "https://space.bilibili.com/3690974838524514"
     private const val FOUNDATION_SUNSHINE_URL =
         "https://github.com/AlkaidLab/foundation-sunshine"
@@ -91,23 +97,18 @@ object AboutDialogLauncher {
             AboutDialogContent(
                 appName = getAppName(context),
                 versionInfo = getVersionInfo(context),
-                onHandbook = {
-                    d.dismiss()
-                    HandbookLauncher.openIndex(context)
-                },
-                onEcosystem = { showEcosystemDialog(context) },
+                // Thor fork: Setup guide / Releases / Licenses, upstream credit card, and
+                // GitHub / Report issue / Moonlight links. Slots keep upstream's focus graph.
+                onHandbook = { if (BrowserOnlyLauncher.open(context, SETUP_GUIDE_URL)) d.dismiss() },
+                onEcosystem = { if (BrowserOnlyLauncher.open(context, FORK_RELEASES_URL)) d.dismiss() },
                 onOpenSource = {
                     d.dismiss()
                     OpenSourceNoticesActivity.open(context)
                 },
-                onBilibili = { if (BrowserOnlyLauncher.open(context, BILIBILI_URL)) d.dismiss() },
-                onGithub = { if (BrowserOnlyLauncher.open(context, GITHUB_URL)) d.dismiss() },
-                onQq = { if (openQqGroup(context)) d.dismiss() },
-                onSite = {
-                    if (BrowserOnlyLauncher.open(context, officialSiteUrl(currentLocale(context)))) {
-                        d.dismiss()
-                    }
-                },
+                onBilibili = { if (BrowserOnlyLauncher.open(context, UPSTREAM_VPLUS_URL)) d.dismiss() },
+                onGithub = { if (BrowserOnlyLauncher.open(context, FORK_REPO_URL)) d.dismiss() },
+                onQq = { if (BrowserOnlyLauncher.open(context, FORK_ISSUES_URL)) d.dismiss() },
+                onSite = { if (BrowserOnlyLauncher.open(context, MOONLIGHT_PROJECT_URL)) d.dismiss() },
                 onClose = { d.cancel() },
                 initialFocusIndex = state.mainFocusIndex,
                 focusRequestGeneration = state.mainFocusRequestGeneration.intValue,

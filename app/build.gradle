@@ -197,8 +197,9 @@ android {
             if (hasThorDebugKeystore) {
                 signingConfig signingConfigs.thorDebug
             }
-            resValue "string", "app_label", audioHapticsAppLabel
-            resValue "string", "app_label_root", audioHapticsAppLabel
+            // Thor fork: debug builds are labelled separately from the release app.
+            resValue "string", "app_label", "Moonlight Thor Debug"
+            resValue "string", "app_label_root", "Moonlight Thor Debug"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
@@ -238,7 +239,7 @@ android {
             // Thor fork: own application ID so it never collides with upstream V+ (.qiin).
             applicationIdSuffix ".thor"
             resValue "string", "app_label", "Moonlight Thor"
-            resValue "string", "app_label_root", "Moonlight (Root)"
+            resValue "string", "app_label_root", "Moonlight Thor (Root)"
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
