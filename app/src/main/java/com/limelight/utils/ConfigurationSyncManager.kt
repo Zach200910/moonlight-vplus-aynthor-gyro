@@ -3296,6 +3296,7 @@ class ConfigurationSyncManager(private val context: Context) {
             "list_mouse_axis_correction",
             "checkbox_audio_vibration",
             "checkbox_background_audio",
+            "checkbox_bottom_screen_touchpad",
             "checkbox_clipboard_sync_image",
             "checkbox_clipboard_sync_text",
             "checkbox_control_only",

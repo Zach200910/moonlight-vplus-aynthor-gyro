@@ -285,6 +285,25 @@ class Game : ThemedComponentActivity(), SurfaceHolder.Callback,
     private val secondScreenTrackpad = SecondScreenTrackpad(this)
     private var gyroRatchetButton: GyroRatchetButton? = null
 
+    /**
+     * Fork: turn the bottom-screen touchpad on or off (saved), so the bottom screen can be used for
+     * other apps during the stream. Run from the stream menu's quick action or the touchpad's wheel.
+     */
+    fun toggleBottomScreenTouchpad() {
+        if (!secondScreenTrackpad.hasBottomScreen()) {
+            Toast.makeText(this, R.string.toast_bottom_touchpad_unavailable, Toast.LENGTH_SHORT).show()
+            return
+        }
+        val on = !secondScreenTrackpad.enabled
+        secondScreenTrackpad.enabled = on
+        if (on) secondScreenTrackpad.show() else secondScreenTrackpad.dismiss()
+        Toast.makeText(
+            this,
+            if (on) R.string.toast_bottom_touchpad_on else R.string.toast_bottom_touchpad_off,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     /** Fork: show the stream's gyro ratchet button per its setting and the bottom screen's state. */
     fun refreshGyroRatchet() {
         GyroRatchetButton.updateStreamButton(gyroRatchetButton, secondScreenTrackpad.isShowing)

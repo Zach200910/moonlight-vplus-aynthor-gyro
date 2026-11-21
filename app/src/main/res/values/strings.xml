@@ -377,6 +377,12 @@
     <string name="summary_combine_joycons">Use a first-generation left and right Joy-Con as one player, held vertically. Automatically pairs only when one unpaired controller of each side is connected. Applies to the next stream.</string>
     <string name="title_checkbox_multi_controller">Assign controllers to separate players</string>
     <string name="summary_checkbox_multi_controller">Expose each connected controller as a separate controller on the host. Turn off to combine them as one.</string>
+    <string name="title_checkbox_bottom_screen_touchpad">Bottom-screen touchpad</string>
+    <string name="summary_checkbox_bottom_screen_touchpad">On dual-screen handhelds, use the bottom screen as the touchpad while streaming. Turn off to keep it free for other apps.</string>
+    <string name="quick_btn_bottom_touchpad">Bottom pad</string>
+    <string name="toast_bottom_touchpad_on">Bottom-screen touchpad on</string>
+    <string name="toast_bottom_touchpad_off">Bottom-screen touchpad off. The bottom screen is free for other apps.</string>
+    <string name="toast_bottom_touchpad_unavailable">This device has no bottom screen</string>
     <string name="title_list_gyro_ratchet_placement">Gyro pause button</string>
     <string name="gyro_ratchet_placement_top">Top screen (stream)</string>
     <string name="gyro_ratchet_placement_bottom">Bottom screen (touchpad)</string>

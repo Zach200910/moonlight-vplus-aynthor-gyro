@@ -95,6 +95,7 @@ object StreamActionRegistry {
         "toggle_perf",
         "toggle_remote_mouse",
         "ds5_touchpad",
+        "toggle_bottom_touchpad",
         "unlock_host"
     )
 
@@ -132,6 +133,9 @@ object StreamActionRegistry {
         ),
         "ds5_touchpad" to StreamAction(
             "ds5_touchpad", "DS5", 0, labelRes = R.string.quick_btn_ds5_touchpad, iconText = "DS5"
+        ),
+        "toggle_bottom_touchpad" to StreamAction(
+            "toggle_bottom_touchpad", "Bottom pad", 0, labelRes = R.string.quick_btn_bottom_touchpad, iconText = "2nd"
         ),
         "unlock_host" to StreamAction(
             "unlock_host", "Unlock", R.drawable.ic_btn_unlock,
@@ -226,6 +230,10 @@ class StreamActionExecutor(
             }
             "toggle_perf" -> {
                 game.togglePerformanceOverlay()
+                true
+            }
+            "toggle_bottom_touchpad" -> {
+                game.toggleBottomScreenTouchpad()
                 true
             }
             "toggle_remote_mouse" -> {

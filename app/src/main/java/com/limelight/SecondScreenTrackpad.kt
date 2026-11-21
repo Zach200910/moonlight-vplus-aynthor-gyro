@@ -76,6 +76,8 @@ import android.view.inputmethod.BaseInputConnection
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import com.limelight.binding.input.GyroCalibration
 import com.limelight.binding.input.GyroRatchetPlacement
 import com.limelight.nvstream.input.ControllerPacket
@@ -103,9 +105,24 @@ class SecondScreenTrackpad(private val game: Game) {
     @Volatile private var lastTouchUptime = 0L
     @Volatile private var touchesDown = 0
 
+    /**
+     * Settings → Gamepad → Controls → Bottom-screen touchpad. Off leaves the bottom screen free
+     * for other apps during the stream. Saved, so the next stream starts the same way.
+     */
+    var enabled: Boolean
+        get() = PreferenceManager.getDefaultSharedPreferences(game).getBoolean(PREF_ENABLED, true)
+        set(value) = PreferenceManager.getDefaultSharedPreferences(game).edit { putBoolean(PREF_ENABLED, value) }
+
+    /** Whether this device has a built-in bottom screen to put the touchpad on. */
+    fun hasBottomScreen(): Boolean {
+        val displayManager = game.getSystemService(Context.DISPLAY_SERVICE) as? DisplayManager ?: return false
+        return builtInSecondDisplay(displayManager, game.windowManager.defaultDisplay.displayId) != null
+    }
+
     fun show() {
         loadGyroCalibration()
         if (presentation != null) return
+        if (!enabled) return
         if (game.externalDisplayManager?.isUsingExternalDisplay() == true) return
         val displayManager = game.getSystemService(Context.DISPLAY_SERVICE) as? DisplayManager ?: return
         val display = builtInSecondDisplay(displayManager, game.windowManager.defaultDisplay.displayId) ?: return
@@ -496,6 +513,8 @@ class SecondScreenTrackpad(private val game: Game) {
             WheelItem({ "Test\ngyro" }) { testGyro() },
             WheelItem({ "Reset\ngyro" }) { resetGyro() },
             WheelItem({ "Reload\nstyle" }) { reloadStyle() },
+            // Hand the bottom screen back to other apps; the stream menu's quick action restores it.
+            WheelItem({ "Free\nscreen" }) { mainHandler.post { game.toggleBottomScreenTouchpad() } },
         )
         private val wheel = RadialWheelView(context, mainItems)
         private val hub = HubView(context, wheel, mainItems.size)
@@ -1603,6 +1622,7 @@ class SecondScreenTrackpad(private val game: Game) {
     }
 
     private companion object {
+        const val PREF_ENABLED = "checkbox_bottom_screen_touchpad"
         const val LEFT = 0
         const val RIGHT = 1
         const val TYPE_INTERNAL = 1
