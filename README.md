@@ -15,6 +15,7 @@ For the original app's features and documentation, see the [upstream README](htt
 
 | Date | Change |
 | --- | --- |
+| 2026-11-20 | **Bottom-screen touchpad toggle.** Turn the bottom-screen touchpad off to use that screen for other apps: Settings → Gamepad → Controls, the stream menu's "Bottom pad" quick action, or "Free screen" on the touchpad's options wheel. Saved between streams. |
 | 2026-11-20 | **Gyro pause button in the corner.** On the bottom screen the gyro pause button now sits flush in the top-right corner by default. |
 | 2026-11-20 | **Movable gyro pause button, sensitivity that sticks.** Double-tap the gyro pause button, then drag to move it (saved per screen; Settings → Gamepad → Controls → Reset gyro pause button position). Touchpad sensitivity set in the stream menu no longer resets to 100% on the next stream, and gyro sensitivity is saved when the menu closes. |
 | 2026-11-19 | **Gyro pause button placement.** Settings → Gamepad → Controls → Gyro pause button: top screen, bottom screen (falls back to top without one), or off. |

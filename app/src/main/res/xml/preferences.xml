@@ -623,6 +623,11 @@
                     android:title="@string/title_checkbox_gamepad_touchpad_as_mouse"
                     android:summary="@string/summary_checkbox_gamepad_touchpad_as_mouse"
                     android:defaultValue="false" />
+                <CheckBoxPreference
+                    android:key="checkbox_bottom_screen_touchpad"
+                    android:title="@string/title_checkbox_bottom_screen_touchpad"
+                    android:summary="@string/summary_checkbox_bottom_screen_touchpad"
+                    android:defaultValue="true" />
                 <ListPreference
                     android:key="list_gyro_ratchet_placement"
                     android:title="@string/title_list_gyro_ratchet_placement"

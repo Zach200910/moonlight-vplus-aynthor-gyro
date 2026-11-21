@@ -292,6 +292,12 @@
 
     <string name="title_checkbox_multi_controller">将手柄识别为独立玩家</string>
     <string name="summary_checkbox_multi_controller">让主机分别识别每个已连接手柄；关闭后会将它们合并为一个手柄。</string>
+    <string name="title_checkbox_bottom_screen_touchpad">下屏触控板</string>
+    <string name="summary_checkbox_bottom_screen_touchpad">在双屏掌机上，串流时将下屏用作触控板。关闭后下屏可用于其他应用。</string>
+    <string name="quick_btn_bottom_touchpad">下屏触控板</string>
+    <string name="toast_bottom_touchpad_on">下屏触控板已开启</string>
+    <string name="toast_bottom_touchpad_off">下屏触控板已关闭，下屏可用于其他应用。</string>
+    <string name="toast_bottom_touchpad_unavailable">此设备没有下屏</string>
     <string name="title_list_gyro_ratchet_placement">陀螺仪暂停按钮</string>
     <string name="gyro_ratchet_placement_top">上屏（串流画面）</string>
     <string name="gyro_ratchet_placement_bottom">下屏（触控板）</string>
