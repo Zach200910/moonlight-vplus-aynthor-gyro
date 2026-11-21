@@ -19,7 +19,7 @@ import com.limelight.nvstream.http.ComputerDetails
 import com.limelight.nvstream.http.NvApp
 import com.limelight.perfhud.PerfHudDensity
 import com.limelight.preferences.PreferenceConfiguration
-import com.limelight.ui.MoonwaxLoaderView
+import com.limelight.ui.ThorLoaderView
 import java.util.Locale
 import java.util.Random
 
@@ -28,7 +28,7 @@ class FullscreenProgressOverlay(
     private val app: NvApp?
 ) {
     private val overlayView: View
-    private val moonwax: MoonwaxLoaderView
+    private val moonwax: ThorLoaderView
     private val statusText: TextView
     private val progressText: TextView
     private val randomTip: TextView
@@ -211,7 +211,7 @@ class FullscreenProgressOverlay(
 
     /**
      * 把 moonlight-common-c 的连接阶段翻译成月相档位（1..4）。阶段可能乱序或重复到达，
-     * [MoonwaxLoaderView.markStage] 只前进不后退，所以月亮不会来回闪。
+     * [ThorLoaderView.markStage] 只前进不后退，所以月亮不会来回闪。
      *
      * 注意：NvConnection 还会在 app 协商前用「应用名」调用 stageStarting（见
      * NvConnection.startApp 前置段），这里只认协议阶段名，未知字符串（应用名等）
