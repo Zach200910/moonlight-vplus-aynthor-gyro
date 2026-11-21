@@ -500,7 +500,7 @@ class SecondScreenTrackpad(private val game: Game) {
         private val wheel = RadialWheelView(context, mainItems)
         private val hub = HubView(context, wheel, mainItems.size)
         private val banner = BannerView(context)
-        // Gyro ratchet, top-right over the right pad, when the setting puts it on this screen.
+        // Gyro ratchet, flush in the top-right corner, when the setting puts it on this screen.
         private val ratchet: GyroRatchetButton? =
             if (GyroRatchetPlacement.read(context) == GyroRatchetPlacement.BOTTOM && GyroRatchetButton.deviceHasGyro(context))
                 GyroRatchetButton(context, releaseOnFocusLoss = false, positionKey = GyroRatchetButton.POSITION_BOTTOM) else null
@@ -736,7 +736,8 @@ class SecondScreenTrackpad(private val game: Game) {
                 place(typeButton, clickW + gap, rowTop, w - clickW - gap, rowBottom)
                 ratchet?.let {
                     val size = GyroRatchetButton.SIZE_DP * density
-                    place(it, w - 2 * gap - size, 2 * gap, w - 2 * gap, 2 * gap + size)
+                    // Flush in the top-right corner of the bottom screen.
+                    place(it, w - size, 0f, w, size)
                 }
             } else {
                 // [ KEYBOARD | DONE ], trackpad, [ MIDDLE | LEFT | RIGHT ], then Android's keyboard.

@@ -189,6 +189,14 @@ class GyroRatchetButton(
     }
 
     private fun loadPosition() {
+        // One-time: drop a dragged bottom-screen position so the button starts in the new corner.
+        if (positionKey == POSITION_BOTTOM && !prefs.getBoolean(BOTTOM_CORNER_MIGRATED, false)) {
+            prefs.edit {
+                remove(keyX())
+                remove(keyY())
+                putBoolean(BOTTOM_CORNER_MIGRATED, true)
+            }
+        }
         val x = prefs.getFloat(keyX(), Float.NaN)
         val y = prefs.getFloat(keyY(), Float.NaN)
         if (!x.isNaN() && !y.isNaN()) {
@@ -231,6 +239,7 @@ class GyroRatchetButton(
         const val POSITION_TOP = "top"
         const val POSITION_BOTTOM = "bottom"
         private const val POSITION_PREF_PREFIX = "gyro_ratchet_pos_"
+        private const val BOTTOM_CORNER_MIGRATED = "gyro_ratchet_bottom_corner_v1"
 
         /** Put the button back in its default corner on both screens. */
         fun resetPositions(context: Context) {
