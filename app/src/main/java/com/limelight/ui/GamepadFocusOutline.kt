@@ -29,7 +29,7 @@ internal fun Modifier.gamepadFocusOutline(shape: Shape): Modifier {
             drawOutline(
                 outline = shape.createOutline(size, layoutDirection, this),
                 color = focusColor,
-                style = Stroke(width = 2.dp.toPx())
+                style = Stroke(width = 3.dp.toPx()) // Thor: bold Switch-style selection frame
             )
         }
 }

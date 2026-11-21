@@ -1423,16 +1423,60 @@ private fun HeaderDeviceQuickAction(
 
 @Composable
 private fun GameMenuFooter(subtitle: String) {
-    Box(
-        modifier = Modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
+    // Thor: Switch-style footer — game name on the left, controller hints on the right.
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(colorResource(R.color.thor_border))
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = subtitle,
+                color = colorResource(R.color.game_menu_text_secondary),
+                fontSize = 12.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f)
+            )
+            GameMenuHint(stringResource(R.string.thor_hint_b), stringResource(R.string.thor_hint_back))
+            GameMenuHint(stringResource(R.string.thor_hint_a), stringResource(R.string.thor_hint_ok))
+        }
+    }
+}
+
+@Composable
+private fun GameMenuHint(glyph: String, label: String) {
+    Row(
+        modifier = Modifier.padding(start = 14.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
+        Box(
+            modifier = Modifier
+                .size(18.dp)
+                .background(colorResource(R.color.thor_text_primary), CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = glyph,
+                color = colorResource(R.color.thor_background),
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1
+            )
+        }
         Text(
-            text = subtitle,
-            color = colorResource(R.color.game_menu_text_secondary),
-            fontSize = 9.sp,
+            text = label,
+            color = colorResource(R.color.game_menu_text_primary),
+            fontSize = 12.sp,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            modifier = Modifier.padding(start = 6.dp)
         )
     }
 }

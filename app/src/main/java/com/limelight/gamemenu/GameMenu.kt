@@ -1434,7 +1434,8 @@ class GameMenu(
                     GameMenuScreen(
                         state = state.value,
                         callbacks = callbacks,
-                        useFabricTexture = renderingProfile.useFabricTexture,
+                        // Thor: flat Nintendo Minimal surface (no woven texture).
+                        useFabricTexture = false,
                         hardwareFocusRequestToken = hardwareFocusRequest.intValue,
                         restoreFocusRequestToken = parentFocusRestoreRequest.intValue,
                         guideDismissController = guideDismissController
