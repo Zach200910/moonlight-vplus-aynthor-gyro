@@ -17,8 +17,8 @@
             <solid android:color="?attr/appAccent" />
             <corners android:radius="@dimen/corner_radius_medium" />
             <stroke
-                android:width="2dp"
-                android:color="?attr/appAccentFocus" />
+                android:width="3dp"
+                android:color="@color/thor_text_primary" />
         </shape>
     </item>
     <item>

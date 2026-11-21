@@ -499,9 +499,9 @@ private fun AddButton(
     val accent = appAccentColor()
     val gradient = Brush.linearGradient(
         listOf(
+            // Flat accent fill (no gradient) to match the Thor palette.
             accent,
-            accent.copy(alpha = 0.7f),
-            accent.copy(alpha = 0.45f)
+            accent
         )
     )
     Row(

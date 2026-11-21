@@ -67,7 +67,7 @@
                         android:layout_height="42dp"
                         android:layout_gravity="center"
                         android:src="@drawable/phc_host"
-                        android:tint="?attr/appAccent" />
+                        android:tint="@color/thor_text_primary" />
                 </FrameLayout>
 
                 <FrameLayout
